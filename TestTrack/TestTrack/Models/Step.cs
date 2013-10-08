@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
+
+namespace TestTrack.Models
+{
+    public class Step : IAuditable
+    {
+        [Key]
+        public virtual int StepId { get; set; }
+
+        [Required]
+        public int TestCaseId { get; set; } // Foreign Key
+
+        public virtual TestCase TestCase { get; set; }
+
+        [Required]
+        public virtual string Action { get; set; }
+
+        [Display(Name = "Expected result")]
+        [Required]
+        public virtual string Result { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+        public DateTime? LastModified { get; set; }
+    }
+}

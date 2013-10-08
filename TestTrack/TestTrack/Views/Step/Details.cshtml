@@ -1,0 +1,36 @@
+﻿@model TestTrack.Models.Step
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Step</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TestCaseId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TestCaseId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Action)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Action)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Result)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Result)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.StepId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

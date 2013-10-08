@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Test Track</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <header>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p class="site-title">@Html.ActionLink("Test Track", "Index", "Home")</p>
+            </div>
+            <div class="float-right">
+                <section id="login">
+                @*    @Html.Partial("_LoginPartial")*@
+                </section>
+                <nav>
+                    <ul id="menu">
+                        <li>@Html.ActionLink("Dashboard", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Iterations", "Index", "Iteration")</li>
+                        <li>@Html.ActionLink("Test Runs & Results", "Index", "TestRun")</li>
+                        <li>@Html.ActionLink("Test Suites & Cases", "Index", "TestSuite")</li>
+                        <li>@Html.ActionLink("Projects", "Index", "Project")</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div id="body">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year - Test Track - Test Management Application</p>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

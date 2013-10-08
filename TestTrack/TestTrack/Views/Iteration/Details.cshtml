@@ -1,0 +1,36 @@
+﻿@model TestTrack.Models.Iteration
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Iteration</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DueDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DueDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Project.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Project.Title)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.IterationID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
