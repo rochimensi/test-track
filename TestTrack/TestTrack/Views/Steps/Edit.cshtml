@@ -1,0 +1,55 @@
+﻿@model TestTrack.Models.Step
+
+@{
+    ViewBag.Title = Model.StepId > 0 ? "Edit" : "Add";
+    ViewBag.BtnSaveValue = Model.StepId > 0 ? "Save" : "Create";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Save", "Steps")) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Step</legend>
+
+        @Html.HiddenFor(model => model.StepId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TestCaseId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TestCaseId)
+            @Html.ValidationMessageFor(model => model.TestCaseId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Action)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Action, new {@cols="80" , @rows="4" })
+            @Html.ValidationMessageFor(model => model.Action)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Result)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Result, new {@cols="80" , @rows="4" })
+            @Html.ValidationMessageFor(model => model.Result)
+        </div>
+
+        <p>
+            <input type="submit" value="@ViewBag.BtnSaveValue" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

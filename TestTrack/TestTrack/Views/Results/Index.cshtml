@@ -1,0 +1,38 @@
+﻿@model IEnumerable<TestTrack.Models.Result>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TestCase.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestRun.Title)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestCase.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestRun.Title)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ResultID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ResultID })
+        </td>
+    </tr>
+}
+
+</table>

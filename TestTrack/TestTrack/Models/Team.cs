@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TestTrack.Models
 {
-    public class Team
+    public class Team : IAuditable
     {
         [Key]
         public int TeamID { get; set; }
