@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 
 namespace TestTrack.Models
 {
@@ -9,7 +11,7 @@ namespace TestTrack.Models
         [Key]
         public int ProjectID { get; set; }
 
-        [Display(Name = "Name")]
+        [Display(Name = "Project name")]
         [Required]
         public string Title { get; set; }
 

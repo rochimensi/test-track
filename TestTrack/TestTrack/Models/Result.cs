@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
 
 namespace TestTrack.Models
 {
@@ -15,11 +17,13 @@ namespace TestTrack.Models
         [Key]
         public int ResultID { get; set; }
 
+        [ForeignKey("TestCase")]
         [Required]
-        public int TestCaseID { get; set; } // Foreign Key
+        public int TestCaseID { get; set; }
 
+        [ForeignKey("TestRun")]
         [Required]
-        public int TestRunID { get; set; } // Foreign Key
+        public int TestRunID { get; set; }
 
         [Required]
         public State State { get; set; }

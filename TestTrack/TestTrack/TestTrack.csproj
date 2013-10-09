@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{16D1C3EB-4FBB-4D2C-9563-7497220F6211}</ProjectGuid>
+    <ProjectGuid>{BF988B6F-97AE-4B8F-96E9-954561252E10}</ProjectGuid>
     <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -16,12 +16,10 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressSSLPort>44301</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -199,11 +197,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201310081417177_Initial.cs" />
-    <Compile Include="Migrations\201310081417177_Initial.Designer.cs">
-      <DependentUpon>201310081417177_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Defect.cs" />
     <Compile Include="Models\IAuditable.cs" />
@@ -281,13 +274,12 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
@@ -348,41 +340,36 @@
     <Content Include="Views\Iterations\Index.cshtml" />
     <Content Include="Views\Iterations\Edit.cshtml" />
     <Content Include="Views\Iterations\Delete.cshtml" />
+    <Content Include="Views\Defects\Index.cshtml" />
+    <Content Include="Views\Defects\Edit.cshtml" />
+    <Content Include="Views\Defects\Delete.cshtml" />
     <Content Include="Views\Teams\Index.cshtml" />
     <Content Include="Views\Teams\Edit.cshtml" />
     <Content Include="Views\Teams\Delete.cshtml" />
     <Content Include="Views\TestSuites\Index.cshtml" />
     <Content Include="Views\TestSuites\Edit.cshtml" />
     <Content Include="Views\TestSuites\Delete.cshtml" />
-    <Content Include="Views\TestPlans\Index.cshtml" />
-    <Content Include="Views\TestPlans\Edit.cshtml" />
-    <Content Include="Views\TestPlans\Delete.cshtml" />
     <Content Include="Views\TestCases\Index.cshtml" />
     <Content Include="Views\TestCases\Edit.cshtml" />
     <Content Include="Views\TestCases\Delete.cshtml" />
+    <Content Include="Views\TestPlans\Index.cshtml" />
+    <Content Include="Views\TestPlans\Edit.cshtml" />
+    <Content Include="Views\TestPlans\Delete.cshtml" />
     <Content Include="Views\TestRuns\Index.cshtml" />
     <Content Include="Views\TestRuns\Edit.cshtml" />
     <Content Include="Views\TestRuns\Delete.cshtml" />
     <Content Include="Views\Results\Index.cshtml" />
+    <Content Include="Views\Results\Edit.cshtml" />
     <Content Include="Views\Results\Delete.cshtml" />
-    <Content Include="Views\Defects\Index.cshtml" />
-    <Content Include="Views\Defects\Edit.cshtml" />
-    <Content Include="Views\Defects\Delete.cshtml" />
     <Content Include="Views\Steps\Index.cshtml" />
     <Content Include="Views\Steps\Edit.cshtml" />
     <Content Include="Views\Steps\Delete.cshtml" />
-    <Content Include="Views\Results\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201310081417177_Initial.resx">
-      <DependentUpon>201310081417177_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -400,9 +387,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>3420</DevelopmentServerPort>
+          <DevelopmentServerPort>18168</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:4299/</IISUrl>
+          <IISUrl>http://localhost:16909/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -412,7 +399,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

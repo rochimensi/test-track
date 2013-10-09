@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Linq;
+using System.Web;
 
 namespace TestTrack.Models
 {
     public class TestTrackDBContext : DbContext
     {
+        public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Iteration> Iterations { get; set; }
         public DbSet<Team> Teams { get; set; }

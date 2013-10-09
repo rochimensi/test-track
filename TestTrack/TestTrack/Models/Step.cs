@@ -12,8 +12,9 @@ namespace TestTrack.Models
         [Key]
         public virtual int StepId { get; set; }
 
+        [ForeignKey("TestCase")]
         [Required]
-        public int TestCaseId { get; set; } // Foreign Key
+        public int TestCaseId { get; set; }
 
         public virtual TestCase TestCase { get; set; }
 

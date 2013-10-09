@@ -40,7 +40,6 @@ namespace TestTrack.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.TestSuiteID = new SelectList(db.TestSuites, "TestSuiteID", "Title", team.TestSuiteID);
             ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Title", team.ProjectID);
             return View(team);
         }
@@ -64,7 +63,6 @@ namespace TestTrack.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TestSuiteID = new SelectList(db.TestSuites, "TestSuiteID", "Title", team.TestSuiteID);
             ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Title", team.ProjectID);
             return View(team);
         }

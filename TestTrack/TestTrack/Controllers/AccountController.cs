@@ -8,15 +8,16 @@ using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using TestTrack.Filters;
+/*using TestTrack.Filters;*/
 using TestTrack.Models;
 
 namespace TestTrack.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
+    /*[InitializeSimpleMembership]*/
     public class AccountController : Controller
     {
+        private TestTrackDBContext db = new TestTrackDBContext();
         private const string EmailSuffix = "@makingsense.com";
 
         //
@@ -254,7 +255,7 @@ namespace TestTrack.Controllers
             if (ModelState.IsValid)
             {
                 // Insert a new user into the database
-                using (UsersContext db = new UsersContext())
+                using (db)
                 {
                     UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // Check if user already exists

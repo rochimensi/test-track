@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
 
 namespace TestTrack.Models
 {
@@ -14,14 +17,13 @@ namespace TestTrack.Models
         [StringLength(100)]
         public string Title { get; set; }
 
+        [ForeignKey("Project")]
         [Required]
-        public int ProjectID { get; set; } // Foreign Key
+        public int ProjectID { get; set; }
 
-        [Required]
-        public int TestSuiteID { get; set; } // Foreign Key
+        public virtual Project Project { get; set; }
 
         public virtual TestSuite TestSuite { get; set; }
-        public virtual Project Project { get; set; }
 
         public DateTime CreatedOn { get; set; }
         public DateTime? LastModified { get; set; }
