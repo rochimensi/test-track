@@ -9,6 +9,7 @@ using TestTrack.Models;
 
 namespace TestTrack.Controllers
 {
+    [Authorize]
     public class TestCasesController : Controller
     {
         private TestTrackDBContext db = new TestTrackDBContext();

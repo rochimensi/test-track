@@ -17,6 +17,8 @@ namespace TestTrack.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        private const string EmailSuffix = "@makingsense.com";
+
         //
         // GET: /Account/Login
 
@@ -223,25 +225,14 @@ namespace TestTrack.Controllers
                 return RedirectToAction("ExternalLoginFailure");
             }
 
-            if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
+            if (!result.UserName.EndsWith(EmailSuffix))
             {
-                return RedirectToLocal(returnUrl);
+                return RedirectToAction("ExternalLoginFailure");
             }
 
-            if (User.Identity.IsAuthenticated)
-            {
-                // If the current user is logged in add the new account
-                OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, User.Identity.Name);
-                return RedirectToLocal(returnUrl);
-            }
-            else
-            {
-                // User is new, ask for their desired membership name
-                string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
-                ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
-                ViewBag.ReturnUrl = returnUrl;
-                return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
-            }
+            var username = result.UserName.Substring(0, result.UserName.Length - EmailSuffix.Length);
+            FormsAuthentication.SetAuthCookie(username, true);
+            return RedirectToLocal(returnUrl);
         }
 
         //
