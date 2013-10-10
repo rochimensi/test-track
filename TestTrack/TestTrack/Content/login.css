@@ -1,0 +1,11 @@
+﻿body {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #EEE; /* #0FA86F */
+}
+
+.login {
+    max-width: 400px;
+    padding: 15px;
+    margin: 0 auto;
+}

@@ -27,7 +27,7 @@ namespace TestTrack.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            return View("Login", "_Login");
         }
 
         //
@@ -288,7 +288,7 @@ namespace TestTrack.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
-            return View();
+            return View("ExternalLoginFailure", "_Login");
         }
 
         [AllowAnonymous]
