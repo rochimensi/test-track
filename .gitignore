@@ -128,9 +128,6 @@ publish/
 *.Publish.xml
 *.pubxml
 
-#NuGet 
-.nuget/
-
 # NuGet Packages Directory
 packages/
 

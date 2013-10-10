@@ -31,6 +31,7 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ProjectID }) |
             @Html.ActionLink("Add an iteration", "Create", "Iterations", new { id=item.ProjectID }, null) |
+            @Html.ActionLink("Add a Team", "Create", "Teams", new { id=item.ProjectID }, null) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ProjectID })
         </td>
     </tr>

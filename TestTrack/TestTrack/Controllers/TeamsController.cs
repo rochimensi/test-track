@@ -18,20 +18,22 @@ namespace TestTrack.Controllers
 
         public ActionResult Index()
         {
-            var teams = db.Teams.Include(t => t.TestSuite).Include(t => t.Project);
+            var teams = db.Teams.Include(t => t.Project).Include(t => t.TestSuite);
             return View(teams.ToList());
         }
 
-        // GET: /Team/Create
+        // GET: /Teams/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.TestSuiteID = new SelectList(db.TestSuites, "TestSuiteID", "Title");
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Title");
-            return View("Edit", new Team());
+            Team team = new Team();
+            team.ProjectID = id;
+
+            ViewBag.TeamID = new SelectList(db.TestSuites, "TeamID", "Title");
+            return View("Edit", team);
         }
 
-        // GET: /Team/Edit/5
+        // GET: /Teams/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
@@ -40,8 +42,7 @@ namespace TestTrack.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.TestSuiteID = new SelectList(db.TestSuites, "TestSuiteID", "Title", team.TestSuiteID);
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Title", team.ProjectID);
+            ViewBag.TeamID = new SelectList(db.TestSuites, "TeamID", "Title", team.TeamID);
             return View(team);
         }
 
@@ -61,15 +62,15 @@ namespace TestTrack.Controllers
                 {
                     db.Entry(team).State = EntityState.Modified;
                 }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TestSuiteID = new SelectList(db.TestSuites, "TestSuiteID", "Title", team.TestSuiteID);
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Title", team.ProjectID);
+            ViewBag.TeamID = new SelectList(db.TestSuites, "TeamID", "Title", team.TeamID);
             return View(team);
         }
 
-        // GET: /Team/Delete/5
+        // GET: /Teams/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
@@ -81,7 +82,7 @@ namespace TestTrack.Controllers
             return View(team);
         }
 
-        // POST: /Team/Delete/5
+        // POST: /Teams/Delete/5
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

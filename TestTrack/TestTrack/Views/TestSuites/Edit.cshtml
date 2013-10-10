@@ -1,8 +1,8 @@
 ﻿@model TestTrack.Models.TestSuite
 
 @{
-    ViewBag.Title = Model.TestSuiteID > 0 ? "Edit" : "Add";
-    ViewBag.BtnSaveValue = Model.TestSuiteID > 0 ? "Save" : "Create";
+    ViewBag.Title = Model.TeamID > 0 ? "Edit" : "Add";
+    ViewBag.BtnSaveValue = Model.TeamID > 0 ? "Save" : "Create";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -14,7 +14,7 @@
     <fieldset>
         <legend>TestSuite</legend>
 
-        @Html.HiddenFor(model => model.TestSuiteID)
+        @Html.HiddenFor(model => model.TeamID)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Title)

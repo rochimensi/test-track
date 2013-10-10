@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
+
 namespace TestTrack.Models
 {
     public class TestPlan : IAuditable
@@ -18,8 +21,9 @@ namespace TestTrack.Models
         [StringLength(500)]
         public string Description { get; set; }
 
+        [ForeignKey("Iteration")]
         [Required]
-        public int IterationID { get; set; } // Foreign Key
+        public int IterationID { get; set; }
 
         public virtual Iteration Iteration { get; set; }
         public virtual ICollection<TestRun> TestRuns { get; set; }

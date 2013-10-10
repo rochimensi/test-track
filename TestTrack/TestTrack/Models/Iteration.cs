@@ -22,8 +22,9 @@ namespace TestTrack.Models
         [DataType(DataType.Date)]
         public DateTime DueDate { get; set; }
 
+        [ForeignKey("Project")]
         [Required]
-        public int ProjectID { get; set; } // Foreign Key
+        public int ProjectID { get; set; }
 
         public virtual Project Project { get; set; }
         public virtual ICollection<TestPlan> TestPlans { get; set; }

@@ -4,14 +4,9 @@
     ViewBag.Title = "Log in";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
-
-<section class="social" id="socialLoginForm">
-    <h2>Use another service to log in.</h2>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
+<h2>@ViewBag.Title</h2>
+<p>Use a service to log in.</p>
+@Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

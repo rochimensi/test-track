@@ -17,9 +17,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Project.Title)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TestSuite.Title)
-        </th>
         <th></th>
     </tr>
 
@@ -32,10 +29,8 @@
             @Html.DisplayFor(modelItem => item.Project.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TestSuite.Title)
-        </td>
-        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.TeamID }) |
+            @Html.ActionLink("Add a Test Suite", "Create", "TestSuites", new { id=item.TeamID }, null) |
             @Html.ActionLink("Delete", "Delete", new { id=item.TeamID })
         </td>
     </tr>
