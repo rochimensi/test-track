@@ -18,14 +18,19 @@ namespace TestTrack.Controllers
 
         public ActionResult Index()
         {
-            return View(db.TestSuites.ToList());
+            var testsuites = db.TestSuites.Include(t => t.Team);
+            return View(testsuites.ToList());
         }
 
         // GET: /TestSuites/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            return View("Edit", new TestSuite());
+            TestSuite testSuite = new TestSuite();
+            testSuite.TeamID = id;
+
+            ViewBag.TeamID = new SelectList(db.Teams, "TeamID", "Title");
+            return View("Edit", testSuite);
         }
 
         // GET: /TestSuites/Edit/5
@@ -37,6 +42,7 @@ namespace TestTrack.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.TeamID = new SelectList(db.Teams, "TeamID", "Title", testsuite.TeamID);
             return View(testsuite);
         }
 
@@ -48,7 +54,8 @@ namespace TestTrack.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (testsuite.TestSuiteID == 0)
+//                if (testsuite.TeamID == 0)
+                if (db.TestSuites.AsQueryable().Count(t => t.TeamID == testsuite.TeamID) == 0)
                 {
                     db.TestSuites.Add(testsuite);
                 }
@@ -56,9 +63,11 @@ namespace TestTrack.Controllers
                 {
                     db.Entry(testsuite).State = EntityState.Modified;
                 }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.TeamID = new SelectList(db.Teams, "TeamID", "Title", testsuite.TeamID);
             return View(testsuite);
         }
 

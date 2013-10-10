@@ -31,15 +31,6 @@
             @Html.DropDownList("ProjectID", String.Empty)
             @Html.ValidationMessageFor(model => model.ProjectID)
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.TestSuiteID, "TestSuite")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("TestSuiteID", String.Empty)
-            @Html.ValidationMessageFor(model => model.TestSuiteID)
-        </div>
-
         <p>
             <input type="submit" value="@ViewBag.BtnSaveValue" />
         </p>

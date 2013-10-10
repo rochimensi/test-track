@@ -22,7 +22,7 @@ namespace TestTrack.Models
         public DbSet<Result> Results { get; set; }
         public DbSet<Defect> Defects { get; set; }
 
-        public TestTrackDBContext(){ }
+        public TestTrackDBContext() { }
         public TestTrackDBContext(string connString) : base(connString) { }
 
         public override int SaveChanges()
@@ -48,6 +48,13 @@ namespace TestTrack.Models
             }
 
             return base.SaveChanges();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TestSuite>()
+                .HasRequired(p => p.Team)
+                .WithOptional(p => p.TestSuite);
         }
     }
 
