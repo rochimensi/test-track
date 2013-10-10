@@ -24,11 +24,13 @@ namespace TestTrack.Controllers
 
         // GET: /Teams/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Title");
+            Team team = new Team();
+            team.ProjectID = id;
+
             ViewBag.TeamID = new SelectList(db.TestSuites, "TeamID", "Title");
-            return View("Edit", new Team());
+            return View("Edit", team);
         }
 
         // GET: /Teams/Edit/5
@@ -40,7 +42,6 @@ namespace TestTrack.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Title", team.ProjectID);
             ViewBag.TeamID = new SelectList(db.TestSuites, "TeamID", "Title", team.TeamID);
             return View(team);
         }
@@ -65,7 +66,6 @@ namespace TestTrack.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Title", team.ProjectID);
             ViewBag.TeamID = new SelectList(db.TestSuites, "TeamID", "Title", team.TeamID);
             return View(team);
         }
