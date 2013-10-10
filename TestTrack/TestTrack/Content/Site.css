@@ -5,3 +5,18 @@
 .main {
     padding: 40px 15px;
 }
+
+.nav-item-with-form {
+    padding: 15px 0px;
+}
+
+.navbar-inverse .navbar-nav > li form > a {
+    color: #999999;
+}
+
+    .navbar-inverse .navbar-nav > li form > a:hover,
+    .navbar-inverse .navbar-nav > li form > a:focus {
+        color: #ffffff;
+        background-color: transparent;
+        text-decoration: none;
+    }
