@@ -1,0 +1,14 @@
+﻿@model IEnumerable<TestTrack.Models.Project>
+
+<div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Project <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        @foreach (var item in Model) {
+        <li>
+            <a href="#">@item.Title</a>
+        </li>
+        }
+    </ul>
+</div>

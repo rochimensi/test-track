@@ -7,7 +7,11 @@
 }
 
 .nav-item-with-form {
-    padding: 15px 0px;
+    padding: 15px 15px;
+}
+
+.nav-item-with-dropdown {
+    padding: 8px 15px;
 }
 
 .navbar-inverse .navbar-nav > li form > a {

@@ -87,6 +87,12 @@ namespace TestTrack.Controllers
             return RedirectToAction("Index");
         }
 
+        [ChildActionOnly]
+        public ActionResult ProjectsDropdown()
+        {
+            return PartialView("_ProjectsDropdown", db.Projects.ToList());
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
