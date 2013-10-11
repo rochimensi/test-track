@@ -363,6 +363,7 @@
     <Content Include="Views\Steps\Edit.cshtml" />
     <Content Include="Views\Steps\Delete.cshtml" />
     <Content Include="Views\Shared\_Login.cshtml" />
+    <Content Include="Views\Projects\_ProjectsDropdown.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
