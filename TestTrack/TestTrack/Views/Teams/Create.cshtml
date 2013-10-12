@@ -1,10 +1,9 @@
 ﻿@model TestTrack.Models.TeamVM
  
-
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Edit" , "Teams")) {
-    @Html.AntiForgeryToken()
+@using (Html.BeginForm("Create" , "Teams")) {
+     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
