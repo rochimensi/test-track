@@ -1,13 +1,9 @@
-﻿@model TestTrack.Models.Project
-
-@{
-    ViewBag.Title = Model.ProjectID > 0 ? "Edit" : "Add";
-    ViewBag.BtnSaveValue = Model.ProjectID > 0 ? "Save" : "Create";
-}
+﻿@model TestTrack.ViewModels.ProjectVM
+ 
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Save" , "Projects")) {
+@using (Html.BeginForm("Edit" , "Projects")) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
@@ -33,7 +29,7 @@
         </div>
 
         <p>
-            <input type="submit" value="@ViewBag.BtnSaveValue" />
+            <input type="submit" value="save" />
         </p>
     </fieldset>
 }
