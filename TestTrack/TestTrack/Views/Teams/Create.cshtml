@@ -1,0 +1,39 @@
+﻿@model TestTrack.Models.TeamVM
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Create", "Teams"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Team</legend>
+
+        @Html.HiddenFor(model => model.TeamID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.ProjectID, Model.Projects)
+            @Html.ValidationMessageFor(model => model.ProjectID)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
