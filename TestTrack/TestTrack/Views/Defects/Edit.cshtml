@@ -1,4 +1,4 @@
-﻿@model TestTrack.Models.Defect
+﻿@model TestTrack.Models.DefectVM
 
 @{
     ViewBag.Title = Model.DefectID > 0 ? "Edit" : "Add";
@@ -40,7 +40,13 @@
             @Html.DropDownList("ResultID", String.Empty)
             @Html.ValidationMessageFor(model => model.ResultID)
         </div>
-
+        
+         <div class="editor-field">
+            @Html.DropDownListFor(m => m.CategoryId, Model.List, "--Select One--")
+            @Html.ValidationMessageFor(model => model.ResultID)
+        </div>
+        
+       
         <p>
             <input type="submit" value="@ViewBag.BtnSaveValue" />
         </p>

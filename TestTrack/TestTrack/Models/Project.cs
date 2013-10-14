@@ -24,6 +24,6 @@ namespace TestTrack.Models
         public DateTime? LastModified { get; set; }
 
         public virtual ICollection<Team> Teams { get; set; }
-        public virtual ICollection<Iteration> Iterations { get; set; }
+       // public virtual ICollection<Iteration> Iterations { get; set; }
     }
 }

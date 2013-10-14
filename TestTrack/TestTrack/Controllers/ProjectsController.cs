@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TestTrack.Models;
+using TestTrack.ViewModels;
 
 namespace TestTrack.Controllers
 {
@@ -21,68 +20,100 @@ namespace TestTrack.Controllers
             return View(db.Projects.ToList());
         }
 
-        // GET: /Projects/Create
-
+        [HttpGet] // GET: /Projects/Create
         public ActionResult Create()
         {
-            return View("Edit", new Project());
+            return View("Create", new ProjectVM());
         }
 
-        // GET: /Projects/Edit/5
-
-        public ActionResult Edit(int id = 0)
+        [HttpPost] // GET: /Projects/Create
+        public ActionResult Create(ProjectVM projectVM)
         {
-            Project project = db.Projects.Find(id);
-            if (project == null)
+            var project = new Project
             {
-                return HttpNotFound();
-            }
-            return View(project);
+                ProjectID = 0,
+                Description = projectVM.Description,
+                Title = projectVM.Title
+            };
+
+            db.Projects.Add(project);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+
+         [HttpGet] // GET: /Projects/Edit/5
+         public ActionResult Edit(int id = 0)
+         {
+             var project = db.Projects.Find(id);
+
+             if (project == null)return HttpNotFound();
+
+             var team = new ProjectVM
+             {
+                 Description = project.Description,
+                 ProjectID = project.ProjectID,
+                 Title = project.Title
+             };
+
+             return View(team);
+         }
+
+
+        [HttpPost]
+         public ActionResult Edit(ProjectVM projectVM)
+        {
+            var project = db.Projects.Find(projectVM.ProjectID);
+
+            if (project == null) return HttpNotFound();
+
+            project.Description = projectVM.Description;
+            project.Title = projectVM.Title;
+
+            db.Entry(project).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         // POST: /Projects/Save/
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Save(Project project)
-        {
-            if (ModelState.IsValid)
-            {
-                if (project.ProjectID == 0)
-                {
-                    db.Projects.Add(project);
-                }
-                else
-                {
-                    db.Entry(project).State = EntityState.Modified;
-                }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Save(Project project)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (project.ProjectID == 0)
+        //        {
+        //            db.Projects.Add(project);
+        //        }
+        //        else
+        //        {
+        //            db.Entry(project).State = EntityState.Modified;
+        //        }
 
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(project);
-        }
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(project);
+        //}
 
-        // GET: /Projects/Delete/5
-
+        [HttpGet]
         public ActionResult Delete(int id = 0)
         {
-            Project project = db.Projects.Find(id);
-            if (project == null)
-            {
-                return HttpNotFound();
-            }
+            var project = db.Projects.Find(id);
+            if (project == null) return HttpNotFound();
+            
             return View(project);
         }
+         
+        [HttpPost,ValidateAntiForgeryToken, ActionName("Delete")] 
+        public ActionResult DeleteConfirm(int id)
+        { 
+            db.Projects.Remove( db.Projects.Find(id));
 
-        // POST: /Projects/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Project project = db.Projects.Find(id);
-            db.Projects.Remove(project);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

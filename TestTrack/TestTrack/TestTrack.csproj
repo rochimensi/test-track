@@ -212,6 +212,8 @@
     <Compile Include="Models\TestSuite.cs" />
     <Compile Include="Models\TestTrackDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ProjectVM.cs" />
+    <Compile Include="ViewModels\TeamVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap\bootstrap-theme.css" />
@@ -297,7 +299,9 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -361,6 +365,8 @@
     <Content Include="Views\Steps\Edit.cshtml" />
     <Content Include="Views\Steps\Delete.cshtml" />
     <Content Include="Views\Shared\_Login.cshtml" />
+    <Content Include="Views\Teams\Create.cshtml" />
+    <Content Include="Views\Projects\Create.cshtml" />
     <Content Include="Views\Projects\_ProjectsDropdown.cshtml" />
   </ItemGroup>
   <ItemGroup>

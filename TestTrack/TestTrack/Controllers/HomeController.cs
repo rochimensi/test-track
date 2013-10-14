@@ -6,9 +6,12 @@ using System.Web.Mvc;
 
 namespace TestTrack.Controllers
 {
+    
+
     [Authorize]
     public class HomeController : Controller
     {
+
         public ActionResult Index()
         {
             ViewBag.Message = "Welcome to the Test Management Application to make QA tasks easier.";
