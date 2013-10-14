@@ -9,14 +9,11 @@ using TestTrack.Models;
 
 namespace TestTrack.Controllers
 {
-     
-
     [Authorize]
     public class DefectsController : Controller
     {
         private TestTrackDBContext db = new TestTrackDBContext();
 
-        //
         // GET: /Defects/
 
         public ActionResult Index()

@@ -12,6 +12,5 @@ namespace TestTrack.ViewModels
 
         [Display(Name = "About")] 
         public string Description { get; set; }
-         
     }
 }
