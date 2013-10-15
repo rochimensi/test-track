@@ -97,7 +97,41 @@ namespace TestTrack.Controllers
         [ChildActionOnly]
         public ActionResult ProjectsDropdown()
         {
-            return PartialView("_ProjectsDropdown", db.Projects.ToList());
+            UserSettings userSettings = SessionWrapper.UserSettings;
+
+            var vm = new ProjectsDropdownVM();
+            vm.Values = new SelectList(db.Projects.ToList(), "ProjectID", "Title");
+ 
+            if (userSettings.workingProject > 0)
+            {
+                // Select the current project in user settings.
+                vm.SelectedValue = userSettings.workingProject;
+            }
+            else
+            {
+                if (vm.Values.Any())
+                {
+                    // Set the current project using the first value. This will be changed in the future.
+                    userSettings.workingProject = Int32.Parse(vm.Values.First().Value);
+                }
+                else
+                {
+                    // TODO: handle this case.
+                    throw new Exception("No projects.");
+                }
+            }
+
+            return PartialView("_ProjectsDropdown", vm);
+        }
+
+        [HttpPost]
+        public ActionResult SetCurrent(ProjectsDropdownVM vm)
+        {
+            // Save the project in session.
+            UserSettings userSettings = SessionWrapper.UserSettings;
+            userSettings.workingProject = vm.SelectedValue;
+
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         protected override void Dispose(bool disposing)

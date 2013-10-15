@@ -1,14 +1,10 @@
-﻿@model IEnumerable<TestTrack.Models.Project>
+﻿@model TestTrack.ViewModels.ProjectsDropdownVM
 
 <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-        Project <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-        @foreach (var item in Model) {
-        <li>
-            <a href="#">@item.Title</a>
-        </li>
-        }
-    </ul>
+    @using (Html.BeginForm("SetCurrent", "Projects"))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.DropDownListFor(model => model.SelectedValue, Model.Values, new { @onchange="this.form.submit()" })
+    }
 </div>
