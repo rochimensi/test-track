@@ -14,7 +14,7 @@ using TestTrack.Models;
 namespace TestTrack.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private TestTrackDBContext db = new TestTrackDBContext();
         private const string EmailSuffix = "@makingsense.com";

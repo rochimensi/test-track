@@ -7,7 +7,7 @@ using TestTrack.Models;
 namespace TestTrack.Controllers
 {
     [Authorize]
-    public class TeamsController : Controller
+    public class TeamsController : BaseController
     {
         private TestTrackDBContext db = new TestTrackDBContext();
 

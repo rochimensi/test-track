@@ -9,7 +9,7 @@ using TestTrack.ViewModels;
 namespace TestTrack.Controllers
 {
     [Authorize]
-    public class ProjectsController : Controller
+    public class ProjectsController : BaseController
     {
         private TestTrackDBContext db = new TestTrackDBContext();
 

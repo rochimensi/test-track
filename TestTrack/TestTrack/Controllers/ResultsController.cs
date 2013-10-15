@@ -10,7 +10,7 @@ using TestTrack.Models;
 namespace TestTrack.Controllers
 {
     [Authorize]
-    public class ResultsController : Controller
+    public class ResultsController : BaseController
     {
         private TestTrackDBContext db = new TestTrackDBContext();
 
