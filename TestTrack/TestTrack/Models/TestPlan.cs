@@ -26,6 +26,13 @@ namespace TestTrack.Models
         public int IterationID { get; set; }
 
         public virtual Iteration Iteration { get; set; }
+
+        [ForeignKey("Team")]
+        [Required]
+        public int TeamID { get; set; }
+
+        public virtual Team Team { get; set; }
+
         public virtual ICollection<TestRun> TestRuns { get; set; }
 
         public DateTime CreatedOn { get; set; }

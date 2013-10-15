@@ -1,16 +1,18 @@
 ﻿@model TestTrack.Models.TestPlanVM
 
 @{
-    ViewBag.Title = "Edit Test Plan";
+    ViewBag.Title = "Create Test Plan";
 }
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Edit" , "TestPlans")) {
+@using (Html.BeginForm("Create", "TestPlans"))
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
+
         <legend></legend>
 
         @Html.HiddenFor(model => model.TestPlanID)

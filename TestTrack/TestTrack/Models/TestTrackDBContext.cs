@@ -54,6 +54,11 @@ namespace TestTrack.Models
             modelBuilder.Entity<TestSuite>()
                 .HasRequired(p => p.Team)
                 .WithOptional(p => p.TestSuite);
+
+            modelBuilder.Entity<Iteration>()
+                .HasMany(p => p.TestPlans)
+                .WithRequired(p => p.Iteration)
+                .WillCascadeOnDelete(false);
         }
     }
 

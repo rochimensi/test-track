@@ -25,6 +25,8 @@ namespace TestTrack.Models
 
         public virtual TestSuite TestSuite { get; set; }
 
+        public virtual ICollection<TestPlan> TestPlans { get; set; }
+
         public DateTime CreatedOn { get; set; }
         public DateTime? LastModified { get; set; }
     }
