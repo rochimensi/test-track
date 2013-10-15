@@ -24,7 +24,6 @@ namespace TestTrack.Controllers
         {
             var TeamVM = new TeamVM
             {
-                ProjectID = 0,
                 Projects = new SelectList(db.Projects.ToList(), "ProjectID", "Title")
             };
 
@@ -75,8 +74,6 @@ namespace TestTrack.Controllers
 
             if (team == null) return HttpNotFound();
 
-            ViewBag.TeamID = new SelectList(db.TestSuites, "TeamID", "Title", team.TeamID);
-
             team.Title = teamVM.Title;
             team.Project = db.Projects.Find(teamVM.ProjectID);
             team.ProjectID = teamVM.ProjectID;
@@ -87,31 +84,6 @@ namespace TestTrack.Controllers
 
             return RedirectToAction("Index");
         }
-
-        // POST: /Teams/Save
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Save(Team team)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (team.TeamID == 0)
-        //        {
-        //            db.Teams.Add(team);
-        //        }
-        //        else
-        //        {
-        //            db.Entry(team).State = EntityState.Modified;
-        //        }
-
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.TeamID = new SelectList(db.TestSuites, "TeamID", "Title", team.TeamID);
-        //    return View(team);
-        //}
-
         
         [HttpGet]
         public ActionResult Delete(int id = 0)
