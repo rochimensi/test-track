@@ -31,7 +31,6 @@ namespace TestTrack.Controllers
         {
             var project = new Project
             {
-                ProjectID = 0,
                 Description = projectVM.Description,
                 Title = projectVM.Title
             };
@@ -50,14 +49,14 @@ namespace TestTrack.Controllers
 
              if (project == null)return HttpNotFound();
 
-             var team = new ProjectVM
+             var projectVM = new ProjectVM
              {
                  Description = project.Description,
                  ProjectID = project.ProjectID,
                  Title = project.Title
              };
 
-             return View(team);
+             return View(projectVM);
          }
 
 
