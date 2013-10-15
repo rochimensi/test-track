@@ -8,15 +8,6 @@ using System.Web.Security;
 
 namespace TestTrack.Models
 {
-    [Table("UserProfile")]
-    public class UserProfile
-    {
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int UserId { get; set; }
-        public string UserName { get; set; }
-    }
-
     public class ExternalLogin
     {
         public string Provider { get; set; }

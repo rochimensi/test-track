@@ -10,7 +10,6 @@ namespace TestTrack.Models
 {
     public class TestTrackDBContext : DbContext
     {
-        public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Iteration> Iterations { get; set; }
         public DbSet<Team> Teams { get; set; }
