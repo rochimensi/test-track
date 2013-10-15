@@ -12,7 +12,7 @@ namespace TestTrack.Models
         [Key]
         public int IterationID { get; set; }
 
-        [Display(Name = "Name")]
+        [Display(Name = "Iteration Name")]
         [Required]
         [StringLength(50)]
         public string Title { get; set; }

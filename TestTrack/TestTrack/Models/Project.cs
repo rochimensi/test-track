@@ -10,7 +10,6 @@ namespace TestTrack.Models
     public class Project : IAuditable
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProjectID { get; set; }
 
         [Display(Name = "Project name")]
@@ -26,6 +25,6 @@ namespace TestTrack.Models
         public DateTime? LastModified { get; set; }
 
         public virtual ICollection<Team> Teams { get; set; }
-       // public virtual ICollection<Iteration> Iterations { get; set; }
+        public virtual ICollection<Iteration> Iterations { get; set; }
     }
 }

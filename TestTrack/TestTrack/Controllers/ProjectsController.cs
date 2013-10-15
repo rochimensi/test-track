@@ -76,29 +76,6 @@ namespace TestTrack.Controllers
             return RedirectToAction("Index");
         }
 
-        // POST: /Projects/Save/
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Save(Project project)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (project.ProjectID == 0)
-        //        {
-        //            db.Projects.Add(project);
-        //        }
-        //        else
-        //        {
-        //            db.Entry(project).State = EntityState.Modified;
-        //        }
-
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(project);
-        //}
-
         [HttpGet]
         public ActionResult Delete(int id = 0)
         {

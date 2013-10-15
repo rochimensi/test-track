@@ -17,6 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.DueDate)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Project.Title)
+        </th>
         <th></th>
     </tr>
 
@@ -27,6 +30,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DueDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Project.Title)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.IterationID }) |

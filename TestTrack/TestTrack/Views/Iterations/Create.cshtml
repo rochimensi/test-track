@@ -1,17 +1,17 @@
 ﻿@model TestTrack.Models.IterationVM
 
 @{
-    ViewBag.Title = "Edit Iteration";
+    ViewBag.Title = "Add Iteration";
 }
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Edit" , "Iterations")) {
+@using (Html.BeginForm("Create", "Iterations"))
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Iteration</legend>
 
         @Html.HiddenFor(model => model.IterationID)
 

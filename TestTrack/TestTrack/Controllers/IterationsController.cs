@@ -22,55 +22,71 @@ namespace TestTrack.Controllers
             return View(iterations.ToList());
         }
 
-        // GET: /Iterations/Create
-
-        public ActionResult Create(int id)
+        [HttpGet]
+        public ActionResult Create()
         {
-            Iteration iteration = new Iteration();
-            iteration.ProjectID = id;
-            
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Title");
-            return View("Edit", iteration);
-        }
-        
-        // GET: /Iterations/Edit/5
+            var iterationVM = new IterationVM
+            {
+                Projects = new SelectList(db.Projects.ToList(), "ProjectID", "Title")
+            };
 
+            return View("Create", iterationVM);
+        }
+
+        [HttpPost]
+        public ActionResult Create(IterationVM iterationVM)
+        {
+            Iteration iteration = new Iteration()
+            {
+                Title = iterationVM.Title,
+                DueDate = iterationVM.DueDate,
+                ProjectID = iterationVM.ProjectID,
+                Project = db.Projects.Find(iterationVM.ProjectID)
+            };
+
+            db.Iterations.Add(iteration);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
         public ActionResult Edit(int id = 0)
         {
             Iteration iteration = db.Iterations.Find(id);
-            if (iteration == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Title", iteration.ProjectID);
-            return View(iteration);
-        }
 
-        // POST: /Iterations/Save
+            if (iteration == null) return HttpNotFound();
+
+            var iterationVM = new IterationVM
+            {
+                IterationID = iteration.IterationID,
+                Title = iteration.Title,
+                DueDate = iteration.DueDate,
+                ProjectID = iteration.ProjectID,
+                Projects = new SelectList(db.Projects.ToList(), "ProjectID", "Title", iteration.ProjectID)
+            };
+
+            return View(iterationVM);
+        }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Save(Iteration iteration)
+        public ActionResult Edit(IterationVM iterationVM)
         {
-            if (ModelState.IsValid)
-            {
-                if (iteration.IterationID == 0)
-                {
-                    db.Iterations.Add(iteration);
-                }
-                else
-                {
-                    db.Entry(iteration).State = EntityState.Modified;
-                }
+            var iteration = db.Iterations.Find(iterationVM.IterationID);
 
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Title", iteration.ProjectID);
-            return View(iteration);
+            if (iteration == null) return HttpNotFound();
+            
+            iteration.IterationID = iterationVM.IterationID;
+            iteration.Title = iterationVM.Title;
+            iteration.DueDate = iterationVM.DueDate;
+            iteration.ProjectID = iterationVM.ProjectID;
+            iteration.Project = db.Projects.Find(iterationVM.ProjectID);
+
+            db.Entry(iteration).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
-
-        // GET: /Iterations/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
@@ -82,10 +98,7 @@ namespace TestTrack.Controllers
             return View(iteration);
         }
 
-        // POST: /Iterations/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
             Iteration iteration = db.Iterations.Find(id);
