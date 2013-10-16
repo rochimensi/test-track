@@ -6,15 +6,13 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Edit", "TestCases")) {
+@using (Html.BeginForm("Create", "TestCases")) {
     
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Test Case</legend>
-
-        @Html.HiddenFor(model => model.TestCaseID)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Title)
@@ -28,7 +26,7 @@
             @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field">
-            @Html.TextAreaFor(model => model.Description, new {@cols="80" , @rows="4" })
+            @Html.EditorFor(model => model.Description)
             @Html.ValidationMessageFor(model => model.Description)
         </div>
 
@@ -36,7 +34,7 @@
             @Html.LabelFor(model => model.PreConditions)
         </div>
         <div class="editor-field">
-            @Html.TextAreaFor(model => model.PreConditions, new {@cols="80" , @rows="4" })
+            @Html.EditorFor(model => model.PreConditions)
             @Html.ValidationMessageFor(model => model.PreConditions)
         </div>
 
@@ -81,7 +79,7 @@
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Create" />
         </p>
     </fieldset>
 }

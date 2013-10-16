@@ -199,6 +199,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Common.cs" />
     <Compile Include="Helpers\SessionWrapper.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Defect.cs" />
@@ -215,6 +216,7 @@
     <Compile Include="Models\TestTrackDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ProjectsDropdownVM.cs" />
+    <Compile Include="ViewModels\TestCaseVM.cs" />
     <Compile Include="ViewModels\TestPlanVM.cs" />
     <Compile Include="ViewModels\IterationVM.cs" />
     <Compile Include="ViewModels\ProjectVM.cs" />
@@ -375,6 +377,7 @@
     <Content Include="Views\Teams\Create.cshtml" />
     <Content Include="Views\Iterations\Create.cshtml" />
     <Content Include="Views\TestPlans\Create.cshtml" />
+    <Content Include="Views\TestCases\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TestTrack.Models;
+using TestTrack.ViewModels;
+using TestTrack.Helpers;
 
 namespace TestTrack.Controllers
 {
@@ -24,47 +26,91 @@ namespace TestTrack.Controllers
 
         // GET: /TestCases/Create
 
+        [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.TestSuiteID = new SelectList(db.TestSuites, "TestSuiteID", "Title");
-            return View("Edit", new TestCase());
+            var testCaseVM = new TestCaseVM
+            {
+                Types = Common.ToSelectList<TestTrack.Models.Type>(),
+                Priorities = Common.ToSelectList<TestTrack.Models.Priority>(),
+                Methods = Common.ToSelectList<TestTrack.Models.Method>(),
+                TestSuites = new SelectList(db.TestSuites, "TeamID", "Title")
+            };
+
+            return View("Create", testCaseVM);
+        }
+
+        // POST: /TestCases/Create
+
+        [HttpPost]
+        public ActionResult Create(TestCaseVM testCaseVM)
+        {
+            var testCase = new TestCase
+            {
+                Title = testCaseVM.Title,
+                Description = testCaseVM.Description,
+                PreConditions = testCaseVM.PreConditions,
+                Tags = testCaseVM.Tags,
+                Type = testCaseVM.Type,
+                Priority = testCaseVM.Priority,
+                Method = testCaseVM.Method,
+                TestSuiteID = testCaseVM.TestSuiteID
+            };
+
+            db.TestCases.Add(testCase);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         // GET: /TestCases/Edit/5
 
+        [HttpGet]
         public ActionResult Edit(int id = 0)
         {
-            TestCase testcase = db.TestCases.Find(id);
-            if (testcase == null)
+            var testCase = db.TestCases.Find(id);
+            if (testCase == null) return HttpNotFound();
+
+            var testCaseVM = new TestCaseVM
             {
-                return HttpNotFound();
-            }
-            ViewBag.TestSuiteID = new SelectList(db.TestSuites, "TestSuiteID", "Title", testcase.TestSuiteID);
-            return View(testcase);
+                Title = testCase.Title,
+                Description = testCase.Description,
+                PreConditions = testCase.PreConditions,
+                Tags = testCase.Tags,
+                Type = testCase.Type,
+                Types = Common.ToSelectList<TestTrack.Models.Type>(),
+                Priority = testCase.Priority,
+                Priorities = Common.ToSelectList<TestTrack.Models.Priority>(),
+                Method = testCase.Method,
+                Methods = Common.ToSelectList<TestTrack.Models.Method>(),
+                TestSuiteID = testCase.TestSuiteID,
+                TestSuites = new SelectList(db.TestSuites, "TeamID", "Title")
+            };
+            
+            return View(testCaseVM);
         }
 
-        // POST: /TestCases/Save
+        // POST: /TestCases/Edit/5
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Save(TestCase testcase)
+        public ActionResult Edit(TestCaseVM testCaseVM)
         {
-            if (ModelState.IsValid)
-            {
-                if (testcase.TestCaseID == 0)
-                {
-                    db.TestCases.Add(testcase);
-                }
-                else
-                {
-                    db.Entry(testcase).State = EntityState.Modified;
-                }
+            var testCase = db.TestCases.Find(testCaseVM.TestCaseID);
+            if (testCase == null) return HttpNotFound();
 
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.TestSuiteID = new SelectList(db.TestSuites, "TestSuiteID", "Title", testcase.TestSuiteID);
-            return View(testcase);
+            testCase.Title = testCaseVM.Title;
+            testCase.Description = testCaseVM.Description;
+            testCase.PreConditions = testCaseVM.PreConditions;
+            testCase.Tags = testCaseVM.Tags;
+            testCase.Type = testCaseVM.Type;
+            testCase.Priority = testCaseVM.Priority;
+            testCase.Method = testCaseVM.Method;
+            testCase.TestSuiteID = testCaseVM.TestSuiteID;
+
+            db.Entry(testCase).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         // GET: /TestCases/Delete/5
