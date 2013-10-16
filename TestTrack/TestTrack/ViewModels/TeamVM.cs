@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace TestTrack.Models
+namespace TestTrack.ViewModels
 {
     public class TeamVM
     {
