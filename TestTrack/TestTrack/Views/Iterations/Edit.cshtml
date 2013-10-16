@@ -1,4 +1,4 @@
-﻿@model TestTrack.Models.IterationVM
+﻿@model TestTrack.ViewModels.IterationVM
 
 @{
     ViewBag.Title = "Edit Iteration";
@@ -43,7 +43,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", "TestPlanPerIteration")
 </div>
 
 @section Scripts {

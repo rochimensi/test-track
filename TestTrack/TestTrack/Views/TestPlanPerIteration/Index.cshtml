@@ -1,0 +1,71 @@
+﻿@model TestTrack.Models.Iteration
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>Iterations</h1>
+        <p>Apply robust software testing into the iterative development lifecycle.</p>
+        <p>Organize your project backlog in Iterations.</p>
+        <p>By assigning test plans to your iterations you can easily monitor your iteration's status and activity.</p>
+        <p>
+            @Html.ActionLink("Create New", "Create", "Iterations", null, new { @class = "btn btn-primary btn-lg" })
+        </p>
+    </div>
+</div>
+@if (Model.Title != null)
+{
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Iterations</h3>
+            @Html.Action("List", "Iterations")
+        </div>
+        <div class="col-md-9">
+            <h3>@Model.Title</h3>
+            <p>
+                @Html.ActionLink("Edit", "Edit", "Iterations", new { id = Model.IterationID }, null) | 
+                @Html.ActionLink("Delete", "Delete", "Iterations", new { id = Model.IterationID }, null)
+            </p>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.DueDate)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.DueDate)
+            </div>
+            <br />
+            <h4>Test Plans for @Model.Title</h4>
+            @Html.Action("List", "TestPlans", new { id = Model.IterationID })
+        </div>
+    </div>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

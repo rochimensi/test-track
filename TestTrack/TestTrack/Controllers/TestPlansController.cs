@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TestTrack.Models;
+using TestTrack.ViewModels;
 
 namespace TestTrack.Controllers
 {
@@ -111,6 +109,17 @@ namespace TestTrack.Controllers
             db.TestPlans.Remove(testplan);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [ChildActionOnly]
+        public ActionResult List(int id = 0)
+        {
+            var vm = new TestPlansListVM();
+            vm.Values = new SelectList(from value in db.TestPlans 
+                                       where value.IterationID == id 
+                                       select value , "TestPlanID", "Title");
+
+            return PartialView("_List", vm);
         }
 
         protected override void Dispose(bool disposing)

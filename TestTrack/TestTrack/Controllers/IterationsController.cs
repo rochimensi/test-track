@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TestTrack.Models;
+using TestTrack.ViewModels;
 
 namespace TestTrack.Controllers
 {
@@ -47,7 +45,7 @@ namespace TestTrack.Controllers
             db.Iterations.Add(iteration);
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "TestPlanPerIteration");
         }
 
         [HttpGet]
@@ -85,7 +83,7 @@ namespace TestTrack.Controllers
             db.Entry(iteration).State = EntityState.Modified;
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "TestPlanPerIteration");
         }
 
         public ActionResult Delete(int id = 0)
@@ -105,6 +103,15 @@ namespace TestTrack.Controllers
             db.Iterations.Remove(iteration);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [ChildActionOnly]
+        public ActionResult List()
+        {
+            var vm = new IterationsListVM();
+            vm.Values = new SelectList(db.Iterations.ToList(), "IterationID", "Title");
+
+            return PartialView("_List", vm);
         }
 
         protected override void Dispose(bool disposing)

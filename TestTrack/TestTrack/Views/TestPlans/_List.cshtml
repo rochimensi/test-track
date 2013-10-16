@@ -1,0 +1,8 @@
+﻿@model TestTrack.ViewModels.TestPlansListVM
+
+<ul class="nav nav-pills nav-stacked">
+    @foreach (var item in Model.Values)
+    {
+        <li>@item.Text</li>
+    }
+</ul>

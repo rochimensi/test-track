@@ -117,6 +117,54 @@ namespace TestTrack.Models
                     CreatedOn = DateTime.Now
                 }
             );
+            context.Iterations.AddOrUpdate(p => p.Title,
+                new Iteration
+                {
+                    IterationID = 1,
+                    Title = "Sprint 1",
+                    DueDate = DateTime.Now,
+                    ProjectID = 1,
+                    CreatedOn = DateTime.Now
+                },
+                new Iteration
+                {
+                    IterationID = 2,
+                    Title = "Sprint 2",
+                    DueDate = DateTime.Now,
+                    ProjectID = 1,
+                    CreatedOn = DateTime.Now
+                }
+
+                );
+            context.TestPlans.AddOrUpdate(p => p.Title,
+                new TestPlan
+                {
+                    TestPlanID = 1,
+                    Title = "Sanity Testing",
+                    Description = "Basic Functionality",
+                    IterationID = 1,
+                    TeamID = 1,
+                    CreatedOn = DateTime.Now
+                },
+                new TestPlan
+                {
+                    TestPlanID = 2,
+                    Title = "Regression Testing",
+                    Description = "All Functionality",
+                    IterationID = 1,
+                    TeamID = 1,
+                    CreatedOn = DateTime.Now
+                },
+                new TestPlan
+                {
+                    TestPlanID = 3,
+                    Title = "Sanity Testing",
+                    Description = "Basic Functionality",
+                    IterationID = 2,
+                    TeamID = 1,
+                    CreatedOn = DateTime.Now
+                }
+            );
             context.SaveChanges();
         }
     }
