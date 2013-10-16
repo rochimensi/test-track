@@ -87,6 +87,36 @@ namespace TestTrack.Models
                     CreatedOn = DateTime.Now
                 }
             );
+            context.Teams.AddOrUpdate(p => p.Title,
+                new Team
+                {
+                    TeamID = 1,
+                    Title = "Doppler QA",
+                    ProjectID = 1,
+                    CreatedOn = DateTime.Now
+                },
+                new Team
+                {
+                    TeamID = 2,
+                    Title = "Lander QA",
+                    ProjectID = 2,
+                    CreatedOn = DateTime.Now
+                }
+            );
+            context.TestSuites.AddOrUpdate(p => p.Title,
+                new TestSuite
+                {
+                    TeamID = 1,
+                    Title = "Doppler Front End TS",
+                    CreatedOn = DateTime.Now
+                },
+                new TestSuite
+                {
+                    TeamID = 2,
+                    Title = "Lander Front End TS",
+                    CreatedOn = DateTime.Now
+                }
+            );
             context.SaveChanges();
         }
     }
