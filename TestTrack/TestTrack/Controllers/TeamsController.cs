@@ -15,7 +15,10 @@ namespace TestTrack.Controllers
         // GET: /Teams/
         public ActionResult Index()
         {
-            var teams = db.Teams.Include(t => t.Project).Include(t => t.TestSuite);
+            UserSettings userSettings = SessionWrapper.UserSettings;
+            var teams = from t in db.Teams
+                            where t.ProjectID == userSettings.workingProject
+                            select t;
             return View(teams.ToList());
         }
 

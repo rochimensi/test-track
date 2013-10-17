@@ -13,10 +13,12 @@ namespace TestTrack.Controllers
 
         public ActionResult Index(int id = 0)
         {
-            var iteration = new Iteration();
+            Iteration iteration = null;
 
+            // No Iteration selected by the user
             if (id == 0)
             {
+                // If there are Iterations created, the first from the list ordered by dueDate is selected as default
                 if (db.Iterations.Count() > 0)
                 {
                     iteration = (from i in db.Iterations
@@ -25,6 +27,7 @@ namespace TestTrack.Controllers
                 }
             }
 
+            // An iteration was selected by the user
             if (id > 0)
             {
                 iteration = (from i in db.Iterations

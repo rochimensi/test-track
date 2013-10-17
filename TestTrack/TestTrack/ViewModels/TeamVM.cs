@@ -11,6 +11,7 @@ namespace TestTrack.ViewModels
         [Display(Name = "Team Name")]
         public string Title { get; set; }
 
+        [Display(Name = "Project")]
         [HiddenInput(DisplayValue = false)]
         public int ProjectID { get; set; }
           

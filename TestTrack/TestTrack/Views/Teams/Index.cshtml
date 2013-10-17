@@ -4,36 +4,28 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="jumbotron">
+    <div class="container">
+        <h1>Teams</h1>
+        <p>Add teams for all areas that compound the Quality Assurance for a project as a whole.</p>
+        <p>Divide your project in Teams.</p>
+        <p>Each team can have their Test Suite. Everything organized. Focus on what is yours.</p>
+        <p>By assigning test plans to your team you can easily monitor the current testing status and activity.</p>
+        <p>
+            @Html.ActionLink("Create New", "Create", "Teams", null, new { @class = "btn btn-primary btn-lg" })
+        </p>
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Project.Title)
-        </th>
-        <th></th>
-    </tr>
+<h2>Teams in @Model.First().Project.Title</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-md-4">
             @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Project.Title)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TeamID }) |
-            @Html.ActionLink("Add a Test Suite", "Create", "TestSuites", new { id=item.TeamID }, null) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TeamID })
-        </td>
-    </tr>
+            @Html.ActionLink("Edit", "Edit", new { id = item.TeamID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.TeamID })
+        </div>
+    </div>
 }
-
-</table>

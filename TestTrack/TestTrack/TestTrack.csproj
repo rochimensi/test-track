@@ -347,7 +347,6 @@
     <Content Include="Views\Projects\Index.cshtml" />
     <Content Include="Views\Projects\Edit.cshtml" />
     <Content Include="Views\Projects\Delete.cshtml" />
-    <Content Include="Views\Iterations\Index.cshtml" />
     <Content Include="Views\Iterations\Edit.cshtml" />
     <Content Include="Views\Iterations\Delete.cshtml" />
     <Content Include="Views\Defects\Index.cshtml" />

@@ -108,8 +108,13 @@ namespace TestTrack.Controllers
         [ChildActionOnly]
         public ActionResult List()
         {
+            UserSettings userSettings = SessionWrapper.UserSettings;
             var vm = new IterationsListVM();
-            vm.Values = new SelectList(db.Iterations.ToList(), "IterationID", "Title");
+            var iterations = (from i in db.Iterations
+                              where i.ProjectID == userSettings.workingProject
+                              orderby i.DueDate
+                              select i).ToList();
+            vm.Values = new SelectList(iterations, "IterationID", "Title");
 
             return PartialView("_List", vm);
         }
