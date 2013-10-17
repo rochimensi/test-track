@@ -18,11 +18,11 @@
 @if (Model != null)
 {
     <div class="row">
-        <div class="col-md-3">
-            <h3>Iterations</h3>
+        <div class="col-md-4">
+            <h3>Iterations in @Model.Project.Title</h3>
             @Html.Action("List", "Iterations")
         </div>
-        <div class="col-md-9">
+        <div class="col-md-3">
             <h3>@Model.Title</h3>
             <p>
                 @Html.ActionLink("Edit", "Edit", "Iterations", new { id = Model.IterationID }, null) | 
@@ -34,10 +34,12 @@
             <div class="display-field">
                 @Html.DisplayFor(model => model.DueDate)
             </div>
-            <br />
-            <h4>Test Plans for @Model.Title</h4>
+        </div>
+        <div class="col-md-5">
+            <h3>Test Plans for @Model.Title</h3>
             @Html.Action("List", "TestPlans", new { id = Model.IterationID })
         </div>
+
     </div>
 }
 

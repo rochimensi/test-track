@@ -112,7 +112,7 @@ namespace TestTrack.Controllers
             var vm = new IterationsListVM();
             var iterations = (from i in db.Iterations
                               where i.ProjectID == userSettings.workingProject
-                              orderby i.DueDate
+                              orderby i.DueDate descending 
                               select i).ToList();
             vm.Values = new SelectList(iterations, "IterationID", "Title");
 

@@ -17,7 +17,10 @@ namespace TestTrack.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Projects.ToList());
+            var projects = from p in db.Projects
+                           orderby p.Title
+                           select p;
+            return View(projects.ToList());
         }
 
         [HttpGet] // GET: /Projects/Create
@@ -100,7 +103,10 @@ namespace TestTrack.Controllers
             UserSettings userSettings = SessionWrapper.UserSettings;
 
             var vm = new ProjectsDropdownVM();
-            vm.Values = new SelectList(db.Projects.ToList(), "ProjectID", "Title");
+            var projects = from p in db.Projects
+                           orderby p.Title
+                           select p;
+            vm.Values = new SelectList(projects.ToList(), "ProjectID", "Title");
  
             if (userSettings.workingProject > 0)
             {

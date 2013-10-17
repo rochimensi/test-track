@@ -13,6 +13,7 @@ namespace TestTrack.Controllers
 
         public ActionResult Index(int id = 0)
         {
+            UserSettings userSettings = SessionWrapper.UserSettings;
             Iteration iteration = null;
 
             // No Iteration selected by the user
@@ -22,7 +23,8 @@ namespace TestTrack.Controllers
                 if (db.Iterations.Count() > 0)
                 {
                     iteration = (from i in db.Iterations
-                                 orderby i.DueDate
+                                 where i.ProjectID == userSettings.workingProject
+                                 orderby i.DueDate descending 
                                  select i).ToList().First();
                 }
             }
@@ -31,8 +33,8 @@ namespace TestTrack.Controllers
             if (id > 0)
             {
                 iteration = (from i in db.Iterations
-                             where i.IterationID == id
-                             orderby i.DueDate
+                             where i.IterationID == id && i.ProjectID == userSettings.workingProject
+                             orderby i.DueDate descending 
                              select i).ToList().First();
             }
             return View(iteration);

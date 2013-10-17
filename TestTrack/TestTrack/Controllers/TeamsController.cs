@@ -18,6 +18,7 @@ namespace TestTrack.Controllers
             UserSettings userSettings = SessionWrapper.UserSettings;
             var teams = from t in db.Teams
                             where t.ProjectID == userSettings.workingProject
+                            orderby t.Title
                             select t;
             return View(teams.ToList());
         }
