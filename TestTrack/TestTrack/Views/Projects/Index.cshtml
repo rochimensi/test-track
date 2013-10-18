@@ -34,7 +34,7 @@
                     @using (Html.BeginForm("SetProject", "Projects", new { id = item.ProjectID }))
                     {
                         @Html.AntiForgeryToken()
-                        <input type="submit" value="Set as current project" />
+                        <input type="submit" value="Set as current project" class="btn btn-primary" />
                     }
                 </p>
             }

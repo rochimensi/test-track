@@ -5,6 +5,6 @@
     {
         @Html.AntiForgeryToken()
 
-        @Html.DropDownListFor(model => model.SelectedValue, Model.Values, new { @onchange="this.form.submit()" })
+        @Html.DropDownListFor(model => model.SelectedValue, Model.Values, new { @onchange="this.form.submit()", @class="form-control" })
     }
 </div>

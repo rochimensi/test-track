@@ -1,6 +1,8 @@
 ﻿@model TestTrack.ViewModels.ProjectVM
 
-<h2>@ViewBag.Title</h2>
+@{
+    ViewBag.Title = "Projects";
+}
 
 @using (Html.BeginForm("Create", "Projects"))
 {
@@ -8,28 +10,29 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Project</legend>
+        <legend>Add Project</legend>
 
         @Html.HiddenFor(model => model.ProjectID)
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Title)
+        <div class="form-group">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Title)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Title, new { @class="form-control"})
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Title)
-            @Html.ValidationMessageFor(model => model.Title)
+        <div class="form-group">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Description)
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.Description, new { @class="form-control"})
+                @Html.ValidationMessageFor(model => model.Description)
+            </div>
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Description)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Description)
-            @Html.ValidationMessageFor(model => model.Description)
-        </div>
-
         <p>
-            <input type="submit" value="save" />
+            <input type="submit" value="Save" class="btn btn-default" />
         </p>
     </fieldset>
 }

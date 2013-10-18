@@ -33,7 +33,7 @@
 @*                    <li>@Html.ActionLink("Test Cases", "Index", "TestCases")</li>*@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item-with-form">@Html.Action("ProjectsDropdown", "Projects")</li>
+                    <li class="nav-item-with-dropdown">@Html.Action("ProjectsDropdown", "Projects")</li>
                     <li class="nav-item-with-form">
                         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                         {
