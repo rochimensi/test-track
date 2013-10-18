@@ -20,16 +20,16 @@ namespace TestTrack.Controllers
             if (id == 0)
             {
                 var iterationForProject = (from i in db.Iterations
-                                    where i.ProjectID == userSettings.workingProject
-                                    orderby i.DueDate descending
-                                    select i);
+                                           where i.ProjectID == userSettings.workingProject
+                                           orderby i.DueDate descending
+                                           select i);
 
                 // If there are Iterations created for the project, the first from the list ordered by dueDate is selected as default
                 if (iterationForProject.Count() > 0)
                 {
                     iteration = (from i in db.Iterations
                                  where i.ProjectID == userSettings.workingProject
-                                 orderby i.DueDate descending 
+                                 orderby i.DueDate descending
                                  select i).ToList().First();
                 }
             }
@@ -38,9 +38,9 @@ namespace TestTrack.Controllers
             if (id > 0)
             {
                 var iterationForProject = from i in db.Iterations
-                                   where i.IterationID == id && i.ProjectID == userSettings.workingProject
-                                   orderby i.DueDate descending
-                                   select i;
+                                          where i.IterationID == id && i.ProjectID == userSettings.workingProject
+                                          orderby i.DueDate descending
+                                          select i;
 
                 if (iterationForProject.Count() > 0)
                 {
@@ -50,7 +50,7 @@ namespace TestTrack.Controllers
                 // When user is at /TestPlanPerIteration/Index/{id} and there is no such IterationID for the new selected project, redirects to /TestPlanPerIteration
                 else
                 {
-                    return RedirectToAction("Index", new { id = (int?)null});
+                    return RedirectToAction("Index", new { id = (int?)null });
                 }
             }
             return View(iteration);
