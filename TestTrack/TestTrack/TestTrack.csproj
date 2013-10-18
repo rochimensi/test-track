@@ -215,6 +215,7 @@
     <Compile Include="Models\TestRun.cs" />
     <Compile Include="Models\TestSuite.cs" />
     <Compile Include="Models\TestTrackDBContext.cs" />
+    <Compile Include="ViewModels\ProjectsListVM.cs" />
     <Compile Include="ViewModels\IterationsListVM.cs" />
     <Compile Include="ViewModels\TestCaseVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

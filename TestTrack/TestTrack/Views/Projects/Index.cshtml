@@ -1,40 +1,45 @@
-﻿@model IEnumerable<TestTrack.Models.Project>
+﻿@model TestTrack.ViewModels.ProjectsListVM
 
 @{
     ViewBag.Title = "Projects";
 }
 
-<h2>Projects in this Organization</h2>
+<div class="jumbotron">
+    <div class="container">
+        <h1>Projects</h1>
+        <p>Add projects to manage all your ongoing test work in TestTrack.</p>
+        <p>Access all relevant details including Iterations, Test Plans, Teams, active Test runs and results.</p>
+        <p>Track your projects' progress easily!.</p>
+        <p>
+            @Html.ActionLink("Create New", "Create", "Projects", null, new { @class = "btn btn-primary btn-lg" })
+        </p>
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
+@foreach (var item in Model.Values)
+{
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayFor(modelItem => item.Title)</dt>
+        <dd>
+            <p>@Html.DisplayFor(modelItem => item.Description)               
+            </p>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProjectID }) |
-            @Html.ActionLink("Add an iteration", "Create", "Iterations", new { id=item.ProjectID }, null) |
-            @Html.ActionLink("Add a Team", "Create", "Teams", new { id=item.ProjectID }, null) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProjectID })
-        </td>
-    </tr>
+            <p>@Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID })
+            </p>
+            <p>Contains <b>@item.Iterations.Count()</b> Iterations and <b>@item.Teams.Count()</b> Teams.</p>
+            @if (Model.SelectedProject != item.ProjectID)
+            {
+                <p>
+                    @using (Html.BeginForm("SetProject", "Projects", new { id = item.ProjectID }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="Set as current project" />
+                    }
+                </p>
+            }
+        </dd>
+        <br />
+    </dl>
 }
 
-</table>

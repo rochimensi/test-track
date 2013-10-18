@@ -17,10 +17,14 @@ namespace TestTrack.Controllers
 
         public ActionResult Index()
         {
-            var projects = from p in db.Projects
+            ProjectsListVM vm = new ProjectsListVM();
+            UserSettings userSettings = SessionWrapper.UserSettings;
+            var projects = (from p in db.Projects
                            orderby p.Title
-                           select p;
-            return View(projects.ToList());
+                           select p).ToList();
+            vm.SelectedProject = userSettings.workingProject;
+            vm.Values = projects;
+            return View(vm);
         }
 
         [HttpGet] // GET: /Projects/Create
@@ -133,11 +137,22 @@ namespace TestTrack.Controllers
         [HttpPost]
         public ActionResult SetCurrent(ProjectsDropdownVM vm)
         {
+            setCurrentProjectID(vm.SelectedValue);
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        [HttpPost]
+        public ActionResult SetProject(int id)
+        {
+            setCurrentProjectID(id);
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        private void setCurrentProjectID(int id)
+        {
             // Save the project in session.
             UserSettings userSettings = SessionWrapper.UserSettings;
-            userSettings.workingProject = vm.SelectedValue;
-
-            return Redirect(Request.UrlReferrer.ToString());
+            userSettings.workingProject = id;
         }
 
         protected override void Dispose(bool disposing)

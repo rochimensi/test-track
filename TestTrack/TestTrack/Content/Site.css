@@ -24,3 +24,11 @@
         background-color: transparent;
         text-decoration: none;
     }
+
+dl {
+    /*border-bottom: 1px solid #e5e5e5;*/
+    border: 1px solid #e5e5e5;
+    border-radius: 6px 6px 6px 6px;
+    padding: 15px;
+    background-color: #EAF1F7;
+}
