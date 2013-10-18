@@ -19,13 +19,13 @@ namespace TestTrack.Controllers
             // No Iteration selected by the user
             if (id == 0)
             {
-                var itForProject = (from i in db.Iterations
+                var iterationForProject = (from i in db.Iterations
                                     where i.ProjectID == userSettings.workingProject
                                     orderby i.DueDate descending
                                     select i);
 
                 // If there are Iterations created for the project, the first from the list ordered by dueDate is selected as default
-                if (itForProject.Count() > 0)
+                if (iterationForProject.Count() > 0)
                 {
                     iteration = (from i in db.Iterations
                                  where i.ProjectID == userSettings.workingProject
@@ -37,10 +37,21 @@ namespace TestTrack.Controllers
             // An iteration was selected by the user
             if (id > 0)
             {
-                iteration = (from i in db.Iterations
-                             where i.IterationID == id && i.ProjectID == userSettings.workingProject
-                             orderby i.DueDate descending 
-                             select i).ToList().First();
+                var iterationForProject = from i in db.Iterations
+                                   where i.IterationID == id && i.ProjectID == userSettings.workingProject
+                                   orderby i.DueDate descending
+                                   select i;
+
+                if (iterationForProject.Count() > 0)
+                {
+                    iteration = iterationForProject.ToList().First();
+                }
+
+                // When user is at /TestPlanPerIteration/Index/{id} and there is no such IterationID for the new selected project, redirects to /TestPlanPerIteration
+                else
+                {
+                    return RedirectToAction("Index", new { id = (int?)null});
+                }
             }
             return View(iteration);
         }
