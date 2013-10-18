@@ -19,8 +19,13 @@ namespace TestTrack.Controllers
             // No Iteration selected by the user
             if (id == 0)
             {
-                // If there are Iterations created, the first from the list ordered by dueDate is selected as default
-                if (db.Iterations.Count() > 0)
+                var itForProject = (from i in db.Iterations
+                                    where i.ProjectID == userSettings.workingProject
+                                    orderby i.DueDate descending
+                                    select i);
+
+                // If there are Iterations created for the project, the first from the list ordered by dueDate is selected as default
+                if (itForProject.Count() > 0)
                 {
                     iteration = (from i in db.Iterations
                                  where i.ProjectID == userSettings.workingProject

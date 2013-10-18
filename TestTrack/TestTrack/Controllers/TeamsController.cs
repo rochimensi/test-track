@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -16,11 +17,17 @@ namespace TestTrack.Controllers
         public ActionResult Index()
         {
             UserSettings userSettings = SessionWrapper.UserSettings;
-            var teams = from t in db.Teams
-                            where t.ProjectID == userSettings.workingProject
-                            orderby t.Title
-                            select t;
-            return View(teams.ToList());
+            IEnumerable<Team> teams = null;
+
+            var teamsForPorject = from t in db.Teams
+                                  where t.ProjectID == userSettings.workingProject
+                                  orderby t.Title
+                                  select t;
+
+            if (teamsForPorject.Count() > 0)
+                teams = teamsForPorject.ToList();
+
+            return View(teams);
         }
 
 
@@ -40,17 +47,17 @@ namespace TestTrack.Controllers
         {
             var team = new Team
             {
-                 TeamID = teamVM.TeamID,
-                 Title = teamVM.Title,
-                 ProjectID = teamVM.ProjectID,
-                 Project = db.Projects.Find(teamVM.ProjectID)
+                TeamID = teamVM.TeamID,
+                Title = teamVM.Title,
+                ProjectID = teamVM.ProjectID,
+                Project = db.Projects.Find(teamVM.ProjectID)
             };
 
             db.Teams.Add(team);
             db.SaveChanges();
 
             return RedirectToAction("Index");
-             
+
         }
 
         [HttpGet]
@@ -89,22 +96,22 @@ namespace TestTrack.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
         [HttpGet]
         public ActionResult Delete(int id = 0)
         {
             var team = db.Teams.Find(id);
 
             if (team == null) return HttpNotFound();
-             
+
             return View(team);
         }
 
-        
+
         [HttpPost, ValidateAntiForgeryToken, ActionName("Delete")]
         public ActionResult DeleteConfirm(int id)
-        { 
-            db.Teams.Remove( db.Teams.Find(id));
+        {
+            db.Teams.Remove(db.Teams.Find(id));
             db.SaveChanges();
 
             return RedirectToAction("Index");
