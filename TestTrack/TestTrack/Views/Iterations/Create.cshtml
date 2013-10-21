@@ -28,7 +28,7 @@
                 @Html.LabelFor(model => model.DueDate)
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.DueDate)
+                @Html.TextBoxFor(model => model.DueDate, new{@class="form-control", @type = "date"})
                 @Html.ValidationMessageFor(model => model.DueDate)
             </div>
         </div>

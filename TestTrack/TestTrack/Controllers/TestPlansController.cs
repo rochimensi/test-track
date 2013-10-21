@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -29,7 +30,7 @@ namespace TestTrack.Controllers
                 Teams = new SelectList(db.Teams.ToList(), "TeamID", "Title")
             };
 
-            return View("Create" , testPlanVM);
+            return View("Create", testPlanVM);
         }
 
         [HttpPost]
@@ -115,9 +116,9 @@ namespace TestTrack.Controllers
         public ActionResult List(int id = 0)
         {
             var vm = new TestPlansListVM();
-            vm.Values = new SelectList(from value in db.TestPlans 
-                                       where value.IterationID == id 
-                                       select value , "TestPlanID", "Title");
+            vm.Values = from value in db.TestPlans
+                        where value.IterationID == id
+                        select value;
 
             return PartialView("_List", vm);
         }

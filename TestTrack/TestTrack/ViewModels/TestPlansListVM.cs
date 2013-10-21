@@ -5,6 +5,6 @@ namespace TestTrack.ViewModels
 {
     public class TestPlansListVM
     {
-        public IEnumerable<SelectListItem> Values { get; set; }
+        public IEnumerable<TestTrack.Models.TestPlan> Values { get; set; }
     }
 }
