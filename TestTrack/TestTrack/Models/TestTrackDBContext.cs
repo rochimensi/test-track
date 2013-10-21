@@ -135,7 +135,7 @@ namespace TestTrack.Models
                     CreatedOn = DateTime.Now
                 }
 
-                );
+            );
             context.TestPlans.AddOrUpdate(p => p.Title,
                 new TestPlan
                 {
@@ -162,6 +162,39 @@ namespace TestTrack.Models
                     Description = "Basic Functionality",
                     IterationID = 2,
                     TeamID = 1,
+                    CreatedOn = DateTime.Now
+                },
+                new TestPlan
+                {
+                    TestPlanID = 4,
+                    Title = "Functional Testing",
+                    Description = "User Story Functionality",
+                    IterationID = 2,
+                    TeamID = 1,
+                    CreatedOn = DateTime.Now
+                }
+            );
+
+            context.TestRuns.AddOrUpdate(p => p.Title,
+                new TestRun
+                {
+                    TestRunID = 1,
+                    Title = "Login test run",
+                    TestPlanID = 2,
+                    CreatedOn = DateTime.Now
+                },
+                new TestRun
+                {
+                    TestRunID = 2,
+                    Title = "Home page test run",
+                    TestPlanID = 2,
+                    CreatedOn = DateTime.Now
+                },
+                new TestRun
+                {
+                    TestRunID = 3,
+                    Title = "Projects page test run",
+                    TestPlanID = 2,
                     CreatedOn = DateTime.Now
                 }
             );

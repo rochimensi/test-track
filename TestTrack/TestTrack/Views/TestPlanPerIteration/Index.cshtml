@@ -1,7 +1,7 @@
 ﻿@model TestTrack.Models.Iteration
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Iterations";
 }
 
 <div class="jumbotron">
@@ -39,8 +39,9 @@
         </div>
     </div>
     <div class="content">
-        <div class="header test-plans">
+        <div class="header header-btn">
             <strong>Test Plans for @Model.Title</strong>
+            @Html.ActionLink("Add Test Plan", "Create", "TestPlans", null, new { @class = "btn btn-primary btn-md" })
         </div>
         <div class="content-body">
             @Html.Action("List", "TestPlans", new { id = Model.IterationID })

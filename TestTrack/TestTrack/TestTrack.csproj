@@ -185,6 +185,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\TestRunsOnTestPlanController.cs" />
     <Compile Include="Controllers\DefectsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IterationsController.cs" />
@@ -215,6 +216,7 @@
     <Compile Include="Models\TestRun.cs" />
     <Compile Include="Models\TestSuite.cs" />
     <Compile Include="Models\TestTrackDBContext.cs" />
+    <Compile Include="ViewModels\TestRunsListVM.cs" />
     <Compile Include="ViewModels\ProjectsListVM.cs" />
     <Compile Include="ViewModels\IterationsListVM.cs" />
     <Compile Include="ViewModels\TestCaseVM.cs" />
@@ -386,6 +388,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\TestPlans\_List.cshtml" />
+    <Content Include="Views\TestRunsOnTestPlan\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

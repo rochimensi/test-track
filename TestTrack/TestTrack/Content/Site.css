@@ -45,9 +45,14 @@
         margin-right: 10px;
     }
 
-    .header.test-plans {
+    .header-btn {
         margin-top: 30px;
+        padding-bottom: 22px;
     }
+
+        .header-btn .btn {
+            float: right;
+        }
 
 .content-body {
     margin-left: 8px;

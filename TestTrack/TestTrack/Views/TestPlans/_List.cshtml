@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-8">
             <p>
-                <strong>@item.Title</strong><br />
+                <strong>@Html.ActionLink(item.Title, "Index", "TestRunsOnTestPlan", new { id = item.TestPlanID }, null)</strong><br />
                 @item.Description
             </p>
             <p><small>Created on @item.CreatedOn.</small></p>
@@ -27,6 +27,5 @@
             </div>
 
         </div>
-
     </div>
 }
