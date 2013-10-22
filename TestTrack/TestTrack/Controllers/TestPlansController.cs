@@ -13,14 +13,6 @@ namespace TestTrack.Controllers
     {
         private TestTrackDBContext db = new TestTrackDBContext();
 
-        // GET: /TestPlans/
-
-        public ActionResult Index()
-        {
-            var testplans = db.TestPlans.Include(t => t.Iteration).Include(t => t.Team);
-            return View(testplans.ToList());
-        }
-
         [HttpGet]
         public ActionResult Create()
         {
@@ -49,7 +41,7 @@ namespace TestTrack.Controllers
             db.TestPlans.Add(testPlan);
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "TestPlanPerIteration", new { id = testPlanVM.IterationID });
         }
 
         [HttpGet]
@@ -89,7 +81,7 @@ namespace TestTrack.Controllers
             db.Entry(testPlan).State = EntityState.Modified;
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "TestRunsOnTestPlan", new { id = testPlanVM.IterationID });
         }
 
         [HttpGet]
@@ -107,9 +99,10 @@ namespace TestTrack.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             TestPlan testplan = db.TestPlans.Find(id);
+            int iterationID = testplan.IterationID;
             db.TestPlans.Remove(testplan);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "TestPlanPerIteration", new { id = iterationID });
         }
 
         [ChildActionOnly]

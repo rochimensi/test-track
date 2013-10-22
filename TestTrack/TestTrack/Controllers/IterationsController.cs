@@ -12,14 +12,6 @@ namespace TestTrack.Controllers
     {
         private TestTrackDBContext db = new TestTrackDBContext();
 
-        // GET: /Iterations/
-
-        public ActionResult Index()
-        {
-            var iterations = db.Iterations.Include(i => i.Project);
-            return View(iterations.ToList());
-        }
-
         [HttpGet]
         public ActionResult Create()
         {
@@ -102,7 +94,7 @@ namespace TestTrack.Controllers
             Iteration iteration = db.Iterations.Find(id);
             db.Iterations.Remove(iteration);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "TestPlanPerIteration");
         }
 
         [ChildActionOnly]

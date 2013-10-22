@@ -216,6 +216,7 @@
     <Compile Include="Models\TestRun.cs" />
     <Compile Include="Models\TestSuite.cs" />
     <Compile Include="Models\TestTrackDBContext.cs" />
+    <Compile Include="ViewModels\TestRunVM.cs" />
     <Compile Include="ViewModels\TestRunsListVM.cs" />
     <Compile Include="ViewModels\ProjectsListVM.cs" />
     <Compile Include="ViewModels\IterationsListVM.cs" />
@@ -364,10 +365,8 @@
     <Content Include="Views\TestCases\Index.cshtml" />
     <Content Include="Views\TestCases\Edit.cshtml" />
     <Content Include="Views\TestCases\Delete.cshtml" />
-    <Content Include="Views\TestPlans\Index.cshtml" />
     <Content Include="Views\TestPlans\Edit.cshtml" />
     <Content Include="Views\TestPlans\Delete.cshtml" />
-    <Content Include="Views\TestRuns\Index.cshtml" />
     <Content Include="Views\TestRuns\Edit.cshtml" />
     <Content Include="Views\TestRuns\Delete.cshtml" />
     <Content Include="Views\Results\Index.cshtml" />
@@ -389,6 +388,7 @@
     </Content>
     <Content Include="Views\TestPlans\_List.cshtml" />
     <Content Include="Views\TestRunsOnTestPlan\Index.cshtml" />
+    <Content Include="Views\TestRuns\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

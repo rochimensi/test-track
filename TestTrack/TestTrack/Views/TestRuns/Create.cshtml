@@ -3,7 +3,7 @@
     ViewBag.Title = "Test runs";
 }
 
-@using (Html.BeginForm("Edit", "TestRuns"))
+@using (Html.BeginForm("Create", "TestRuns"))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)

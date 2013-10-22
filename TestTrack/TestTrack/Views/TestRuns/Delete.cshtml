@@ -6,31 +6,8 @@
 
 <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<fieldset>
-    <legend>TestRun</legend>
+<h3>Are you sure you want to delete @Model.Title Test Run?</h3>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Title)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Title)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Closed)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Closed)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.TestPlan.Title)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TestPlan.Title)
-    </div>
-</fieldset>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     <p>

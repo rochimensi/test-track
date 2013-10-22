@@ -15,6 +15,6 @@ namespace TestTrack.ViewModels
 
         public string TestPlanDescription { get; set; }
 
-        public IEnumerable<TestTrack.Models.TestRun> Values { get; set; }
+        public IEnumerable<TestTrack.Models.TestRun> TestRuns { get; set; }
     }
 }

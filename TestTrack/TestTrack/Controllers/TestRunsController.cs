@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TestTrack.Models;
+using TestTrack.ViewModels;
 
 namespace TestTrack.Controllers
 {
@@ -14,56 +15,68 @@ namespace TestTrack.Controllers
     {
         private TestTrackDBContext db = new TestTrackDBContext();
 
-        // GET: /TestRuns/
-
-        public ActionResult Index()
-        {
-            var testruns = db.TestRuns.Include(t => t.TestPlan);
-            return View(testruns.ToList());
-        }
-
-        // GET: /TestRuns/Create
-
+        [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.TestPlanID = new SelectList(db.TestPlans, "TestPlanID", "Title");
-            return View("Edit", new TestRun());
-        }
-
-        // GET: /TestRuns/Edit/5
-
-        public ActionResult Edit(int id = 0)
-        {
-            TestRun testrun = db.TestRuns.Find(id);
-            if (testrun == null)
+            var testRunVM = new TestRunVM
             {
-                return HttpNotFound();
-            }
-            ViewBag.TestPlanID = new SelectList(db.TestPlans, "TestPlanID", "Title", testrun.TestPlanID);
-            return View(testrun);
-        }
+                TestPlans = new SelectList(db.TestPlans.ToList(), "TestPlanID", "Title"),
+            };
 
-        // POST: /TestRuns/Save
+            return View("Create", testRunVM);
+        }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Save(TestRun testrun)
+        public ActionResult Create(TestRunVM testRunVM)
         {
-            if (ModelState.IsValid)
+            var testRun = new TestRun
             {
-                if (testrun.TestRunID == 0)
-                {
-                    db.TestRuns.Add(testrun);
-                }
-                else
-                {
-                    db.Entry(testrun).State = EntityState.Modified;
-                }
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.TestPlanID = new SelectList(db.TestPlans, "TestPlanID", "Title", testrun.TestPlanID);
-            return View(testrun);
+                Title = testRunVM.Title,
+                Closed = testRunVM.Closed,
+                TestPlanID = testRunVM.TestPlanID,
+                TestPlan = db.TestPlans.Find(testRunVM.TestPlanID)
+            };
+
+            db.TestRuns.Add(testRun);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "TestRunsOnTestPlan", new { id = testRunVM.TestPlanID });
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var testRun = db.TestRuns.Find(id);
+
+            if (testRun == null) return HttpNotFound();
+
+            var testRunVM = new TestRunVM
+            {
+                Title = testRun.Title,
+                Closed = testRun.Closed,
+                TestPlanID = testRun.TestPlanID,
+                TestPlans = new SelectList(db.TestPlans.ToList(), "TestPlanID", "Title", new { id = testRun.TestPlanID }),
+            };
+
+            return View(testRunVM);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(TestRunVM testRunVM)
+        {
+            var testRun = db.TestRuns.Find(testRunVM.TestRunID);
+
+            if (testRun == null) return HttpNotFound();
+
+            testRun.Title = testRunVM.Title;
+            testRun.Closed = testRunVM.Closed;
+            testRun.TestPlanID = testRunVM.TestPlanID;
+            testRun.TestPlan = db.TestPlans.Find(testRunVM.TestPlanID);
+
+            db.Entry(testRun).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "TestRunsOnTestPlan", new { id = testRun.TestPlanID });
         }
 
         // GET: /TestRuns/Delete/5
@@ -78,7 +91,6 @@ namespace TestTrack.Controllers
             return View(testrun);
         }
 
-        //
         // POST: /TestRuns/Delete/5
 
         [HttpPost, ActionName("Delete")]
@@ -86,9 +98,10 @@ namespace TestTrack.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             TestRun testrun = db.TestRuns.Find(id);
+            int testPlanID = testrun.TestPlanID;
             db.TestRuns.Remove(testrun);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "TestRunsOnTestPlan", new { id = testPlanID });
         }
 
         protected override void Dispose(bool disposing)

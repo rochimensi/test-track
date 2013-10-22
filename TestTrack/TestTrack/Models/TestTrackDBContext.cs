@@ -150,7 +150,7 @@ namespace TestTrack.Models
                 {
                     TestPlanID = 2,
                     Title = "Regression Testing",
-                    Description = "All Functionality",
+                    Description = "All Functionality. This is the test plan description blah blah.",
                     IterationID = 1,
                     TeamID = 1,
                     CreatedOn = DateTime.Now

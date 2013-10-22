@@ -14,27 +14,20 @@ namespace TestTrack.Controllers
 
         public ActionResult Index(int id = 0)
         {
-            TestRunsListVM vm = null;
+            TestRunsListVM vm = new TestRunsListVM();
+            vm.TestPlanID = id;
+            var testPlan = (from value in db.TestPlans
+                            where value.TestPlanID == id
+                            select value).First();
+            vm.TestPlan = testPlan.Title;
+            vm.TestPlanDescription = testPlan.Description;
+            vm.IterationID = testPlan.IterationID;
+            vm.Iteration = testPlan.Iteration.Title;
 
-            var values = from value in db.TestRuns
+            vm.TestRuns = from value in db.TestRuns
                          where value.TestPlanID == id
                          orderby value.Title
                          select value;
-            // There are test runs for the test plan
-            if (values.Count() > 0)
-            {
-                vm = new TestRunsListVM();
-                vm.Values = values;
-                vm.TestPlanID = id;
-                var testPlan = (from value in db.TestPlans
-                                where value.TestPlanID == id
-                                select value).ToList().First();
-                vm.TestPlan = testPlan.Title;
-                vm.TestPlanDescription = testPlan.Description;
-                vm.IterationID = testPlan.IterationID;
-                vm.Iteration = testPlan.Iteration.Title;
-            }
-
             return View(vm);
         }
     }
