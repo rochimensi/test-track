@@ -18,7 +18,7 @@ namespace TestTrack.Models
         public string Title { get; set; }
 
         [Required]
-        [StringLength(500)]
+        [StringLength(1000)]
         public string Description { get; set; }
 
         [ForeignKey("Iteration")]

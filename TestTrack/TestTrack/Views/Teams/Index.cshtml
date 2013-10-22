@@ -19,19 +19,8 @@
 
 @if (Model != null)
 {
-    <h2>Teams in @Model.Teams.First().Project.Title</h2>@*
-
-    foreach (var item in Model)
-    {
-    <div class="row">
-        <div class="col-md-4">
-            @Html.DisplayFor(modelItem => item.Title)
-            @Html.ActionLink("Edit", "Edit", new { id = item.TeamID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.TeamID })
-        </div>
-    </div>
-    }
-    *@
+    <h2>Teams for @Model.Teams.First().Project.Title</h2>
+    
     foreach (var item in Model.Teams)
     {
     <dl class="dl-horizontal">

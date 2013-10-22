@@ -18,11 +18,11 @@ namespace TestTrack.Models
         public int DefectID { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(200)]
         public string Title { get; set; }
 
         [Required]
-        [StringLength(500)]
+        [StringLength(1000)]
         public string Description { get; set; }
 
         [Required]

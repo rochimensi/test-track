@@ -17,8 +17,9 @@
 </div>
 @if (Model != null)
 {
+    <h2>Iterations for @Model.Project.Title</h2>
+    
     <div class="dl-horizontal">
-        <h3>@Model.Project.Title's Iterations</h3>
         @Html.Action("List", "Iterations")
     </div>
     <div class="content">

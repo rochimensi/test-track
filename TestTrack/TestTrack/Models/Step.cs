@@ -19,10 +19,12 @@ namespace TestTrack.Models
         public virtual TestCase TestCase { get; set; }
 
         [Required]
+        [StringLength(1000)]
         public virtual string Action { get; set; }
 
         [Display(Name = "Expected result")]
         [Required]
+        [StringLength(1000)]
         public virtual string Result { get; set; }
 
         public DateTime CreatedOn { get; set; }

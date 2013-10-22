@@ -14,7 +14,7 @@ namespace TestTrack.Models
 
         [Display(Name = "Iteration Name")]
         [Required]
-        [StringLength(50)]
+        [StringLength(100)]
         public string Title { get; set; }
 
         [Display(Name = "End Date")]

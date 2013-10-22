@@ -14,11 +14,12 @@ namespace TestTrack.Models
 
         [Display(Name = "Project name")]
         [Required]
+        [StringLength(100)]
         public string Title { get; set; }
 
         [Display(Name = "About")]
         [Required]
-        [StringLength(200)]
+        [StringLength(1000)]
         public string Description { get; set; }
 
         public DateTime CreatedOn { get; set; }
