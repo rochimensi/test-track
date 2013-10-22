@@ -1,7 +1,7 @@
-﻿@model IEnumerable<TestTrack.Models.Team>
+﻿@model TestTrack.ViewModels.TeamsListVM
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Teams";
 }
 
 <div class="jumbotron">
@@ -19,16 +19,41 @@
 
 @if (Model != null)
 {
-    <h2>Teams in @Model.First().Project.Title</h2>
+    <h2>Teams in @Model.Teams.First().Project.Title</h2>@*
 
     foreach (var item in Model)
     {
-        <div class="row">
-            <div class="col-md-4">
-                @Html.DisplayFor(modelItem => item.Title)
-                @Html.ActionLink("Edit", "Edit", new { id = item.TeamID }) |
+    <div class="row">
+        <div class="col-md-4">
+            @Html.DisplayFor(modelItem => item.Title)
+            @Html.ActionLink("Edit", "Edit", new { id = item.TeamID }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.TeamID })
-            </div>
         </div>
+    </div>
+    }
+    *@
+    foreach (var item in Model.Teams)
+    {
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayFor(modelItem => item.Title)</dt>
+        <dd>
+            <p>@Html.ActionLink("Edit", "Edit", new { id = item.TeamID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.TeamID })
+            </p>
+            <p>Contains <b>@item.TestPlans.Count()</b> TestPlans.</p>
+            @if (item.TestSuite == null)
+            {
+                <p>
+                    @using (Html.BeginForm("Create", "TestSuites", new { id = item.TeamID }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="Add a Test Suite" class="btn btn-default" />
+                    }
+                </p>
+            }
+        </dd>
+        <br />
+    </dl>
     }
 }
+

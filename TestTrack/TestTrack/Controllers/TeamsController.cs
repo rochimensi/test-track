@@ -17,7 +17,7 @@ namespace TestTrack.Controllers
         public ActionResult Index()
         {
             UserSettings userSettings = SessionWrapper.UserSettings;
-            IEnumerable<Team> teams = null;
+            TeamsListVM vm = null;
 
             var teamsForPorject = from t in db.Teams
                                   where t.ProjectID == userSettings.workingProject
@@ -25,9 +25,11 @@ namespace TestTrack.Controllers
                                   select t;
 
             if (teamsForPorject.Count() > 0)
-                teams = teamsForPorject.ToList();
-
-            return View(teams);
+            {
+                vm = new TeamsListVM();
+                vm.Teams = teamsForPorject.ToList();
+            }
+            return View(vm);
         }
 
 
