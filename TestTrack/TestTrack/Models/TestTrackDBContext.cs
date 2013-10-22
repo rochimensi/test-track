@@ -196,6 +196,30 @@ namespace TestTrack.Models
                     Title = "Projects page test run",
                     TestPlanID = 2,
                     CreatedOn = DateTime.Now
+                },
+                new TestRun
+                {
+                    TestRunID = 4,
+                    Title = "Regression sprint 1",
+                    TestPlanID = 2,
+                    Closed = true,
+                    CreatedOn = DateTime.Now
+                },
+                new TestRun
+                {
+                    TestRunID = 5,
+                    Title = "Regression sprint 2",
+                    TestPlanID = 2,
+                    Closed = true,
+                    CreatedOn = DateTime.Now
+                },
+                new TestRun
+                {
+                    TestRunID = 6,
+                    Title = "Regression sprint 3",
+                    TestPlanID = 2,
+                    Closed = true,
+                    CreatedOn = DateTime.Now
                 }
             );
             context.SaveChanges();

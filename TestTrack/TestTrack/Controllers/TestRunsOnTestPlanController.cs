@@ -25,9 +25,13 @@ namespace TestTrack.Controllers
             vm.Iteration = testPlan.Iteration.Title;
 
             vm.TestRuns = from value in db.TestRuns
-                         where value.TestPlanID == id
+                         where value.TestPlanID == id && value.Closed == false 
                          orderby value.Title
                          select value;
+            vm.ClosedTestRuns = from value in db.TestRuns
+                                where value.TestPlanID == id && value.Closed == true
+                                orderby value.Title
+                                select value;
             return View(vm);
         }
     }

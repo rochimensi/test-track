@@ -73,5 +73,35 @@
                 </div>
             }
         </div>
+        <div class="closed-test-runs panel-group" id="accordion">
+            <div>
+                <div>
+                    <h5 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><strong>Closed Test Runs</strong> <span class="glyphicon glyphicon-chevron-down"></span>
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @foreach (var item in Model.ClosedTestRuns)
+                        {
+                            <div class="row">
+                                <div class="col-md-9">
+                                    @*@Html.ActionLink(item.Title, "Details", "TestRuns", new { id = item.TestRunID }, null)*@ @item.Title
+                                </div>
+                                <div class="col-md-2">
+                                    <small>Last update: 10/25/2013@*@item.LastModified*@</small>
+                                </div>
+                                <div class="col-md-1">
+                                    <small><strong>%45</strong></small>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 }
