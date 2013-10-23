@@ -137,6 +137,17 @@ namespace TestTrack.Controllers
             return RedirectToAction("Index");
         }
 
+        [ChildActionOnly]
+        public ActionResult List(int id = 0)
+        {
+            var vm = new TestCasesListVM();
+            vm.Values = from tc in db.TestCases
+                        where tc.TestSuiteID == id
+                        select tc;
+
+            return PartialView("_List", vm);
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

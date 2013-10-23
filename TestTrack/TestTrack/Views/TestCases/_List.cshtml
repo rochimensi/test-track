@@ -1,0 +1,8 @@
+﻿@model TestTrack.ViewModels.TestCasesListVM
+
+@foreach (var item in Model.Values)
+{
+    <div class="row">
+        <p>@item.Title</p>
+    </div>
+}

@@ -185,6 +185,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\TestCasesPerTestSuiteController.cs" />
     <Compile Include="Controllers\TestRunsOnTestPlanController.cs" />
     <Compile Include="Controllers\DefectsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="Models\TestTrackDBContext.cs" />
     <Compile Include="ViewModels\TeamsListVM.cs" />
     <Compile Include="ViewModels\TestRunVM.cs" />
+    <Compile Include="ViewModels\TestCasesListVM.cs" />
     <Compile Include="ViewModels\TestRunsListVM.cs" />
     <Compile Include="ViewModels\ProjectsListVM.cs" />
     <Compile Include="ViewModels\IterationsListVM.cs" />
@@ -229,6 +231,7 @@
     <Compile Include="ViewModels\IterationVM.cs" />
     <Compile Include="ViewModels\ProjectVM.cs" />
     <Compile Include="ViewModels\TeamVM.cs" />
+    <Compile Include="ViewModels\TestSuitesListVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap\bootstrap-theme.css" />
@@ -390,6 +393,9 @@
     <Content Include="Views\TestPlans\_List.cshtml" />
     <Content Include="Views\TestRunsOnTestPlan\Index.cshtml" />
     <Content Include="Views\TestRuns\Create.cshtml" />
+    <Content Include="Views\TestCasesPerTestSuite\Index.cshtml" />
+    <Content Include="Views\TestSuites\_List.cshtml" />
+    <Content Include="Views\TestCases\_List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

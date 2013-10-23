@@ -1,0 +1,43 @@
+﻿@model TestTrack.Models.TestSuite
+
+@{
+    ViewBag.Title = "Test Cases";
+}
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>Test Suites</h1>
+        <p>QA Teams may reach hundreds or thousands of test cases while designing or exploring.</p>
+        <p>Organization is provided by Test Suites, which group test cases related to each team.</p>
+        <p>Add your Test Suite and start filling it up!</p>
+        <p>
+            @Html.ActionLink("Create New", "Create", "TestSuites", null, new { @class = "btn btn-primary btn-lg" })
+        </p>
+    </div>
+</div>
+
+@if (Model != null)
+{
+    <div class="dl-horizontal">
+        <h2>Test Suites for @Model.Team.Project.Title</h2>
+        @Html.Action("List", "TestSuites")
+    </div>
+    
+    <div class="content">
+        <div class="header">
+            <strong>@Model.Title</strong>
+            @Html.ActionLink("Edit", "Edit", "TestSuites", new { id = Model.TeamID }, null) |
+            @Html.ActionLink("Delete", "Delete", "TestSuites", new { id = Model.TeamID }, null)
+        </div>
+    </div>
+    
+    <div class="content">
+        <div class="header header-btn">
+            <strong>Test Cases for @Model.Title</strong>
+            @Html.ActionLink("Add Test Case", "Create", "TestCases", null, new { @class = "btn btn-primary btn-md" })
+        </div>
+        <div class="content-body">
+            @Html.Action("List", "TestCases", new { id = Model.TeamID })
+        </div>
+    </div>
+}

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TestTrack.Models;
+using TestTrack.ViewModels;
 
 namespace TestTrack.Controllers
 {
@@ -93,6 +94,20 @@ namespace TestTrack.Controllers
             db.TestSuites.Remove(testsuite);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [ChildActionOnly]
+        public ActionResult List()
+        {
+            UserSettings userSettings = SessionWrapper.UserSettings;
+            var vm = new TestSuitesListVM();
+            var testSuites = (from ts in db.TestSuites
+                              where ts.Team.ProjectID == userSettings.workingProject
+                              orderby ts.Title ascending
+                              select ts).ToList();
+            vm.Values = new SelectList(testSuites, "TeamID", "Title");
+
+            return PartialView("_List", vm);
         }
 
         protected override void Dispose(bool disposing)
