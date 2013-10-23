@@ -222,6 +222,113 @@ namespace TestTrack.Models
                     CreatedOn = DateTime.Now
                 }
             );
+
+            context.TestCases.AddOrUpdate(p => p.Title,
+                new TestCase
+                {
+                    TestCaseID = 1,
+                    Title = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt",
+                    Description = "Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
+                    PreConditions = "The user must be logged in the application.",
+                    Type = Type.Functional,
+                    Priority = Priority.High,
+                    Method = Method.Automatable,
+                    Tags = "lorem,ipsum,dolor",
+                    TestSuiteID = 1,
+                    CreatedOn = DateTime.Now
+                },
+                new TestCase
+                {
+                    TestCaseID = 2,
+                    Title = "Feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril",
+                    Description = "Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
+                    PreConditions = "The user must be logged in the application.",
+                    Type = Type.Functional,
+                    Priority = Priority.High,
+                    Method = Method.Automated,
+                    Tags = "lorem,ipsum,dolor",
+                    TestSuiteID = 1,
+                    CreatedOn = DateTime.Now
+                },
+                new TestCase
+                {
+                    TestCaseID = 3,
+                    Title = " Nam liber tempor cum soluta nobis eleifend option congue nihil ",
+                    Description = "Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
+                    PreConditions = "The user must be logged in the application.",
+                    Type = Type.Regression,
+                    Priority = Priority.Low,
+                    Method = Method.Automatable,
+                    Tags = "lorem,ipsum,dolor",
+                    TestSuiteID = 1,
+                    CreatedOn = DateTime.Now
+                },
+                new TestCase
+                {
+                    TestCaseID = 4,
+                    Title = "Eodem modo typi, qui nunc nobis videntur parum clari",
+                    Description = "Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
+                    PreConditions = "The user must be logged in the application.",
+                    Type = Type.Functional,
+                    Priority = Priority.High,
+                    Method = Method.Manual,
+                    Tags = "lorem,ipsum,dolor",
+                    TestSuiteID = 1,
+                    CreatedOn = DateTime.Now
+                },
+                new TestCase
+                {
+                    TestCaseID = 5,
+                    Title = "Claritas est etiam processus dynamicus, qui sequitur",
+                    Description = "Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
+                    PreConditions = "The user must be logged in the application.",
+                    Type = Type.Sanity,
+                    Priority = Priority.Medium,
+                    Method = Method.Manual,
+                    Tags = "lorem,ipsum,dolor",
+                    TestSuiteID = 1,
+                    CreatedOn = DateTime.Now
+                },
+                new TestCase
+                {
+                    TestCaseID = 6,
+                    Title = "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat",
+                    Description = "Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius.",
+                    PreConditions = "The user must be logged in the application.",
+                    Type = Type.Functional,
+                    Priority = Priority.High,
+                    Method = Method.Automatable,
+                    Tags = "lorem,ipsum,dolor",
+                    TestSuiteID = 1,
+                    CreatedOn = DateTime.Now
+                },
+                new TestCase
+                {
+                    TestCaseID = 7,
+                    Title = "Soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat",
+                    Description = "Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
+                    PreConditions = "The user must be logged in the application.",
+                    Type = Type.Sanity,
+                    Priority = Priority.Medium,
+                    Method = Method.Automated,
+                    Tags = "lorem,ipsum,dolor",
+                    TestSuiteID = 1,
+                    CreatedOn = DateTime.Now
+                },
+                new TestCase
+                {
+                    TestCaseID = 8,
+                    Title = "Quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta",
+                    Description = "Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
+                    PreConditions = "The user must be logged in the application.",
+                    Type = Type.Regression,
+                    Priority = Priority.Low,
+                    Method = Method.Automatable,
+                    Tags = "lorem,ipsum,dolor",
+                    TestSuiteID = 1,
+                    CreatedOn = DateTime.Now
+                }
+                );
             context.SaveChanges();
         }
     }
