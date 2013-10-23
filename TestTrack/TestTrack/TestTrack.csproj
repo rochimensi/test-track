@@ -396,6 +396,8 @@
     <Content Include="Views\TestCasesPerTestSuite\Index.cshtml" />
     <Content Include="Views\TestSuites\_List.cshtml" />
     <Content Include="Views\TestCases\_List.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
