@@ -54,6 +54,7 @@ namespace TestTrack.Controllers
             var testPlanVM = new TestPlanVM
             {
                 Title = testPlan.Title,
+                TestPlanID = id,
                 Description = testPlan.Description,
                 IterationID = testPlan.IterationID,
                 Iterations = new SelectList(db.Iterations.ToList(), "IterationID", "Title", testPlan.IterationID),
@@ -111,6 +112,7 @@ namespace TestTrack.Controllers
             var vm = new TestPlansListVM();
             vm.Values = from value in db.TestPlans
                         where value.IterationID == id
+                        orderby value.Title
                         select value;
 
             return PartialView("_List", vm);

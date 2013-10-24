@@ -45,14 +45,14 @@
         margin-right: 10px;
     }
 
-    .header-btn {
-        margin-top: 30px;
-        padding-bottom: 22px;
-    }
+.header-btn {
+    margin-top: 30px;
+    padding-bottom: 22px;
+}
 
-        .header-btn .btn {
-            float: right;
-        }
+    .header-btn .btn {
+        float: right;
+    }
 
 .content-body {
     margin-left: 8px;
@@ -80,6 +80,7 @@ select.form-control {
 
 .breadcrumb {
     background-color: #FFFFFF;
+    padding: 8px 1px;
 }
 
 .closed-test-runs {
@@ -97,5 +98,5 @@ span.glyphicon-chevron-down {
 }
 
 .panel-title {
-font-size: inherit;
+    font-size: inherit;
 }

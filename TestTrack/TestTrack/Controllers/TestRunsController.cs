@@ -52,6 +52,7 @@ namespace TestTrack.Controllers
 
             var testRunVM = new TestRunVM
             {
+                TestRunID = id,
                 Title = testRun.Title,
                 Closed = testRun.Closed,
                 TestPlanID = testRun.TestPlanID,

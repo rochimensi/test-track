@@ -48,8 +48,7 @@
                     </div>
                     <div class="col-md-8">
                         <p>
-                            <strong>@*@Html.ActionLink(item.Title, "Details", "TestRuns", new { id = item.TestRunID }, null)*@
-                                @item.Title
+                            <strong>@Html.ActionLink(item.Title, "Index", "ExecuteTestRun", new { id = item.TestRunID }, null)
                             </strong>
                             <br />
                         </p>
@@ -87,7 +86,7 @@
                         {
                             <div class="row">
                                 <div class="col-md-9">
-                                    @*@Html.ActionLink(item.Title, "Details", "TestRuns", new { id = item.TestRunID }, null)*@ @item.Title
+                                    @Html.ActionLink(item.Title, "Index", "ExecuteTestRun", new { id = item.TestRunID }, null)
                                 </div>
                                 <div class="col-md-2">
                                     <small>Last update: 10/25/2013@*@item.LastModified*@</small>

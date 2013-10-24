@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TestTrack.Models;
+using TestTrack.ViewModels;
 
 namespace TestTrack.Controllers
 {
@@ -24,51 +25,81 @@ namespace TestTrack.Controllers
 
         // GET: /Results/Create
 
-        public ActionResult Create()
+        [HttpGet]
+        public ActionResult AssignTestCases(int id = 0)
         {
-            ViewBag.TestCaseID = new SelectList(db.TestCases, "TestCaseID", "Title");
-            ViewBag.TestRunID = new SelectList(db.TestRuns, "TestRunID", "Title");
-            return View("Edit", new Result());
-        }
+            var testRun = db.TestRuns.Find(id);
 
-        // GET: /Results/Edit/5
+            if (testRun == null) return HttpNotFound();
 
-        public ActionResult Edit(int id = 0)
-        {
-            Result result = db.Results.Find(id);
-            if (result == null)
+            ResultVM vm = new ResultVM();
+            vm.TestRunID = testRun.TestRunID;
+            var testSuite = (from tc in db.TestCases
+                             where tc.TestSuiteID == testRun.TestPlan.TeamID
+                             orderby tc.Title
+                             select tc).ToList();
+            vm.TestCases = new SelectList(testSuite, "TestCaseID", "Title");
+
+            vm.TestCasesInTestRun = new List<int>();
+            foreach (var item in testRun.Results)
             {
-                return HttpNotFound();
+                vm.TestCasesInTestRun.Add(item.TestCaseID);
             }
-            ViewBag.TestCaseID = new SelectList(db.TestCases, "TestCaseID", "Title", result.TestCaseID);
-            ViewBag.TestRunID = new SelectList(db.TestRuns, "TestRunID", "Title", result.TestRunID);
-            return View(result);
-        }
 
-        // POST: /Results/Save
+            return View(vm);
+        }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Save(Result result)
+        public ActionResult AssignTestCases(ResultVM vm)
         {
-            if (ModelState.IsValid)
-            {
-                if (result.ResultID == 0)
-                {
-                    db.Results.Add(result);
-                }
-                else
-                {
-                    db.Entry(result).State = EntityState.Modified;
-                }
+            List<int> uncheckedTestCases = new List<int>(from value in db.Results
+                                                         where value.TestRunID == vm.TestRunID
+                                                         select value.TestCaseID).ToList();
 
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            // If there is at least 1 test case checked
+            if (vm.SelectedTestCases != null)
+            {
+                foreach (var item in vm.SelectedTestCases)
+                {
+                    if (uncheckedTestCases.Contains(Convert.ToInt32(item)))
+                    {
+                        uncheckedTestCases.Remove(Convert.ToInt32(item));
+                    }
+                    else
+                    {
+                        var result = new Result
+                        {
+                            TestRunID = vm.TestRunID,
+                            TestCaseID = Convert.ToInt32(item),
+                            State = State.Untested,
+                            TestCase = db.TestCases.Find(Convert.ToInt32(item)),
+                            TestRun = db.TestRuns.Find(vm.TestRunID)
+                        };
+
+                        db.Results.Add(result);
+                        db.SaveChanges();
+                    }
+                }
             }
-            ViewBag.TestCaseID = new SelectList(db.TestCases, "TestCaseID", "Title", result.TestCaseID);
-            ViewBag.TestRunID = new SelectList(db.TestRuns, "TestRunID", "Title", result.TestRunID);
-            return View(result);
+
+            RemoveResults(uncheckedTestCases, vm.TestRunID);
+
+            return RedirectToAction("Index", "ExecuteTestRun", new { id = vm.TestRunID });
         }
+
+        private void RemoveResults(List<int> uncheckedTestCases, int testRunID)
+        {
+            foreach (var item in uncheckedTestCases)
+            {
+                var result = (from value in db.Results
+                              where value.TestRunID == testRunID && value.TestCaseID == item
+                              select value).First();
+                db.Results.Remove(result);
+                db.SaveChanges();
+            }
+        }
+
+
 
         // GET: /Results/Delete/5
 
