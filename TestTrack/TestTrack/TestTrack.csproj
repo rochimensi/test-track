@@ -218,6 +218,7 @@
     <Compile Include="Models\TestRun.cs" />
     <Compile Include="Models\TestSuite.cs" />
     <Compile Include="Models\TestTrackDBContext.cs" />
+    <Compile Include="ViewModels\ResultsListVM.cs" />
     <Compile Include="ViewModels\ResultVM.cs" />
     <Compile Include="ViewModels\ExecuteTestRunVM.cs" />
     <Compile Include="ViewModels\TeamsListVM.cs" />
@@ -404,6 +405,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Results\AssignTestCases.cshtml" />
+    <Content Include="Views\ExecuteTestRun\_List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

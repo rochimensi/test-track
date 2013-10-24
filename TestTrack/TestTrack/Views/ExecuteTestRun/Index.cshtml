@@ -31,25 +31,38 @@
         <strong>Tests</strong>
         @if (!Model.Closed)
         {
-            @*@Html.ActionLink("Select Test Cases", "Create", "Results", null, new { @class = "btn btn-primary btn-md", data_toggle = "modal", href = "#testCasesModal" })*@
+@*@Html.ActionLink("Select Test Cases", "Create", "Results", null, new { @class = "btn btn-primary btn-md", data_toggle = "modal", href = "#testCasesModal" })*@
             @Html.ActionLink("Select Test Cases", "AssignTestCases", "Results", new { id = Model.TestRunID }, new { @class = "btn btn-primary btn-md" })
         }
     </div>
     <div class="content-body">
-
-
-        @* Parte de la vista if Model.testcases.count > 0 *@
-        @* Partial view de Results *@
-        @*    @Html.Action("Index", "Results", new { id = Model.TestRunID })*@
-
-
-
-        @* Parte de la vista if Model.testcases.count == 0 Ese alert va en la partial de lista de test cases*@
-        <div class="alert alert-warning">Nothing to execute! No test cases were added into this test run.</div>
+        @if (Model.Results.Count() == 0)
+        {
+            <div class="alert alert-warning">Nothing to execute! No test cases were added into this test run.</div>
+        }
+        else
+        {
+           @* <div class="row">
+                <div class="col-md-1">
+                    <strong>ID</strong>
+                </div>
+                <div class="col-md-9">
+                    <strong>Test Case</strong>
+                </div>
+                <div class="col-md-2">
+                    <strong>Result</strong>
+                </div>
+            </div>*@
+            foreach (var item in Model.Results)
+            {
+            @Html.Action("List", "ExecuteTestRun", new { id = item.ResultID })
+            }
+        }
     </div>
 </div>
 
 <!-- Modal -->
+@*
 <div class="modal fade" id="testCasesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -58,7 +71,7 @@
                 <h4 class="modal-title">Select Test Cases</h4>
             </div>
             <div class="modal-body">
-                @* Vista de Create Results GET: necesita mi TestRunID *@
+                ...
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -67,3 +80,5 @@
         </div>
     </div>
 </div>
+
+*@

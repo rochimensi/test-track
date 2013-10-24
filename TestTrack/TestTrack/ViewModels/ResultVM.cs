@@ -6,13 +6,7 @@ namespace TestTrack.ViewModels
 {
     public class ResultVM
     {
-        public int ResultID { get; set; }
-
-        public int TestCaseID { get; set; }
-
         public int TestRunID { get; set; }
-
-        public State State { get; set; }
 
         public IEnumerable<SelectListItem> TestCases { get; set; }
 

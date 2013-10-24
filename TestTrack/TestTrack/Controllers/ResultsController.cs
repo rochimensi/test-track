@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TestTrack.Models;
 using TestTrack.ViewModels;
@@ -98,8 +96,6 @@ namespace TestTrack.Controllers
                 db.SaveChanges();
             }
         }
-
-
 
         // GET: /Results/Delete/5
 

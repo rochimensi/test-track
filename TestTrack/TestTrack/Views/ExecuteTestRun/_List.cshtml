@@ -1,0 +1,18 @@
+﻿@model TestTrack.ViewModels.ResultsListVM
+@using (Html.BeginForm("SetResult", "ExecuteTestRun"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ResultID)
+    <div class="row result">
+        <div class="col-md-1 tc-id">
+            <p><small>@Model.TestCaseID</small></p>
+        </div>
+        <div class="col-md-9">
+            @* Action Link que me lleve a ver los details del TC *@
+            <p><small>@Model.TestCase</small></p>
+        </div>
+        <div class="col-md-2">
+                @Html.DropDownListFor(model => model.SelectedState, Model.States, new { @onchange = "this.form.submit()", @class = "form-control " + @Model.SelectedState.ToString().ToLower() })
+        </div>
+    </div>
+}

@@ -1,4 +1,5 @@
-﻿namespace TestTrack.ViewModels
+﻿using System.Collections.Generic;
+namespace TestTrack.ViewModels
 {
     public class ExecuteTestRunVM
     {
@@ -17,5 +18,7 @@
         public string TestRun { get; set; }
 
         public bool Closed { get; set; }
+
+        public IEnumerable<TestTrack.Models.Result> Results { get; set; }
     }
 }

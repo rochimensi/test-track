@@ -100,3 +100,39 @@ span.glyphicon-chevron-down {
 .panel-title {
     font-size: inherit;
 }
+
+select.blocked {
+    background-color: #f0ad4e;
+    color: #ffffff;
+}
+
+select.failed {
+    background-color: #d9534f;
+    color: #ffffff;
+}
+
+select.passed {
+    background-color: #5cb85c;
+    color: #ffffff;
+}
+
+select.retest {
+    background-color: #5bc0de;
+    color: #ffffff;
+}
+
+.row.result {
+    margin-bottom: 0px;
+    padding: 2px 0px;
+    border-bottom: 1px solid #dddddd;
+}
+
+    .row.result .tc-id {
+        text-align: center;
+    }
+
+    .row.result select {
+        margin-left: 8px;
+        font-size: 12px;
+        height:auto;
+    }

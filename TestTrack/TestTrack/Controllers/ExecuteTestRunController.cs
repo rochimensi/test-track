@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Data;
+using System.Linq;
 using System.Web.Mvc;
+using TestTrack.Helpers;
 using TestTrack.Models;
 using TestTrack.ViewModels;
 
@@ -29,8 +32,38 @@ namespace TestTrack.Controllers
             vm.Iteration = testPlan.Iteration.Title;
             vm.IterationID = testPlan.IterationID;
             vm.TestSuiteID = testPlan.TeamID;
+            vm.Results = testRun.Results;
 
             return View(vm);
+        }
+
+        [ChildActionOnly]
+        public ActionResult List(int id = 0)
+        {
+            ResultsListVM vm = new ResultsListVM();
+            var result = (from value in db.Results
+                            where value.ResultID == id
+                            select value).First();
+            vm.ResultID = id;
+            vm.States = Common.ToSelectList<TestTrack.Models.State>();
+            vm.SelectedState = result.State;
+            vm.TestCase = result.TestCase.Title;
+            vm.TestCaseID = result.TestCaseID;
+
+            return PartialView("_List", vm);
+        }
+
+        [HttpPost]
+        public ActionResult SetResult(ResultsListVM vm)
+        {
+            var result = db.Results.Find(vm.ResultID);
+            if (result == null) return HttpNotFound();
+            
+            result.State = vm.SelectedState;
+            db.Entry(result).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return Redirect(Request.UrlReferrer.ToString());
         }
     }
 }
