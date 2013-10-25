@@ -8,6 +8,7 @@
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
 </head>
 <body>
 
@@ -25,7 +26,6 @@
     @Html.Partial("_Footer")
 
     <!-- Scrips -->
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/highcharts")
     @RenderSection("scripts", required: false)

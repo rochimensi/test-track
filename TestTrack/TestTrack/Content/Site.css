@@ -102,22 +102,22 @@ span.glyphicon-chevron-down {
 }
 
 select.blocked {
-    background-color: #f0ad4e;
+    background-color: #2f7ed8;
     color: #ffffff;
 }
 
 select.failed {
-    background-color: #d9534f;
+    background-color: #910000;
     color: #ffffff;
 }
 
 select.passed {
-    background-color: #5cb85c;
+    background-color: #8bbc21;
     color: #ffffff;
 }
 
 select.retest {
-    background-color: #5bc0de;
+    background-color: #0d233a;
     color: #ffffff;
 }
 
@@ -136,3 +136,18 @@ select.retest {
         font-size: 12px;
         height: auto;
     }
+
+.row .chart {
+    padding-left: 100px;
+}
+
+.highcharts-container [text-anchor=end] {
+    display: none;
+}
+
+.passed-percentage {
+    text-align:left;
+    padding-top: 120px;
+    font-size: 80px;
+    line-height: 0.8;
+}

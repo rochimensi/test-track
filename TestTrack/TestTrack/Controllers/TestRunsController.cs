@@ -77,7 +77,7 @@ namespace TestTrack.Controllers
             db.Entry(testRun).State = EntityState.Modified;
             db.SaveChanges();
 
-            return RedirectToAction("Index", "TestRunsOnTestPlan", new { id = testRun.TestPlanID });
+            return RedirectToAction("Index", "ExecuteTestRun", new { id = testRun.TestRunID });
         }
 
         // GET: /TestRuns/Delete/5

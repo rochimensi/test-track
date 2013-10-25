@@ -32,13 +32,14 @@
     </div>
 </div>
 
-@if (Model.TestRuns.Count() > 0)
-{
-    <div class="content">
-        <div class="header header-btn">
-            <strong>Test Runs for @Model.TestPlan</strong>
-            @Html.ActionLink("Add Test Run", "Create", "TestRuns", null, new { @class = "btn btn-primary btn-md" })
-        </div>
+
+<div class="content">
+    <div class="header header-btn">
+        <strong>Test Runs for @Model.TestPlan</strong>
+        @Html.ActionLink("Add Test Run", "Create", "TestRuns", null, new { @class = "btn btn-primary btn-md" })
+    </div>
+    @if (Model.TestRuns.Count() > 0)
+    {
         <div class="content-body">
             @foreach (var item in Model.TestRuns)
             {
@@ -100,7 +101,5 @@
                 </div>
             </div>
         </div>
-
-
-    </div>
-}
+    }
+</div>

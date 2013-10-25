@@ -1,4 +1,8 @@
-﻿using System;
+﻿using DotNet.Highcharts;
+using DotNet.Highcharts.Enums;
+using DotNet.Highcharts.Helpers;
+using DotNet.Highcharts.Options;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -119,6 +123,88 @@ namespace TestTrack.Controllers
             db.Results.Remove(result);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [ChildActionOnly]
+        public ActionResult DrawChart(int id = 0)
+        {
+            var testRun = db.TestRuns.Find(id);
+            if (testRun == null) return HttpNotFound();
+
+            int[] states = StatesCount(testRun);
+
+            Highcharts chart = new Highcharts("chart")
+                .InitChart(new Chart { PlotShadow = false, PlotBackgroundColor = null, PlotBorderWidth = null })
+                .SetTitle(new Title { Text = "Test Run Current Results" })
+                .SetTooltip(new Tooltip { Formatter = "function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage +' % - '+ this.point.y; }" })
+                .SetPlotOptions(new PlotOptions
+                {
+                    Pie = new PlotOptionsPie
+                    {
+                        AllowPointSelect = true,
+                        Cursor = Cursors.Pointer,
+                        DataLabels = new PlotOptionsPieDataLabels { Enabled = false },
+                        ShowInLegend = true
+                    }
+                })
+                .SetSeries(new Series
+                {
+                    Type = ChartTypes.Pie,
+                    Name = "Current status",
+                    Data = new Data(new object[]
+                            {
+                                new object[] { "Blocked", states[0] },
+                                new object[] { "Retest", states[3] },
+                                new object[] { "Passed", states[2] },
+                                new object[] { "Failed", states[1] },
+                                new object[] { "Untested", states[4] }
+                            })
+                });
+
+            return PartialView("_PieChart", chart);
+        }
+
+        [ChildActionOnly]
+        public ActionResult Percentage(int id = 0)
+        {
+            var testRun = db.TestRuns.Find(id);
+            if (testRun == null) return HttpNotFound();
+
+            int[] states = StatesCount(testRun);
+
+            int percentage = (states[2] * 100) / (states[0] + states[1] + states[2] + states[3] + states[4]);
+
+            return PartialView("_Percentage", percentage);
+        }
+
+        public int[] StatesCount(TestRun testRun)
+        {
+            int[] statesCount = new int[5]{0,0,0,0,0};
+
+            foreach (var result in testRun.Results)
+            {
+                switch (result.State)
+                {
+                    case State.Blocked:
+                        statesCount[0]++;
+                        break;
+                    case State.Failed:
+                        statesCount[1]++;
+                        break;
+                    case State.Passed:
+                        statesCount[2]++;
+                        break;
+                    case State.Retest:
+                        statesCount[3]++;
+                        break;
+                    case State.Untested:
+                        statesCount[4]++;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return statesCount;
         }
 
         protected override void Dispose(bool disposing)
