@@ -82,7 +82,7 @@ namespace TestTrack.Controllers
             db.Entry(testPlan).State = EntityState.Modified;
             db.SaveChanges();
 
-            return RedirectToAction("Index", "TestRunsOnTestPlan", new { id = testPlanVM.IterationID });
+            return RedirectToAction("Index", "TestRunsOnTestPlan", new { id = testPlanVM.TestPlanID });
         }
 
         [HttpGet]

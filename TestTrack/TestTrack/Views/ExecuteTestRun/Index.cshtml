@@ -24,15 +24,18 @@
         {
             <div class="alert alert-warning">This Test Run is closed. You can no longer modify this test run or add new test results.</div>
         }
-        <div class="row">
-            <div class="col-md-6 chart">
-                @Html.Action("DrawChart", "Results", new { id = Model.TestRunID })
-            </div>
-            <div class="col-md-6">
-                @Html.Action("Percentage", "Results", new { id = Model.TestRunID })
-            </div>
-        </div>
 
+        @if (Model.Results.Count() > 0)
+        {
+            <div class="row">
+                <div class="col-md-6 chart">
+                    @Html.Action("DrawChart", "Results", new { id = Model.TestRunID })
+                </div>
+                <div class="col-md-6">
+                    @Html.Action("Percentage", "Results", new { id = Model.TestRunID })
+                </div>
+            </div>
+        }
     </div>
     <div class="header header-btn">
         <strong>Tests</strong>

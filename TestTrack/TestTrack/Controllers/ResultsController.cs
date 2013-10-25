@@ -136,7 +136,7 @@ namespace TestTrack.Controllers
             Highcharts chart = new Highcharts("chart")
                 .InitChart(new Chart { PlotShadow = false, PlotBackgroundColor = null, PlotBorderWidth = null })
                 .SetTitle(new Title { Text = "Test Run Current Results" })
-                .SetTooltip(new Tooltip { Formatter = "function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage +' % - '+ this.point.y; }" })
+                .SetTooltip(new Tooltip { Formatter = "function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage +' % - '+ this.point.y + ' Test Case(s)'; }" })
                 .SetPlotOptions(new PlotOptions
                 {
                     Pie = new PlotOptionsPie
@@ -171,10 +171,32 @@ namespace TestTrack.Controllers
             if (testRun == null) return HttpNotFound();
 
             int[] states = StatesCount(testRun);
+            int percentage = 0; 
 
-            int percentage = (states[2] * 100) / (states[0] + states[1] + states[2] + states[3] + states[4]);
+            if (testRun.Results.Count() > 0)
+            {
+                percentage = (states[2] * 100) / (states[0] + states[1] + states[2] + states[3] + states[4]);
+            }
 
             return PartialView("_Percentage", percentage);
+        }
+
+        [ChildActionOnly]
+        public ActionResult ProgressBar(int id = 0)
+        {
+            var testRun = db.TestRuns.Find(id);
+            if (testRun == null) return HttpNotFound();
+
+            int[] states = StatesCount(testRun);
+            int sum = (states[0] + states[1] + states[2] + states[3] + states[4]);
+
+            int[] percentages = null; 
+
+            if (testRun.Results.Count() > 0)
+            {
+                percentages = new int[5] { (states[0] * 100) / sum, (states[1] * 100) / sum, (states[2] * 100) / sum, (states[3] * 100) / sum, (states[4] * 100) / sum };
+            }
+            return PartialView("_ProgressBar", percentages);
         }
 
         public int[] StatesCount(TestRun testRun)

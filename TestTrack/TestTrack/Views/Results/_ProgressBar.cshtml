@@ -1,0 +1,25 @@
+﻿@model int[]
+
+@if (Model != null)
+{
+    <div class="progress">
+        <div class="progress-bar progress-bar-success" style="width: @Model[2]%">
+            <span class="sr-only">@Model[2]% Complete (success)</span>
+        </div>
+        <div class="progress-bar progress-bar-danger" style="width: @Model[1]%">
+            <span class="sr-only">@Model[1]% Complete (danger)</span>
+        </div>
+        <div class="progress-bar progress-bar-warning" style="width: @Model[0]%">
+            <span class="sr-only">@Model[0]% Complete (warning)</span>
+        </div>
+        <div class="progress-bar progress-bar-info" style="width: @Model[3]%">
+            <span class="sr-only">@Model[3]% Complete (info)</span>
+        </div>
+    </div>
+}
+else
+{
+    <div class="no-test-runs">
+        No test cases added.
+    </div>
+}

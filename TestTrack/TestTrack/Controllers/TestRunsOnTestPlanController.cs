@@ -32,6 +32,7 @@ namespace TestTrack.Controllers
                                 where value.TestPlanID == id && value.Closed == true
                                 orderby value.Title
                                 select value;
+
             return View(vm);
         }
     }

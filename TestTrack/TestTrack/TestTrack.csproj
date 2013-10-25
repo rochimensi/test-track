@@ -390,7 +390,6 @@
     <Content Include="Views\Teams\Index.cshtml" />
     <Content Include="Views\Teams\Edit.cshtml" />
     <Content Include="Views\Teams\Delete.cshtml" />
-    <Content Include="Views\TestSuites\Index.cshtml" />
     <Content Include="Views\TestSuites\Edit.cshtml" />
     <Content Include="Views\TestSuites\Delete.cshtml" />
     <Content Include="Views\TestCases\Index.cshtml" />
@@ -431,6 +430,7 @@
     <Content Include="Views\ExecuteTestRun\_List.cshtml" />
     <Content Include="Views\Results\_PieChart.cshtml" />
     <Content Include="Views\Results\_Percentage.cshtml" />
+    <Content Include="Views\Results\_ProgressBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

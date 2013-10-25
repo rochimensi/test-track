@@ -36,7 +36,7 @@
 <div class="content">
     <div class="header header-btn">
         <strong>Test Runs for @Model.TestPlan</strong>
-        @Html.ActionLink("Add Test Run", "Create", "TestRuns", null, new { @class = "btn btn-primary btn-md" })
+        @Html.ActionLink("Add Test Run", "Create", "TestRuns", null, new { @class = "btn btn-default btn-md" })
     </div>
     @if (Model.TestRuns.Count() > 0)
     {
@@ -56,18 +56,7 @@
                         <p><small>Created on @item.CreatedOn.</small></p>
                     </div>
                     <div class="col-md-3">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-success" style="width: 35%">
-                                <span class="sr-only">35% Complete (success)</span>
-                            </div>
-                            <div class="progress-bar progress-bar-warning" style="width: 20%">
-                                <span class="sr-only">20% Complete (warning)</span>
-                            </div>
-                            <div class="progress-bar progress-bar-danger" style="width: 10%">
-                                <span class="sr-only">10% Complete (danger)</span>
-                            </div>
-                        </div>
-
+                        @Html.Action("ProgressBar", "Results", new { id = item.TestRunID })
                     </div>
 
                 </div>
@@ -93,7 +82,7 @@
                                     <small>Last update: 10/25/2013@*@item.LastModified*@</small>
                                 </div>
                                 <div class="col-md-1">
-                                    <small><strong>%45</strong></small>
+                                    <small><strong>@Html.Action("Percentage", "Results", new { id = item.TestRunID })</strong></small>
                                 </div>
                             </div>
                         }
@@ -101,5 +90,8 @@
                 </div>
             </div>
         </div>
+    }
+    else {
+        <div class="alert alert-warning">There are no Test Runs on this Test Plan.</div>
     }
 </div>
