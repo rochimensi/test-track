@@ -1,8 +1,46 @@
 ﻿@model TestTrack.ViewModels.TestCasesListVM
 
-@foreach (var item in Model.Values)
-{
-    <div class="row">
-        <p>@item.Title</p>
-    </div>
-}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                <strong>ID</strong>
+            </th>
+            <th>
+                <strong>Title</strong>
+            </th>
+            <th>
+                <strong>Method</strong>
+            </th>
+            <th>
+                <strong>Type</strong>
+            </th>
+            <th>
+                <strong>Priority</strong>
+            </th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model.Values)
+    {
+        
+        <tr>
+            <td>
+                <small>@item.TestCaseID</small>
+            </td>
+            <td>
+                <small>@item.Title</small>
+            </td>
+            <td>
+                <small>@item.Method</small>
+            </td>
+            <td>
+                <small>@item.Type</small>
+            </td>
+            <td>
+                <small>@item.Priority</small>
+            </td>
+        </tr>
+    }
+
+</table>
