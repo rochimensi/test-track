@@ -1,8 +1,8 @@
 ﻿@model TestTrack.ViewModels.TestSuiteVM
 
-<h2>Edit</h2>
+<h2>Create</h2>
 
-@using (Html.BeginForm("Edit", "TestSuites"))
+@using (Html.BeginForm("Create", "TestSuites"))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)

@@ -30,16 +30,6 @@
             @Html.ActionLink("Delete", "Delete", new { id = item.TeamID })
             </p>
             <p>Contains <b>@item.TestPlans.Count()</b> TestPlans.</p>
-            @if (item.TestSuite == null)
-            {
-                <p>
-                    @using (Html.BeginForm("Create", "TestSuites", new { id = item.TeamID }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <input type="submit" value="Add a Test Suite" class="btn btn-default" />
-                    }
-                </p>
-            }
         </dd>
         <br />
     </dl>

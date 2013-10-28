@@ -221,6 +221,7 @@
     <Compile Include="Models\TestRun.cs" />
     <Compile Include="Models\TestSuite.cs" />
     <Compile Include="Models\TestTrackDBContext.cs" />
+    <Compile Include="ViewModels\TestSuiteVM.cs" />
     <Compile Include="ViewModels\ResultsListVM.cs" />
     <Compile Include="ViewModels\ResultVM.cs" />
     <Compile Include="ViewModels\ExecuteTestRunVM.cs" />
@@ -431,6 +432,7 @@
     <Content Include="Views\Results\_PieChart.cshtml" />
     <Content Include="Views\Results\_Percentage.cshtml" />
     <Content Include="Views\Results\_ProgressBar.cshtml" />
+    <Content Include="Views\TestSuites\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -24,52 +24,63 @@ namespace TestTrack.Controllers
         }
 
         // GET: /TestSuites/Create
+        [HttpGet]
+        public ActionResult Create()
+        {        
+            TestSuiteVM testSuiteVM = new TestSuiteVM
+            {
+                Teams = new SelectList(db.Teams, "TeamID", "Title")
+            };
 
-        public ActionResult Create(int id)
+            return View("Create", testSuiteVM);
+        }
+
+        [HttpPost]
+        public ActionResult Create(TestSuiteVM testSuiteVM)
         {
-            TestSuite testSuite = new TestSuite();
-            testSuite.TeamID = id;
+            var testsuite = new TestSuite
+            {
+                Title = testSuiteVM.Title,
+                TeamID = testSuiteVM.TeamID
+            };
 
-            ViewBag.TeamID = new SelectList(db.Teams, "TeamID", "Title");
-            return View("Edit", testSuite);
+            db.TestSuites.Add(testsuite);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "TestCasesPerTestSuite");
         }
 
         // GET: /TestSuites/Edit/5
-
+        [HttpGet]
         public ActionResult Edit(int id = 0)
         {
             TestSuite testsuite = db.TestSuites.Find(id);
-            if (testsuite == null)
+            if (testsuite == null) return HttpNotFound();
+
+            TestSuiteVM testSuiteVM = new TestSuiteVM
             {
-                return HttpNotFound();
-            }
-            ViewBag.TeamID = new SelectList(db.Teams, "TeamID", "Title", testsuite.TeamID);
-            return View(testsuite);
+                Title = testsuite.Title,
+                TeamID = testsuite.TeamID,
+                Teams = new SelectList(db.Teams, "TeamID", "Title")
+            };
+
+            return View("Edit", testSuiteVM);
         }
 
-        // POST: /TestSuites/Save
-
+        // POST: /TestSuites/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Save(TestSuite testsuite)
+        public ActionResult Edit(TestSuiteVM testSuiteVM)
         {
-            if (ModelState.IsValid)
-            {
-//                if (testsuite.TeamID == 0)
-                if (db.TestSuites.AsQueryable().Count(t => t.TeamID == testsuite.TeamID) == 0)
-                {
-                    db.TestSuites.Add(testsuite);
-                }
-                else
-                {
-                    db.Entry(testsuite).State = EntityState.Modified;
-                }
+            TestSuite testsuite = db.TestSuites.Find(testSuiteVM.TeamID);
+            if (testsuite == null) return HttpNotFound();
 
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.TeamID = new SelectList(db.Teams, "TeamID", "Title", testsuite.TeamID);
-            return View(testsuite);
+            testsuite.Title = testSuiteVM.Title;
+            testsuite.TeamID = testSuiteVM.TeamID;
+
+            db.TestSuites.Add(testsuite);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "TestCasesPerTestSuite");
         }
 
         // GET: /TestSuites/Delete/5
@@ -77,10 +88,7 @@ namespace TestTrack.Controllers
         public ActionResult Delete(int id = 0)
         {
             TestSuite testsuite = db.TestSuites.Find(id);
-            if (testsuite == null)
-            {
-                return HttpNotFound();
-            }
+            if (testsuite == null) return HttpNotFound();
             return View(testsuite);
         }
 
@@ -93,7 +101,7 @@ namespace TestTrack.Controllers
             TestSuite testsuite = db.TestSuites.Find(id);
             db.TestSuites.Remove(testsuite);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "TestCasesPerTestSuite");
         }
 
         [ChildActionOnly]
