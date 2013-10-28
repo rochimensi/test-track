@@ -4,14 +4,16 @@
     ViewBag.Title = "Projects";
 }
 
+<div class="page-header">
+    <h1>Add Project</h1>
+</div>
+
 @using (Html.BeginForm("Create", "Projects"))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Add Project</legend>
-
         @Html.HiddenFor(model => model.ProjectID)
         <div class="form-group">
             <div class="editor-label">
@@ -32,14 +34,11 @@
             </div>
         </div>
         <p>
-            <input type="submit" value="Save" class="btn btn-default" />
+            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Save</button>
+            @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
         </p>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
