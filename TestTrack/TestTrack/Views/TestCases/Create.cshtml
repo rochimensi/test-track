@@ -6,88 +6,161 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Create", "TestCases")) {
+@using (Html.BeginForm("Create", "TestCases"))
+{
     
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
+    @Html.HiddenFor(model => model.TestSuiteID)
+    @Html.HiddenFor(model => model.TestCaseID)
+
     <fieldset>
         <legend>Test Case</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Title)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Title)
-            @Html.ValidationMessageFor(model => model.Title)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Description)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Description)
-            @Html.ValidationMessageFor(model => model.Description)
+        <div class="form-group tc-title">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Title)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PreConditions)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PreConditions)
-            @Html.ValidationMessageFor(model => model.PreConditions)
+        <div class="row tc-info">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Method)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model.Method, Model.Methods, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Method)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Type)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model.Type, Model.Types, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Type)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Priority)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model.Priority, Model.Priorities, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Priority)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Tags)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Tags, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Tags)
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Tags)
+        <div class="form-group">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Description)
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Description)
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Tags)
-            @Html.ValidationMessageFor(model => model.Tags)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Type)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.Type, Model.Types)
-            @Html.ValidationMessageFor(model => model.Type)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Priority)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.Priority, Model.Priorities)
-            @Html.ValidationMessageFor(model => model.Priority)
+        <div class="form-group">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PreConditions)
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.PreConditions, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PreConditions)
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Method)
+        <div class="header header-btn">
+            <strong>Steps</strong>
+            <a href="javascript:testCaseCtrl.addRow();" class="btn btn-default btn-md">Add Step</a>
         </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.Method, Model.Methods)
-            @Html.ValidationMessageFor(model => model.Method)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.TestSuiteID)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.TestSuiteID, Model.TestSuites)
-            @Html.ValidationMessageFor(model => model.TestSuiteID)
+        <div class="content-body">
+            <table class="table" id="stepsTable">
+                <thead>
+                    <tr>
+                        <th>
+                            <strong>#</strong>
+                        </th>
+                        <th>
+                            <strong>Action</strong>
+                        </th>
+                        <th>
+                            <strong>Expected Result</strong>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label>1</label></td>
+                        <td>
+                            <textarea class="form-control" name="action"></textarea></td>
+                        <td>
+                            <textarea class="form-control" name="result"></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="javascript:testCaseCtrl.removeRow();" style="float: right;">Remove Step</a>
         </div>
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Save Test Case" class="btn btn-default btn-primary" />
         </p>
+        <div>
+            @Html.ActionLink("Cancel", "Index", "TestCasesPerTestSuite")
+        </div>
+
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        // <![CDATA[
+        var testCaseCtrl = {};
+        $(document).ready(function () {
+            var count = 1;
+
+            testCaseCtrl.addRow = function () {
+                //copy the table row and clear the value of the input, then append the row to the end of the table
+                var row = $("#stepsTable tbody tr:first").clone();
+                row.find("textarea").each(function () {
+                    $(this).val('');
+                }).end();
+                row.find("label").text(++count);
+                row.appendTo("#stepsTable");
+            }
+
+            testCaseCtrl.removeRow = function () {
+                if ($("#stepsTable tbody tr").length > 1) {
+                    $("#stepsTable tbody tr:last").remove();
+                    count--;
+                }
+            }
+        });
+        // ]]>
+    </script>
 }

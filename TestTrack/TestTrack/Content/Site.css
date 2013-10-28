@@ -58,19 +58,37 @@
     margin-left: 8px;
 }
 
-input.form-control, textarea.form-control {
-    width: 400px;
+/*input.form-control, textarea.form-control {
+    width: 50%;
+}*/
+
+input.form-control.tc-title {
+    width: 100%;
+}
+
+textarea.form-control {
+    height: 120px
+}
+
+.row.tc-info {
+    border: 1px solid #e5e5e5;
+    border-radius: 6px 6px 6px 6px;
+    padding: 15px;
+    background-color: #EAF1F7;
+    margin-bottom: 30px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 select.form-control {
     width: auto;
 }
 
-.green-square {
+.square {
     width: 50px;
     height: 50px;
     border: 1px solid #e5e5e5;
-    background-color: #b1efb6;
+    background-color: #428bca;
     float: right;
 }
 
@@ -138,7 +156,7 @@ select.retest {
     }
 
 .row .chart {
-    padding-left: 100px;
+    padding-left: 120px;
 }
 
 .highcharts-container [text-anchor=end] {

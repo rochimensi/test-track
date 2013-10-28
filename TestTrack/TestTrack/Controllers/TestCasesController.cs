@@ -27,14 +27,14 @@ namespace TestTrack.Controllers
         // GET: /TestCases/Create
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(int id = 0)
         {
             var testCaseVM = new TestCaseVM
             {
                 Types = Common.ToSelectList<TestTrack.Models.Type>(),
                 Priorities = Common.ToSelectList<TestTrack.Models.Priority>(),
                 Methods = Common.ToSelectList<TestTrack.Models.Method>(),
-                TestSuites = new SelectList(db.TestSuites, "TeamID", "Title")
+                TestSuiteID = id
             };
 
             return View("Create", testCaseVM);
@@ -54,13 +54,26 @@ namespace TestTrack.Controllers
                 Type = testCaseVM.Type,
                 Priority = testCaseVM.Priority,
                 Method = testCaseVM.Method,
-                TestSuiteID = testCaseVM.TestSuiteID
+                TestSuiteID = testCaseVM.TestSuiteID,
             };
 
             db.TestCases.Add(testCase);
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            for (int i = 0; i < testCaseVM.action.Length; i++)
+            {
+                var step = new Step
+                {
+                    Action = testCaseVM.action[i],
+                    Result = testCaseVM.result[i],
+                    TestCaseId = testCase.TestCaseID
+                };
+                
+                db.Steps.Add(step);
+                db.SaveChanges();
+            }
+            
+            return RedirectToAction("Index", "TestCasesPerTestSuite");
         }
 
         // GET: /TestCases/Edit/5
@@ -84,9 +97,8 @@ namespace TestTrack.Controllers
                 Method = testCase.Method,
                 Methods = Common.ToSelectList<TestTrack.Models.Method>(),
                 TestSuiteID = testCase.TestSuiteID,
-                TestSuites = new SelectList(db.TestSuites, "TeamID", "Title")
             };
-            
+
             return View(testCaseVM);
         }
 

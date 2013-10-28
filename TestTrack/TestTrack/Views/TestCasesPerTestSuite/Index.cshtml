@@ -1,7 +1,7 @@
 ﻿@model TestTrack.Models.TestSuite
 
 @{
-    ViewBag.Title = "Test Cases";
+    ViewBag.Title = "Test Suites";
 }
 
 <div class="jumbotron">
@@ -34,7 +34,7 @@
     <div class="content">
         <div class="header header-btn">
             <strong>Test Cases for @Model.Title</strong>
-            @Html.ActionLink("Add Test Case", "Create", "TestCases", null, new { @class = "btn btn-default btn-md" })
+            @Html.ActionLink("Add Test Case", "Create", "TestCases", new { id = Model.TeamID }, new { @class = "btn btn-default btn-md" })
         </div>
         <div class="content-body">
             @Html.Action("List", "TestCases", new { id = Model.TeamID })

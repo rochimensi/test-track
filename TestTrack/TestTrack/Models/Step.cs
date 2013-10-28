@@ -20,12 +20,12 @@ namespace TestTrack.Models
 
         [Required]
         [StringLength(1000)]
-        public virtual string Action { get; set; }
+        public string Action { get; set; }
 
         [Display(Name = "Expected result")]
         [Required]
         [StringLength(1000)]
-        public virtual string Result { get; set; }
+        public string Result { get; set; }
 
         public DateTime CreatedOn { get; set; }
         public DateTime? LastModified { get; set; }
