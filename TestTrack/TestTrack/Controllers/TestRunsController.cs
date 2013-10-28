@@ -89,7 +89,7 @@ namespace TestTrack.Controllers
             {
                 return HttpNotFound();
             }
-            return View(testrun);
+            return PartialView(testrun);
         }
 
         // POST: /TestRuns/Delete/5

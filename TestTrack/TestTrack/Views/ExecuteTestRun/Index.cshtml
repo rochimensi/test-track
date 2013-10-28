@@ -17,7 +17,7 @@
         {
             @Html.ActionLink("Edit", "Edit", "TestRuns", new { id = Model.TestRunID }, null)  
         }
-        | @Html.ActionLink("Delete", "Delete", "TestRuns", new { id = Model.TestRunID }, null)
+        | @Html.ActionLink("Delete", "Delete", "TestRuns", new { id = Model.TestRunID }, new { @data_target = "#deleteModal", @data_toggle = "modal" })
     </div>
     <div class="content-body">
         @if (Model.Closed)
@@ -58,3 +58,6 @@
         }
     </div>
 </div>
+
+<!-- DELETE MODAL -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true"></div>
