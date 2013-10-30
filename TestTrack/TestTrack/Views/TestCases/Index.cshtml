@@ -12,8 +12,8 @@
 <div class="content">
     <div class="header">
         <strong>@Model.Title</strong>
-        @Html.ActionLink("Edit", "Edit", "TestCases", new { id = Model.TestCaseID }, null)  |
-        @Html.ActionLink("Delete", "Delete", "TestCases", new { id = Model.TestCaseID }, new { @data_target = "#deleteModal", @data_toggle = "modal" })
+        @Html.ActionLink(" ", "Edit", "TestCases", new { id = Model.TestCaseID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit"})  |
+        @Html.ActionLink(" ", "Delete", "TestCases", new { id = Model.TestCaseID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })
     </div>
     <div class="row tc-info">
         <div class="col-md-3">

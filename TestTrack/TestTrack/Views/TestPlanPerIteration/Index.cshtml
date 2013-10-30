@@ -27,8 +27,8 @@
             <strong>@Model.Title</strong>
 
 
-            @Html.ActionLink("Edit", "Edit", "Iterations", new { id = Model.IterationID }, null) | 
-            @Html.ActionLink("Delete", "Delete", "Iterations", new { id = Model.IterationID }, new { @data_target = "#deleteModal", @data_toggle = "modal" })
+            @Html.ActionLink(" ", "Edit", "Iterations", new { id = Model.IterationID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit"}) | 
+            @Html.ActionLink(" ", "Delete", "Iterations", new { id = Model.IterationID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete"})
 
         </div>
         <div class="content-body">
@@ -40,6 +40,7 @@
                 <strong>@Html.DisplayNameFor(model => model.DueDate):</strong>
                 @Html.DisplayFor(model => model.DueDate)
             </div>
+
         </div>
     </div>
     <div class="content">

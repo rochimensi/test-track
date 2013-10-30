@@ -139,7 +139,7 @@
 
         <p>
             <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i>Save</button>
-            @Html.ActionLink("Cancel", "Index", "TestCasesPerTestSuite", null, new { @class = "btn btn-default" })
+            @Html.ActionLink("Cancel", "Index", "TestCases", new { id = Model.TestCaseID }, new { @class = "btn btn-default" })
         </p>
     </fieldset>
 }

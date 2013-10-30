@@ -15,7 +15,5 @@ namespace TestTrack.ViewModels
         public int TestPlanID { get; set; }
 
         public bool Closed { get; set; }
-
-        public IEnumerable<SelectListItem> TestPlans { get; set; }
     }
 }

@@ -47,7 +47,7 @@ namespace TestTrack.Controllers
             db.TestSuites.Add(testsuite);
             db.SaveChanges();
 
-            return RedirectToAction("Index", "TestCasesPerTestSuite");
+            return RedirectToAction("Index", "TestCasesPerTestSuite", new { id = testsuite.TeamID });
         }
 
         // GET: /TestSuites/Edit/5
@@ -80,7 +80,7 @@ namespace TestTrack.Controllers
             db.TestSuites.Add(testsuite);
             db.SaveChanges();
 
-            return RedirectToAction("Index", "TestCasesPerTestSuite");
+            return RedirectToAction("Index", "TestCasesPerTestSuite", new { id = testsuite.TeamID });
         }
 
         // GET: /TestSuites/Delete/5

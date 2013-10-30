@@ -26,8 +26,8 @@
     <dl class="dl-horizontal">
         <dt>@Html.DisplayFor(modelItem => item.Title)</dt>
         <dd>
-            <p>@Html.ActionLink("Edit", "Edit", new { id = item.TeamID }) |
-            @Html.ActionLink("Delete", "Delete", "Teams", new { id = item.TeamID }, new { @data_target = "#deleteModal", @data_toggle = "modal" })
+            <p>@Html.ActionLink(" ", "Edit", new { id = item.TeamID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit"}) |
+            @Html.ActionLink(" ", "Delete", "Teams", new { id = item.TeamID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })
             </p>
             <p>Contains <b>@item.TestPlans.Count()</b> TestPlans.</p>
         </dd>

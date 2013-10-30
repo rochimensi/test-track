@@ -11,7 +11,7 @@
         <p>Test Track enables you to execute multiple test runs for your suites over time to easily verify your tests against new releases.</p>
         <p>Include all your suite's test cases or just a subset and start tracking results that matter.</p>
         <p>
-            @Html.ActionLink("Create New", "Create", "TestRuns", null, new { @class = "btn btn-primary btn-lg" })
+            @Html.ActionLink("Create New", "Create", "TestRuns", new { id = @Model.TestPlanID }, new { @class = "btn btn-primary btn-lg" })
         </p>
     </div>
 </div>
@@ -23,8 +23,8 @@
 <div class="content">
     <div class="header">
         <strong>@Model.TestPlan</strong>
-        @Html.ActionLink("Edit", "Edit", "TestPlans", new { id = Model.TestPlanID }, null) | 
-        @Html.ActionLink("Delete", "Delete", "TestPlans", new { id = Model.TestPlanID }, new { @data_target = "#deleteModal", @data_toggle = "modal" })
+        @Html.ActionLink(" ", "Edit", "TestPlans", new { id = Model.TestPlanID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit"}) | 
+        @Html.ActionLink(" ", "Delete", "TestPlans", new { id = Model.TestPlanID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })
 
     </div>
     <div class="content-body">

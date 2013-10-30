@@ -15,9 +15,9 @@
         <strong>@Model.TestRun</strong>
         @if (!Model.Closed)
         {
-            @Html.ActionLink("Edit", "Edit", "TestRuns", new { id = Model.TestRunID }, null)  
+            @Html.ActionLink(" ", "Edit", "TestRuns", new { id = Model.TestRunID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit"})  
         }
-        | @Html.ActionLink("Delete", "Delete", "TestRuns", new { id = Model.TestRunID }, new { @data_target = "#deleteModal", @data_toggle = "modal" })
+        | @Html.ActionLink(" ", "Delete", "TestRuns", new { id = Model.TestRunID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })
     </div>
     <div class="content-body">
         @if (Model.Closed)

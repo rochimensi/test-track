@@ -29,8 +29,8 @@
             </div>
         </div>
         <p>
-            <input type="submit" value="Save" class="btn btn-primary" />
-            @Html.ActionLink("Cancel", "Index", "TestCasesPerTestSuite")
+            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Save</button>
+            @Html.ActionLink("Cancel", "Index", "TestCasesPerTestSuite", new { id = Model.TeamID }, new { @class = "btn btn-default" })
         </p>
     </fieldset>
 }

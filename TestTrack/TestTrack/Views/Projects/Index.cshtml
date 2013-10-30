@@ -21,11 +21,10 @@
     <dl class="dl-horizontal">
         <dt>@Html.DisplayFor(modelItem => item.Title)</dt>
         <dd>
-            <p>@Html.DisplayFor(modelItem => item.Description)               
+            <p>@Html.ActionLink(" ", "Edit", new { id = item.ProjectID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit"}) |
+                @Html.ActionLink(" ", "Delete", "Projects", new { id = item.ProjectID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete"})
             </p>
-
-            <p>@Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) |
-                @Html.ActionLink("Delete", "Delete", "Projects", new { id = item.ProjectID }, new { @data_target = "#deleteModal", @data_toggle = "modal" })
+            <p>@Html.DisplayFor(modelItem => item.Description)               
             </p>
             <p>Contains <b>@item.Iterations.Count()</b> Iterations and <b>@item.Teams.Count()</b> Teams.</p>
             @if (Model.SelectedProject != item.ProjectID)

@@ -16,11 +16,11 @@ namespace TestTrack.Controllers
         private TestTrackDBContext db = new TestTrackDBContext();
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(int id = 0)
         {
             var testRunVM = new TestRunVM
             {
-                TestPlans = new SelectList(db.TestPlans.ToList(), "TestPlanID", "Title"),
+                TestPlanID = id
             };
 
             return View("Create", testRunVM);
@@ -56,7 +56,6 @@ namespace TestTrack.Controllers
                 Title = testRun.Title,
                 Closed = testRun.Closed,
                 TestPlanID = testRun.TestPlanID,
-                TestPlans = new SelectList(db.TestPlans.ToList(), "TestPlanID", "Title", new { id = testRun.TestPlanID }),
             };
 
             return View(testRunVM);
