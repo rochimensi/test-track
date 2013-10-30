@@ -51,9 +51,18 @@
         }
         else
         {
-            foreach (var item in Model.Results)
+            if (!Model.Closed)
             {
-            @Html.Action("List", "ExecuteTestRun", new { id = item.ResultID })
+                foreach (var item in Model.Results)
+                {
+                    @Html.Action("List", "ExecuteTestRun", new { id = item.ResultID })
+                }
+            }
+            else {  
+                foreach (var item in Model.Results)
+                {
+                    @Html.Action("ListDisabled", "ExecuteTestRun", new { id = item.ResultID })
+                }     
             }
         }
     </div>

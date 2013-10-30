@@ -27,7 +27,7 @@
         <dt>@Html.DisplayFor(modelItem => item.Title)</dt>
         <dd>
             <p>@Html.ActionLink("Edit", "Edit", new { id = item.TeamID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.TeamID })
+            @Html.ActionLink("Delete", "Delete", "Teams", new { id = item.TeamID }, new { @data_target = "#deleteModal", @data_toggle = "modal" })
             </p>
             <p>Contains <b>@item.TestPlans.Count()</b> TestPlans.</p>
         </dd>
@@ -36,3 +36,5 @@
     }
 }
 
+<!-- DELETE MODAL -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true"></div>

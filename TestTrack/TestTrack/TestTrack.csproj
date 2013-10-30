@@ -402,9 +402,6 @@
     <Content Include="Views\TestRuns\Delete.cshtml" />
     <Content Include="Views\Results\Index.cshtml" />
     <Content Include="Views\Results\Delete.cshtml" />
-    <Content Include="Views\Steps\Index.cshtml" />
-    <Content Include="Views\Steps\Edit.cshtml" />
-    <Content Include="Views\Steps\Delete.cshtml" />
     <Content Include="Views\Shared\_Login.cshtml" />
     <Content Include="Views\Projects\_ProjectsDropdown.cshtml" />
     <Content Include="Views\Projects\Create.cshtml" />
@@ -433,10 +430,12 @@
     <Content Include="Views\Results\_Percentage.cshtml" />
     <Content Include="Views\Results\_ProgressBar.cshtml" />
     <Content Include="Views\TestSuites\Create.cshtml" />
+    <Content Include="Views\ExecuteTestRun\_ListDisabled.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Filters\" />
+    <Folder Include="Views\Steps\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

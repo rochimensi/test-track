@@ -13,7 +13,7 @@
     <div class="header">
         <strong>@Model.Title</strong>
         @Html.ActionLink("Edit", "Edit", "TestCases", new { id = Model.TestCaseID }, null)  |
-        @Html.ActionLink("Delete", "Delete", "TestCases", new { id = Model.TestCaseID }, null)
+        @Html.ActionLink("Delete", "Delete", "TestCases", new { id = Model.TestCaseID }, new { @data_target = "#deleteModal", @data_toggle = "modal" })
     </div>
     <div class="row tc-info">
         <div class="col-md-3">
@@ -110,3 +110,6 @@
         </table>
     </div>
 </div>
+
+<!-- DELETE MODAL -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true"></div>

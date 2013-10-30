@@ -89,7 +89,7 @@ namespace TestTrack.Controllers
         {
             TestSuite testsuite = db.TestSuites.Find(id);
             if (testsuite == null) return HttpNotFound();
-            return View(testsuite);
+            return PartialView(testsuite);
         }
 
         // POST: /TestSuites/Delete/5

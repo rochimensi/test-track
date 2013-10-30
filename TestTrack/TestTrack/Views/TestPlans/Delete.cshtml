@@ -1,17 +1,18 @@
-﻿@model TestTrack.Models.TestPlan
-
-@{
-    ViewBag.Title = "Delete";
-}
-
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete @Model.Title Test Plan?</h3>
-
-@using (Html.BeginForm()) {
+﻿@using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
-    <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Delete Test Plan</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <strong>@Model.Title?</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+            </div>
+        </div>
+    </div>
 }

@@ -25,7 +25,7 @@
             </p>
 
             <p>@Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID })
+                @Html.ActionLink("Delete", "Delete", "Projects", new { id = item.ProjectID }, new { @data_target = "#deleteModal", @data_toggle = "modal" })
             </p>
             <p>Contains <b>@item.Iterations.Count()</b> Iterations and <b>@item.Teams.Count()</b> Teams.</p>
             @if (Model.SelectedProject != item.ProjectID)
@@ -43,3 +43,5 @@
     </dl>
 }
 
+<!-- DELETE MODAL -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true"></div>

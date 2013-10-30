@@ -88,8 +88,8 @@ namespace TestTrack.Controllers
         {
             var project = db.Projects.Find(id);
             if (project == null) return HttpNotFound();
-            
-            return View(project);
+
+            return PartialView(project);
         }
          
         [HttpPost,ValidateAntiForgeryToken, ActionName("Delete")] 

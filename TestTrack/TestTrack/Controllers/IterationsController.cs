@@ -85,7 +85,7 @@ namespace TestTrack.Controllers
             {
                 return HttpNotFound();
             }
-            return View(iteration);
+            return PartialView(iteration);
         }
 
         [HttpPost, ValidateAntiForgeryToken, ActionName("Delete")]

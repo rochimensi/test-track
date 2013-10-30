@@ -28,7 +28,7 @@
 
 
             @Html.ActionLink("Edit", "Edit", "Iterations", new { id = Model.IterationID }, null) | 
-                @Html.ActionLink("Delete", "Delete", "Iterations", new { id = Model.IterationID }, null)
+            @Html.ActionLink("Delete", "Delete", "Iterations", new { id = Model.IterationID }, new { @data_target = "#deleteModal", @data_toggle = "modal" })
 
         </div>
         <div class="content-body">
@@ -50,7 +50,8 @@
     </div>
 }
 
-
+<!-- DELETE MODAL -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true"></div>
 
 
 

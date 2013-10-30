@@ -25,8 +25,6 @@ namespace TestTrack.Controllers
             return View(results.ToList());
         }
 
-        // GET: /Results/Create
-
         [HttpGet]
         public ActionResult AssignTestCases(int id = 0)
         {
@@ -177,7 +175,7 @@ namespace TestTrack.Controllers
             {
                 percentage = (states[2] * 100) / (states[0] + states[1] + states[2] + states[3] + states[4]);
             }
-
+    
             return PartialView("_Percentage", percentage);
         }
 

@@ -24,7 +24,7 @@
     <div class="header">
         <strong>@Model.TestPlan</strong>
         @Html.ActionLink("Edit", "Edit", "TestPlans", new { id = Model.TestPlanID }, null) | 
-                @Html.ActionLink("Delete", "Delete", "TestPlans", new { id = Model.TestPlanID }, null)
+        @Html.ActionLink("Delete", "Delete", "TestPlans", new { id = Model.TestPlanID }, new { @data_target = "#deleteModal", @data_toggle = "modal" })
 
     </div>
     <div class="content-body">
@@ -45,7 +45,7 @@
             {
                 <div class="row">
                     <div class="col-md-1">
-                        <div class="green-square"></div>
+                        <div class="square"></div>
                     </div>
                     <div class="col-md-8">
                         <p>
@@ -95,3 +95,7 @@
         <div class="alert alert-warning">There are no Test Runs on this Test Plan.</div>
     }
 </div>
+
+
+<!-- DELETE MODAL -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true"></div>

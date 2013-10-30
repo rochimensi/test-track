@@ -93,7 +93,7 @@ namespace TestTrack.Controllers
             {
                 return HttpNotFound();
             }
-            return View(testplan);
+            return PartialView(testplan);
         }
 
         [HttpPost, ValidateAntiForgeryToken, ActionName("Delete")]

@@ -106,7 +106,7 @@ namespace TestTrack.Controllers
 
             if (team == null) return HttpNotFound();
 
-            return View(team);
+            return PartialView(team);
         }
 
 

@@ -169,7 +169,7 @@ namespace TestTrack.Controllers
             db.Entry(testCase).State = EntityState.Modified;
             db.SaveChanges();
 
-            return RedirectToAction("Index", new { id = testCase.TestCaseID});
+            return RedirectToAction("Index", new { id = testCase.TestCaseID });
         }
 
         // GET: /TestCases/Delete/5
@@ -181,7 +181,7 @@ namespace TestTrack.Controllers
             {
                 return HttpNotFound();
             }
-            return View(testcase);
+            return PartialView(testcase);
         }
 
         // POST: /TestCases/Delete/5
@@ -193,7 +193,7 @@ namespace TestTrack.Controllers
             TestCase testcase = db.TestCases.Find(id);
             db.TestCases.Remove(testcase);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "TestCasesPerTestSuite");
         }
 
         [ChildActionOnly]

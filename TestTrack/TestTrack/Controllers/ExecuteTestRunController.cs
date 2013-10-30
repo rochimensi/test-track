@@ -53,6 +53,22 @@ namespace TestTrack.Controllers
             return PartialView("_List", vm);
         }
 
+        [ChildActionOnly]
+        public ActionResult ListDisabled(int id = 0)
+        {
+            ResultsListVM vm = new ResultsListVM();
+            var result = (from value in db.Results
+                          where value.ResultID == id
+                          select value).First();
+            vm.ResultID = id;
+            vm.States = Common.ToSelectList<TestTrack.Models.State>();
+            vm.SelectedState = result.State;
+            vm.TestCase = result.TestCase.Title;
+            vm.TestCaseID = result.TestCaseID;
+
+            return PartialView("_ListDisabled", vm);
+        }
+
         [HttpPost]
         public ActionResult SetResult(ResultsListVM vm)
         {
