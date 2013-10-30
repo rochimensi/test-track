@@ -1,5 +1,5 @@
 ﻿@model TestTrack.ViewModels.ResultVM
-
+@*
 @{
     ViewBag.Title = "Test Cases";
 }
@@ -17,10 +17,52 @@
         {
             checkedValue = true;
         }
-        <input type="checkbox" id="@optionValue" name="SelectedTestCases" value="@item.Value" checked="@checkedValue"/>
-        <label for="@optionValue">@item.Text</label>
-        <br />
+    <input type="checkbox" id="@optionValue" name="SelectedTestCases" value="@item.Value" checked="@checkedValue"/>
+    <label for="@optionValue">@item.Text</label>
+    <br />
     }
     <input type="submit" value="Save" class="btn btn-default" />
-}
+}*@
 
+@using (Html.BeginForm("AssignTestCases", "Results"))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Select Test Cases</h4>
+            </div>
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.TestRunID)
+                @foreach (var item in Model.TestCases)
+                {
+                    var optionValue = "SelectedTestCases_" + item.Value;
+                    var checkedValue = false;
+                    if (Model.TestCasesInTestRun.Contains(Convert.ToInt32(item.Value)))
+                    {
+                        checkedValue = true;
+                    }
+                    <div class="row">
+                        <div class="col-md-1" style="padding-right: 8px; padding-left: 22px;">
+                            <input type="checkbox" id="@optionValue" name="SelectedTestCases" value="@item.Value" checked="@checkedValue"/>
+                        </div>
+                        <div class="col-md-11" style="padding-left: 0px;">
+                            <label for="@optionValue">@item.Text</label>
+                        </div>
+                    </div>@*
+                    <p>
+                        <input type="checkbox" id="@optionValue" name="SelectedTestCases" value="@item.Value" checked="@checkedValue"/>
+                        <label for="@optionValue">@item.Text</label>
+                    </p>*@
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i>Save</button>
+            </div>
+        </div>
+    </div>
+}

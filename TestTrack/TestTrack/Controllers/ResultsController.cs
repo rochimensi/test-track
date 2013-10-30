@@ -46,7 +46,7 @@ namespace TestTrack.Controllers
                 vm.TestCasesInTestRun.Add(item.TestCaseID);
             }
 
-            return View(vm);
+            return PartialView(vm);
         }
 
         [HttpPost]

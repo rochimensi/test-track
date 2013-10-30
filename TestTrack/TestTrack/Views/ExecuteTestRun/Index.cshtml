@@ -41,7 +41,7 @@
         <strong>Tests</strong>
         @if (!Model.Closed)
         {
-            @Html.ActionLink("Select Test Cases", "AssignTestCases", "Results", new { id = Model.TestRunID }, new { @class = "btn btn-default btn-md" })
+            @Html.ActionLink("Select Test Cases", "AssignTestCases", "Results", new { id = Model.TestRunID }, new { @class = "btn btn-default btn-md", @data_target = "#selectTestCasesModal", @data_toggle = "modal" })
         }
     </div>
     <div class="content-body">
@@ -70,3 +70,6 @@
 
 <!-- DELETE MODAL -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true"></div>
+
+<!-- SELECT TEST CASES MODAL -->
+<div class="modal fade" id="selectTestCasesModal" tabindex="-1" role="dialog" aria-labelledby="select" aria-hidden="true"></div>
