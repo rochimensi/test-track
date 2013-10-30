@@ -327,8 +327,156 @@ namespace TestTrack.Models
                     Tags = "lorem,ipsum,dolor",
                     TestSuiteID = 1,
                     CreatedOn = DateTime.Now
-                }
-                );
+                });
+
+            context.Steps.AddOrUpdate(p => p.Action,
+                new Step
+                {
+                    StepId = 1,
+                    TestCaseId = 1,
+                    Action = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
+                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
+                    CreatedOn = DateTime.Now
+                },
+                new Step
+                {
+                    StepId = 2,
+                    TestCaseId = 1,
+                    Action = "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option",
+                    Result = "Lore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi. Nam liber tempor cum",
+                    CreatedOn = DateTime.Now
+                },
+                new Step
+                {
+                    StepId = 3,
+                    TestCaseId = 2,
+                    Action = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
+                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
+                    CreatedOn = DateTime.Now
+                },
+                new Step
+                {
+                    StepId = 4,
+                    TestCaseId = 3,
+                    Action = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
+                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
+                    CreatedOn = DateTime.Now
+                },
+                new Step
+                {
+                    StepId = 5,
+                    TestCaseId = 4,
+                    Action = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
+                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
+                    CreatedOn = DateTime.Now
+                },
+                new Step
+                {
+                    StepId = 6,
+                    TestCaseId = 5,
+                    Action = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
+                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
+                    CreatedOn = DateTime.Now
+                },
+                new Step
+                {
+                    StepId = 7,
+                    TestCaseId = 6,
+                    Action = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
+                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
+                    CreatedOn = DateTime.Now
+                },
+                new Step
+                {
+                    StepId = 8,
+                    TestCaseId = 7,
+                    Action = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
+                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
+                    CreatedOn = DateTime.Now
+                },
+                new Step
+                {
+                    StepId = 9,
+                    TestCaseId = 8,
+                    Action = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
+                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
+                    CreatedOn = DateTime.Now
+                },
+                new Step
+                {
+                    StepId = 10,
+                    TestCaseId = 1,
+                    Action = "Id quod mazim placerat lore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait",
+                    Result = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet",
+                    CreatedOn = DateTime.Now
+                });
+
+            context.Results.AddOrUpdate(p => p.ResultID,
+                new Result
+                {
+                    ResultID = 1,
+                    TestCaseID = 1,
+                    TestRunID = 2,
+                    State = State.Passed,
+                    CreatedOn = DateTime.Now
+                },
+                new Result
+                {
+                    ResultID = 2,
+                    TestCaseID = 2,
+                    TestRunID = 2,
+                    State = State.Passed,
+                    CreatedOn = DateTime.Now
+                },
+                new Result
+                {
+                    ResultID = 3,
+                    TestCaseID = 3,
+                    TestRunID = 2,
+                    State = State.Passed,
+                    CreatedOn = DateTime.Now
+                },
+                new Result
+                {
+                    ResultID = 4,
+                    TestCaseID = 4,
+                    TestRunID = 2,
+                    State = State.Failed,
+                    CreatedOn = DateTime.Now
+                },
+                new Result
+                {
+                    ResultID = 5,
+                    TestCaseID = 5,
+                    TestRunID = 2,
+                    State = State.Failed,
+                    CreatedOn = DateTime.Now
+                },
+                new Result
+                {
+                    ResultID = 6,
+                    TestCaseID = 6,
+                    TestRunID = 2,
+                    State = State.Untested,
+                    CreatedOn = DateTime.Now
+                },
+                new Result
+                {
+                    ResultID = 7,
+                    TestCaseID = 7,
+                    TestRunID = 2,
+                    State = State.Untested,
+                    CreatedOn = DateTime.Now
+                },
+                new Result
+                {
+                    ResultID = 8,
+                    TestCaseID = 8,
+                    TestRunID = 2,
+                    State = State.Untested,
+                    CreatedOn = DateTime.Now
+                });
+
             context.SaveChanges();
         }
     }

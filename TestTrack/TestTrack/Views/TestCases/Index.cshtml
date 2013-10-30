@@ -1,56 +1,112 @@
-﻿@model IEnumerable<TestTrack.Models.TestCase>
+﻿@model TestTrack.ViewModels.TestCaseVM
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Test Case";
 }
 
-<h2>Index</h2>
+<ol class="breadcrumb">
+    <li>@Html.ActionLink(Model.TestSuite, "Index", "TestCasesPerTestSuite", null, null)</li>
+    <li class="active">@Model.Title</li>
+</ol>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PreConditions)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tags)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TestSuite.Title)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PreConditions)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tags)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TestSuite.Title)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TestCaseID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TestCaseID })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="content">
+    <div class="header">
+        <strong>@Model.Title</strong>
+        @Html.ActionLink("Edit", "Edit", "TestCases", new { id = Model.TestCaseID }, null)  |
+        @Html.ActionLink("Delete", "Delete", "TestCases", new { id = Model.TestCaseID }, null)
+    </div>
+    <div class="row tc-info">
+        <div class="col-md-3">
+            <div class="form-group">
+                <div class="editor-label">
+                    <label>Method</label>
+                </div>
+                <div class="editor-field">
+                    @Model.Method
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <div class="editor-label">
+                    <label>Type</label>
+                </div>
+                <div class="editor-field">
+                    @Model.Type
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <div class="editor-label">
+                    <label>Priority</label>
+                </div>
+                <div class="editor-field">
+                    @Model.Priority
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <div class="editor-label">
+                    <label>Tags</label>
+                </div>
+                <div class="editor-field">
+                    @Model.Tags
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Model.Description
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PreConditions)
+        </div>
+        <div class="editor-field">
+            @Model.PreConditions
+        </div>
+    </div>
+    <br />
+    <h4>Steps</h4>
+    <div class="content-body">
+        <table class="table" id="stepsTable">
+            <thead>
+                <tr>
+                    <th>
+                        <strong>#</strong>
+                    </th>
+                    <th>
+                        <strong>Action</strong>
+                    </th>
+                    <th>
+                        <strong>Expected Result</strong>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Steps)
+                {
+                    var step = 1;
+                    <tr>
+                        <td>
+                            <label>@step</label></td>
+                        <td>
+                            @item.Action
+                        </td>
+                        <td>
+                            @item.Result
+                        </td>
+                    </tr>
+                    step++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

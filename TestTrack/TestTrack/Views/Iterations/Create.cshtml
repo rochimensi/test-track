@@ -28,7 +28,7 @@
                 @Html.LabelFor(model => model.DueDate)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(model => model.DueDate, new{@class="form-control", @type = "date"})
+                @Html.TextBoxFor(model => model.DueDate, new { @class = "form-control", @type = "date"})
                 @Html.ValidationMessageFor(model => model.DueDate)
             </div>
         </div>
@@ -37,12 +37,12 @@
                 @Html.LabelFor(model => model.ProjectID)
             </div>
             <div class="editor-field">
-                @Html.DropDownListFor(model => model.ProjectID, Model.Projects, new { @class="form-control" })
+                @Html.DropDownListFor(model => model.ProjectID, Model.Projects, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ProjectID)
             </div>
         </div>
         <p>
-            <input type="submit" value="Save" class="btn btn-default"/>
+            <input type="submit" value="Save" class="btn btn-default" />
         </p>
     </fieldset>
 }

@@ -29,7 +29,7 @@
                 <small>@item.TestCaseID</small>
             </td>
             <td>
-                <small>@item.Title</small>
+                <small>@Html.ActionLink(@item.Title, "Index", "TestCases", new { id = item.TestCaseID }, null)</small>
             </td>
             <td>
                 <small>@item.Method</small>
