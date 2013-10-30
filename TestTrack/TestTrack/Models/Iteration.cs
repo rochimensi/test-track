@@ -17,6 +17,11 @@ namespace TestTrack.Models
         [StringLength(100)]
         public string Title { get; set; }
 
+        [Display(Name = "Start Date")]
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime StartDate { get; set; }
+
         [Display(Name = "End Date")]
         [Required]
         [DataType(DataType.Date)]

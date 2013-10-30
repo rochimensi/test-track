@@ -16,6 +16,11 @@ namespace TestTrack.ViewModels
         [DataType(DataType.Date)]
         public DateTime DueDate { get; set; }
 
+        [Display(Name = "Start Date")]
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime StartDate { get; set; }
+
         [HiddenInput(DisplayValue = false)]
         public int ProjectID { get; set; }
           

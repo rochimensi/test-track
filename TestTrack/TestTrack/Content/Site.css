@@ -92,10 +92,6 @@ select.form-control {
     float: right;
 }
 
-.row {
-    margin-bottom: 10px;
-}
-
 .breadcrumb {
     background-color: #FFFFFF;
     padding: 8px 1px;
@@ -139,6 +135,10 @@ select.retest {
     color: #ffffff;
 }
 
+.row {
+    margin-bottom: 15px;
+}
+
 .row.result {
     margin-bottom: 0px;
     padding: 2px 0px;
@@ -179,4 +179,21 @@ select.retest {
 
 .progress {
     margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.progress-bar-success {
+    background-color: #8bbc21 !important;
+}
+
+.progress-bar-danger {
+background-color: #910000 !important;
+}
+
+.progress-bar-info {
+background-color: #0d233a !important;
+}
+
+.progress-bar-warning {
+background-color: #2f7ed8 !important;
 }

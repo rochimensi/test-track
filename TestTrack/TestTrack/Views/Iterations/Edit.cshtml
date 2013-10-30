@@ -24,6 +24,15 @@
         </div>
         <div class="form-group">
             <div class="editor-label">
+                @Html.LabelFor(model => model.StartDate)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StartDate)
+                @Html.ValidationMessageFor(model => model.StartDate)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="editor-label">
                 @Html.LabelFor(model => model.DueDate)
             </div>
             <div class="editor-field">

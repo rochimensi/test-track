@@ -122,7 +122,8 @@ namespace TestTrack.Models
                 {
                     IterationID = 1,
                     Title = "Sprint 1",
-                    DueDate = DateTime.Now,
+                    StartDate = DateTime.Now,
+                    DueDate = DateTime.Now.AddDays(14),
                     ProjectID = 1,
                     CreatedOn = DateTime.Now
                 },
@@ -130,7 +131,8 @@ namespace TestTrack.Models
                 {
                     IterationID = 2,
                     Title = "Sprint 2",
-                    DueDate = DateTime.Now,
+                    StartDate = DateTime.Now,
+                    DueDate = DateTime.Now.AddDays(14),
                     ProjectID = 1,
                     CreatedOn = DateTime.Now
                 }
