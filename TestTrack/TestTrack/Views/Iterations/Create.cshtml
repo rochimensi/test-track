@@ -4,15 +4,16 @@
     ViewBag.Title = "Iterations";
 }
 
+<div class="page-header">
+    <h1>Add Iteration</h1>
+</div>
+
 @using (Html.BeginForm("Create", "Iterations"))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-
-        <legend>Add Iteration</legend>
-
         @Html.HiddenFor(model => model.IterationID)
         <div class="form-group">
             <div class="editor-label">

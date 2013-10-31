@@ -1,6 +1,8 @@
 ﻿@model TestTrack.ViewModels.TestSuiteVM
 
-<h2>Create</h2>
+<div class="page-header">
+    <h1>Add Test Suite</h1>
+</div>
 
 @using (Html.BeginForm("Create", "TestSuites"))
 {
@@ -8,8 +10,6 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Test Suite</legend>
-
         <div class="form-group">
             <div class="editor-label">
                 @Html.LabelFor(model => model.Title)

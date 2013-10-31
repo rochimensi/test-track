@@ -3,14 +3,17 @@
 @{
     ViewBag.Title = "Teams";
 }
+
+<div class="page-header">
+    <h1>Add Team</h1>
+</div>
+
 @using (Html.BeginForm("Create", "Teams"))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Add Team</legend>
-
         @Html.HiddenFor(model => model.TeamID)
         <div class="form-group">
             <div class="editor-label">

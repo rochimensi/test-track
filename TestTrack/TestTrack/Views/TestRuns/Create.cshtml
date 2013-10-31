@@ -1,7 +1,12 @@
 ﻿@model TestTrack.ViewModels.TestRunVM
+
 @{
     ViewBag.Title = "Test runs";
 }
+
+<div class="page-header">
+    <h1>Add Test Run</h1>
+</div>
 
 @using (Html.BeginForm("Create", "TestRuns"))
 {
@@ -9,8 +14,6 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>TestRun</legend>
-
         @Html.HiddenFor(model => model.TestRunID)
 
         <div class="form-group">
