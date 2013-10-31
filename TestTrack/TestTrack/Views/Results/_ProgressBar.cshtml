@@ -2,27 +2,15 @@
 
 @if (Model != null)
 {
+    <p><small><em>Untested: @Model[4]%</em></small></p>
     <div class="progress">
-        <div class="progress-bar progress-bar-success" style="width: @Model[2]%">
-            @Model[2]%
-        </div>
-        <div class="progress-bar progress-bar-danger" style="width: @Model[1]%">
-            @Model[1]%
-        </div>
-        <div class="progress-bar progress-bar-warning" style="width: @Model[0]%">
-            @Model[0]%
-        </div>
-        <div class="progress-bar progress-bar-info" style="width: @Model[3]%">
-            @Model[3]%
-        </div>
-    </div>
-    <div>
-        <small>Untested: @Model[4]%</small>
+        <div class="progress-bar progress-bar-success" style="width: @Model[2]%"></div>
+        <div class="progress-bar progress-bar-danger" style="width: @Model[1]%"></div>
+        <div class="progress-bar progress-bar-warning" style="width: @Model[0]%"></div>
+        <div class="progress-bar progress-bar-info" style="width: @Model[3]%"></div>
     </div>
 }
 else
 {
-    <div class="no-test-runs">
-        No test cases added.
-    </div>
+    <p><small><em>No test cases added.</em></small></p>
 }

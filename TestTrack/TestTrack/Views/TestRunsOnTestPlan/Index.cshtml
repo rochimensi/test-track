@@ -20,68 +20,61 @@
     <li>@Html.ActionLink(Model.Iteration, "Index", "TestPlanPerIteration", new { id = @Model.IterationID }, null)</li>
     <li class="active">@Model.TestPlan</li>
 </ol>
-<div class="content">
-    <div class="header">
-        <strong>@Model.TestPlan</strong>
-        @Html.ActionLink(" ", "Edit", "TestPlans", new { id = Model.TestPlanID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit"}) | 
-        @Html.ActionLink(" ", "Delete", "TestPlans", new { id = Model.TestPlanID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })
 
-    </div>
-    <div class="content-body">
-        <p>@Model.TestPlanDescription</p>
-    </div>
+<div class="page-header">
+    <h2>@Model.TestPlan &nbsp;<small>@Html.ActionLink(" ", "Edit", "TestPlans", new { id = Model.TestPlanID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })&nbsp;@Html.ActionLink(" ", "Delete", "TestPlans", new { id = Model.TestPlanID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
 </div>
+<p>@Model.TestPlanDescription</p><br />
 
-
-<div class="content">
-    <div class="header header-btn">
-        <strong>Test Runs for @Model.TestPlan</strong>
-        @Html.ActionLink("Add Test Run", "Create", "TestRuns", null, new { @class = "btn btn-default btn-md" })
-    </div>
-    @if (Model.TestRuns.Count() > 0)
-    {
-        <div class="content-body">
-            @foreach (var item in Model.TestRuns)
-            {
-                <div class="row">
-                    <div class="col-md-1">
-                        <div class="square"></div>
-                    </div>
-                    <div class="col-md-8">
-                        <p>
-                            <strong>@Html.ActionLink(item.Title, "Index", "ExecuteTestRun", new { id = item.TestRunID }, null)
-                            </strong>
-                            <br />
-                        </p>
-                        <p><small>Created on @item.CreatedOn.</small></p>
-                    </div>
-                    <div class="col-md-3">
-                        @Html.Action("ProgressBar", "Results", new { id = item.TestRunID })
-                    </div>
-
-                </div>
-            }
-        </div>
-        <div class="closed-test-runs panel-group" id="accordion">
-            <div>
-                <div>
-                    <h5 class="panel-title">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><strong>Closed Test Runs</strong> <span class="glyphicon glyphicon-chevron-down"></span>
+@if (Model.TestRuns.Count() > 0)
+{
+    <div class="content">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span class="badge">@Model.TestRuns.Count()</span>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#testRunsPanel">
+                            <strong>Open</strong> Test Runs
                         </a>
-                    </h5>
+                    </h4>
                 </div>
-                <div id="collapseOne" class="panel-collapse collapse">
+                <div id="testRunsPanel" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        @foreach (var item in Model.TestRuns)
+                        {
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>@Html.ActionLink(item.Title, "Index", "ExecuteTestRun", new { id = item.TestRunID }, null)</p>
+                                    <p><small>Created on @item.CreatedOn.</small></p>
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.Action("ProgressBar", "Results", new { id = item.TestRunID })
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span class="badge">@Model.ClosedTestRuns.Count()</span>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#closedTestRunsPanel">
+                            <strong>Closed</strong> Test Runs
+                        </a>
+                    </h4>
+                </div>
+                <div id="closedTestRunsPanel" class="panel-collapse collapse">
                     <div class="panel-body">
                         @foreach (var item in Model.ClosedTestRuns)
                         {
                             <div class="row">
-                                <div class="col-md-9">
-                                    @Html.ActionLink(item.Title, "Index", "ExecuteTestRun", new { id = item.TestRunID }, null)
+                                <div class="col-md-8">
+                                    <p>@Html.ActionLink(item.Title, "Index", "ExecuteTestRun", new { id = item.TestRunID }, null)</p>
+                                    <p><small>Last update: 10/25/2013@*@item.LastModified*@</small></p>
                                 </div>
-                                <div class="col-md-2">
-                                    <small>Last update: 10/25/2013@*@item.LastModified*@</small>
-                                </div>
-                                <div class="col-md-1">
+                                <div class="col-md-4">
                                     <small><strong>@Html.Action("Percentage", "Results", new { id = item.TestRunID })</strong></small>
                                 </div>
                             </div>
@@ -90,12 +83,12 @@
                 </div>
             </div>
         </div>
-    }
-    else {
-        <div class="alert alert-warning">There are no Test Runs on this Test Plan.</div>
-    }
-</div>
-
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">There are no Test Runs on this Test Plan.</div>
+}
 
 <!-- DELETE MODAL -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true"></div>

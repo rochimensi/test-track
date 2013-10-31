@@ -170,16 +170,11 @@ select.retest {
     line-height: 0.8;
 }
 
-.closed-test-runs .passed-percentage {
+#closedTestRunsPanel .passed-percentage {
     text-align: left;
     padding-top: 0px;
-    font-size: 12px;
+    font-size: 150%;
     line-height: 1;
-}
-
-.progress {
-    margin-top: 20px;
-    margin-bottom: 0px;
 }
 
 .progress-bar-success {
@@ -187,13 +182,13 @@ select.retest {
 }
 
 .progress-bar-danger {
-background-color: #910000 !important;
+    background-color: #910000 !important;
 }
 
 .progress-bar-info {
-background-color: #0d233a !important;
+    background-color: #0d233a !important;
 }
 
 .progress-bar-warning {
-background-color: #2f7ed8 !important;
+    background-color: #2f7ed8 !important;
 }
