@@ -431,6 +431,7 @@
     <Content Include="Views\Results\_ProgressBar.cshtml" />
     <Content Include="Views\TestSuites\Create.cshtml" />
     <Content Include="Views\ExecuteTestRun\_ListDisabled.cshtml" />
+    <Content Include="Views\Iterations\_LineChart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
