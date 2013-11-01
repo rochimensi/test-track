@@ -10,11 +10,9 @@
 </ol>
 
 <div class="content">
-    <div class="header">
-        <strong>@Model.Title</strong>
-        @Html.ActionLink(" ", "Edit", "TestCases", new { id = Model.TestCaseID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit"})  |
-        @Html.ActionLink(" ", "Delete", "TestCases", new { id = Model.TestCaseID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })
-    </div>
+    <div class="page-header">
+            <h2>@Model.Title &nbsp;<small>@Html.ActionLink(" ", "Edit", "TestCases", new { id = Model.TestCaseID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })&nbsp;@Html.ActionLink(" ", "Delete", "TestCases", new { id = Model.TestCaseID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
+        </div>
     <div class="row tc-info">
         <div class="col-md-3">
             <div class="form-group">

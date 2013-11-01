@@ -33,6 +33,15 @@
     margin-bottom: 30px;
 }
 
+.panel-heading{
+    padding: 10px 15px 25px;
+}
+
+.heading-btn{
+    float: right;
+    margin-bottom: 20px;
+}
+
 .header {
     border: 1px solid #dddddd;
     border-radius: 6px 6px 6px 6px;
@@ -57,10 +66,6 @@
 .content-body {
     margin-left: 8px;
 }
-
-/*input.form-control, textarea.form-control {
-    width: 50%;
-}*/
 
 input.form-control.tc-title {
     width: 100%;

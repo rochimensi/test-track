@@ -24,20 +24,29 @@
     </div>
     
     <div class="content">
-        <div class="header">
-            <strong>@Model.Title</strong>
-            @Html.ActionLink(" ", "Edit", "TestSuites", new { id = Model.TeamID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit"}) |
-            @Html.ActionLink(" ", "Delete", "TestSuites", new { id = Model.TeamID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })
+        <div class="page-header">
+            <h2>@Model.Title &nbsp;<small>@Html.ActionLink(" ", "Edit", "TestSuites", new { id = Model.TeamID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })&nbsp;@Html.ActionLink(" ", "Delete", "TestSuites", new { id = Model.TeamID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
         </div>
     </div>
     
     <div class="content">
-        <div class="header header-btn">
-            <strong>Test Cases for @Model.Title</strong>
-            @Html.ActionLink("Add Test Case", "Create", "TestCases", new { id = Model.TeamID }, new { @class = "btn btn-default btn-md" })
-        </div>
-        <div class="content-body">
-            @Html.Action("List", "TestCases", new { id = Model.TeamID })
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span class="badge">@Model.TestCases.Count()</span>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#testRunsPanel">
+                            <strong>Test Cases</strong> for @Model.Title
+                        </a>
+                        @Html.ActionLink("Add Test Case", "Create", "TestCases", new { id = Model.TeamID }, new { @class = "btn btn-default btn-md heading-btn" })
+                    </h4>
+                </div>
+                <div id="testRunsPanel" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        @Html.Action("List", "TestCases", new { id = Model.TeamID })
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 }
