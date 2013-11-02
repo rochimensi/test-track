@@ -2,6 +2,11 @@
     padding-top: 50px;
 }
 
+.editor-validation-error {
+    margin-top: 5px;
+    font-style: italic;
+}
+
 .main {
     padding: 40px 15px;
 }

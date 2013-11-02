@@ -12,12 +12,10 @@ namespace TestTrack.Models
         [Key]
         public int ProjectID { get; set; }
 
-        [Display(Name = "Project name")]
         [Required]
         [StringLength(100)]
         public string Title { get; set; }
 
-        [Display(Name = "About")]
         [Required]
         [StringLength(1000)]
         public string Description { get; set; }

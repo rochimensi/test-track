@@ -7,10 +7,14 @@ namespace TestTrack.ViewModels
     {
         public int ProjectID { get; set; }
 
-        [Display(Name = "Project name")]
+        [Display(Name = "Name")]
+        [Required]
+        [StringLength(100)]
         public string Title { get; set; }
 
-        [Display(Name = "About")] 
+        [Display(Name = "About")]
+        [Required]
+        [StringLength(1000)]
         public string Description { get; set; }
     }
 }
