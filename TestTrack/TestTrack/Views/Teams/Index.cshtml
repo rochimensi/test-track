@@ -24,7 +24,7 @@
     foreach (var item in Model.Teams)
     {
     <dl class="dl-horizontal">
-        <dt>@Html.DisplayFor(modelItem => item.Title)</dt>
+        <dt>@Html.DisplayFor(modelItem => item.Name)</dt>
         <dd>
             <p>@Html.ActionLink(" ", "Edit", new { id = item.TeamID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit"}) |
             @Html.ActionLink(" ", "Delete", "Teams", new { id = item.TeamID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })

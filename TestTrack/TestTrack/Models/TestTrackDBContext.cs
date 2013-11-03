@@ -87,18 +87,18 @@ namespace TestTrack.Models
                     CreatedOn = DateTime.Now
                 }
             );
-            context.Teams.AddOrUpdate(p => p.Title,
+            context.Teams.AddOrUpdate(p => p.Name,
                 new Team
                 {
                     TeamID = 1,
-                    Title = "Doppler QA",
+                    Name = "Doppler QA",
                     ProjectID = 1,
                     CreatedOn = DateTime.Now
                 },
                 new Team
                 {
                     TeamID = 2,
-                    Title = "Lander QA",
+                    Name = "Lander QA",
                     ProjectID = 2,
                     CreatedOn = DateTime.Now
                 }

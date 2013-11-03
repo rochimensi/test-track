@@ -17,17 +17,26 @@
         @Html.HiddenFor(model => model.TeamID)
         <div class="form-group">
             <div class="editor-label">
-                @Html.LabelFor(model => model.Title)
+                @Html.LabelFor(model => model.Name)
+                <span class="text-danger">*</span>
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Title)
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+            </div>
+            <div class="editor-validation-error">
+                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ProjectID)
+                <span class="text-danger">*</span>
+            </div>
             <div class="editor-field">
-                @Html.DropDownListFor(model => model.ProjectID, Model.Projects, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ProjectID)
+                @Html.DropDownListFor(model => model.ProjectID, Model.Projects, "Select an option", new { @class = "form-control" })
+            </div>
+            <div class="editor-validation-error">
+                @Html.ValidationMessageFor(model => model.ProjectID, null, new { @class = "text-danger" })
             </div>
         </div>
         <p>

@@ -8,8 +8,10 @@ namespace TestTrack.ViewModels
     {
         public int TeamID { get; set; }
 
-        [Display(Name = "Team Name")]
-        public string Title { get; set; }
+        [Display(Name = "Name")]
+        [Required]
+        [StringLength(100)]
+        public string Name { get; set; }
 
         [Display(Name = "Project")]
         [HiddenInput(DisplayValue = false)]

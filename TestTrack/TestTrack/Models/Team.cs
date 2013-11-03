@@ -12,10 +12,9 @@ namespace TestTrack.Models
         [Key]
         public int TeamID { get; set; }
 
-        [Display(Name = "Team Name")]
         [Required]
         [StringLength(100)]
-        public string Title { get; set; }
+        public string Name { get; set; }
 
         [ForeignKey("Project")]
         [Required]

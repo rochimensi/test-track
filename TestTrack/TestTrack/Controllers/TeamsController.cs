@@ -21,7 +21,7 @@ namespace TestTrack.Controllers
 
             var teamsForPorject = from t in db.Teams
                                   where t.ProjectID == userSettings.workingProject
-                                  orderby t.Title
+                                  orderby t.Name
                                   select t;
 
             if (teamsForPorject.Count() > 0)
@@ -50,7 +50,7 @@ namespace TestTrack.Controllers
             var team = new Team
             {
                 TeamID = teamVM.TeamID,
-                Title = teamVM.Title,
+                Name = teamVM.Name,
                 ProjectID = teamVM.ProjectID,
                 Project = db.Projects.Find(teamVM.ProjectID)
             };
@@ -72,7 +72,7 @@ namespace TestTrack.Controllers
             var teamVm = new TeamVM
             {
                 ProjectID = team.ProjectID,
-                Title = team.Title,
+                Name = team.Name,
                 TeamID = team.TeamID,
                 Projects = new SelectList(db.Projects.ToList(), "ProjectID", "Title", team.ProjectID)
             };
@@ -88,7 +88,7 @@ namespace TestTrack.Controllers
 
             if (team == null) return HttpNotFound();
 
-            team.Title = teamVM.Title;
+            team.Name = teamVM.Name;
             team.Project = db.Projects.Find(teamVM.ProjectID);
             team.ProjectID = teamVM.ProjectID;
             team.TeamID = teamVM.TeamID;
