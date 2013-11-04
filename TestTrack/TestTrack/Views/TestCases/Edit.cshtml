@@ -1,7 +1,7 @@
 ﻿@model TestTrack.ViewModels.TestCaseVM
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Test Case";
 }
 
 <div class="page-header">
@@ -115,24 +115,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Steps)
+                    @for (var i = 0; i < Model.Steps.Count(); i++)
                     {
-                        var step = 1;
                         <tr>
                             <td>
-                                <input type="hidden" id="stepsID_@step" name="stepsID" value="@item.StepId">
-                                <label>@step</label></td>
+                                <input type="hidden" id="stepsID_@Model.labels[i]" name="stepsID" value="@Model.Steps.ElementAt(i).StepId">
+                                <label>@Model.labels[i]</label></td>
                             <td>
-                                <textarea class="form-control" name="action">@item.Action</textarea>
+                                <textarea class="form-control" name="action">@Model.Steps.ElementAt(i).Action</textarea>
                             </td>
                             <td>
-                                <textarea class="form-control" name="result">@item.Result</textarea>
+                                <textarea class="form-control" name="result">@Model.Steps.ElementAt(i).Result</textarea>
                             </td>
                             <td>
-                                <a id="removeStep_@step" onclick="testCaseCtrl.removeRow(this)" href="#stepsTable" style="float: right;"><i class="glyphicon glyphicon-remove"></i></a>
+                                <a id="removeStep_@Model.labels[i]" onclick="testCaseCtrl.removeRow(this)" href="#stepsTable" style="float: right;"><i class="glyphicon glyphicon-remove"></i></a>
                             </td>
                         </tr>
-                        step++;
                     }
                 </tbody>
             </table>
@@ -152,17 +150,16 @@
         var testCaseCtrl = {};
         $(document).ready(function () {
 
-            var count = 1;
-
             testCaseCtrl.addRow = function () {
                 //copy the table row and clear the value of the input, then append the row to the end of the table
-                var row = $("#stepsTable tbody tr:first").clone();
+                var row = $("#stepsTable tbody tr:last").clone();
                 row.find("textarea").each(function () {
                     $(this).val('');
                 }).end();
-                row.find("label").text(++count);
+                var label = parseInt(row.find("label").text());
+                row.find("label").text(label + 1);
                 row.find("input").val("0");
-                row.find("a").attr("id", "removeStep_" + count);
+                row.find("a").attr("id", "removeStep_" + label);
                 row.appendTo("#stepsTable");
             }
 

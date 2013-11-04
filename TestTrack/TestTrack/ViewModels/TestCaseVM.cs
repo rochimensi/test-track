@@ -41,6 +41,7 @@ namespace TestTrack.ViewModels
 
         public IEnumerable<TestTrack.Models.Step> Steps { get; set; }
 
+        public string[] labels { get; set; }
         public string[] action { get; set; }
         public string[] result { get; set; }
         public string[] stepsID { get; set; } 

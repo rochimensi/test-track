@@ -111,6 +111,7 @@
                         <th>
                             <strong>Expected Result</strong>
                         </th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -121,10 +122,12 @@
                             <textarea class="form-control" name="action"></textarea></td>
                         <td>
                             <textarea class="form-control" name="result"></textarea></td>
+                        <td>
+                            <a id="removeStep_1" onclick="testCaseCtrl.removeRow(this)" href="#stepsTable" style="float: right;"><i class="glyphicon glyphicon-remove"></i></a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-            <a href="javascript:testCaseCtrl.removeRow();" style="float: right;">Remove Step</a>
         </div>
 
         <div>
@@ -141,22 +144,23 @@
         // <![CDATA[
         var testCaseCtrl = {};
         $(document).ready(function () {
-            var count = 1;
-
+            
             testCaseCtrl.addRow = function () {
                 //copy the table row and clear the value of the input, then append the row to the end of the table
                 var row = $("#stepsTable tbody tr:first").clone();
                 row.find("textarea").each(function () {
                     $(this).val('');
                 }).end();
-                row.find("label").text(++count);
+                var label = parseInt(row.find("label").text());
+                row.find("label").text(label + 1);
+                row.find("input").val("0");
+                row.find("a").attr("id", "removeStep_" + label);
                 row.appendTo("#stepsTable");
             }
 
-            testCaseCtrl.removeRow = function () {
+            testCaseCtrl.removeRow = function (element) {
                 if ($("#stepsTable tbody tr").length > 1) {
-                    $("#stepsTable tbody tr:last").remove();
-                    count--;
+                    $(element).closest("tr").remove();
                 }
             }
         });

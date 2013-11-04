@@ -11,8 +11,8 @@
 
 <div class="content">
     <div class="page-header">
-            <h2>@Model.Title &nbsp;<small>@Html.ActionLink(" ", "Edit", "TestCases", new { id = Model.TestCaseID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })&nbsp;@Html.ActionLink(" ", "Delete", "TestCases", new { id = Model.TestCaseID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
-        </div>
+        <h2>@Model.Title &nbsp;<small>@Html.ActionLink(" ", "Edit", "TestCases", new { id = Model.TestCaseID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })&nbsp;@Html.ActionLink(" ", "Delete", "TestCases", new { id = Model.TestCaseID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
+    </div>
     <div class="row tc-info">
         <div class="col-md-3">
             <div class="form-group">
@@ -89,20 +89,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.Steps)
+                @for(var i = 0; i < Model.Steps.Count(); i++)
                 {
-                    var step = 1;
                     <tr>
                         <td>
-                            <label>@step</label></td>
+                            <label>@Model.labels[i]</label></td>
                         <td>
-                            @item.Action
+                            @Model.Steps.ElementAt(i).Action
                         </td>
                         <td>
-                            @item.Result
+                            @Model.Steps.ElementAt(i).Result
                         </td>
                     </tr>
-                    step++;
                 }
             </tbody>
         </table>

@@ -35,8 +35,14 @@ namespace TestTrack.Controllers
                 Method = testCase.Method,
                 TestSuiteID = testCase.TestSuiteID,
                 TestSuite = db.TestSuites.Find(testCase.TestSuiteID).Title,
-                Steps = testCase.Steps
+                Steps = testCase.Steps,
+                labels = new string[testCase.Steps.Count()]
             };
+
+            for(var i = 0; i < testCase.Steps.Count(); i++)
+            {
+                testCaseVM.labels[i] = (i + 1).ToString();
+            }
 
             return View(testCaseVM);
         }
@@ -115,8 +121,14 @@ namespace TestTrack.Controllers
                 Method = testCase.Method,
                 Methods = Common.ToSelectList<TestTrack.Models.Method>(),
                 TestSuiteID = testCase.TestSuiteID,
-                Steps = testCase.Steps
+                Steps = testCase.Steps,
+                labels = new string[testCase.Steps.Count()]
             };
+
+            for (var i = 0; i < testCase.Steps.Count(); i++)
+            {
+                testCaseVM.labels[i] = (i + 1).ToString();
+            }
 
             return View(testCaseVM);
         }
