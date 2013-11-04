@@ -19,10 +19,21 @@ namespace TestTrack.Controllers
 
         // GET: /Results/
 
-        public ActionResult Index()
+        public ActionResult Index(int id = 0)
         {
-            var results = db.Results.Include(r => r.TestCase).Include(r => r.TestRun);
-            return View(results.ToList());
+            var testCase = db.TestCases.Find(id);
+            if(testCase == null) return HttpNotFound();
+
+            int[] states = StatesCount(testCase.Results);
+
+            var resultsPerTestCaseVM = new ResultsPerTestCaseVM
+            {
+                TestCase = testCase.Title,
+                TestCaseID = id,
+                Results = testCase.Results
+            };
+
+            return View(resultsPerTestCaseVM);
         }
 
         [HttpGet]
@@ -129,7 +140,7 @@ namespace TestTrack.Controllers
             var testRun = db.TestRuns.Find(id);
             if (testRun == null) return HttpNotFound();
 
-            int[] states = StatesCount(testRun);
+            int[] states = StatesCount(testRun.Results);
 
             Highcharts chart = new Highcharts("chart")
                 .InitChart(new Chart { PlotShadow = false, PlotBackgroundColor = null, PlotBorderWidth = null })
@@ -168,7 +179,7 @@ namespace TestTrack.Controllers
             var testRun = db.TestRuns.Find(id);
             if (testRun == null) return HttpNotFound();
 
-            int[] states = StatesCount(testRun);
+            int[] states = StatesCount(testRun.Results);
             int percentage = 0; 
 
             if (testRun.Results.Count() > 0)
@@ -185,7 +196,7 @@ namespace TestTrack.Controllers
             var testRun = db.TestRuns.Find(id);
             if (testRun == null) return HttpNotFound();
 
-            int[] states = StatesCount(testRun);
+            int[] states = StatesCount(testRun.Results);
             int sum = (states[0] + states[1] + states[2] + states[3] + states[4]);
 
             int[] percentages = null; 
@@ -197,11 +208,11 @@ namespace TestTrack.Controllers
             return PartialView("_ProgressBar", percentages);
         }
 
-        public int[] StatesCount(TestRun testRun)
+        public int[] StatesCount(ICollection<Result> results)
         {
             int[] statesCount = new int[5]{0,0,0,0,0};
 
-            foreach (var result in testRun.Results)
+            foreach (var result in results)
             {
                 switch (result.State)
                 {

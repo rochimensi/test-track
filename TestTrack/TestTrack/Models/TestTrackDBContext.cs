@@ -420,14 +420,16 @@ namespace TestTrack.Models
                     TestCaseID = 1,
                     TestRunID = 2,
                     State = State.Passed,
+                    Comments = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.",
                     CreatedOn = DateTime.Now
                 },
                 new Result
                 {
                     ResultID = 2,
-                    TestCaseID = 2,
+                    TestCaseID = 1,
                     TestRunID = 2,
-                    State = State.Passed,
+                    State = State.Failed,
+                    Comments = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.",
                     CreatedOn = DateTime.Now
                 },
                 new Result
@@ -436,6 +438,7 @@ namespace TestTrack.Models
                     TestCaseID = 3,
                     TestRunID = 2,
                     State = State.Passed,
+                    Comments = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.",
                     CreatedOn = DateTime.Now
                 },
                 new Result
@@ -444,6 +447,7 @@ namespace TestTrack.Models
                     TestCaseID = 4,
                     TestRunID = 2,
                     State = State.Failed,
+                    Comments = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.",
                     CreatedOn = DateTime.Now
                 },
                 new Result
@@ -452,6 +456,7 @@ namespace TestTrack.Models
                     TestCaseID = 5,
                     TestRunID = 2,
                     State = State.Failed,
+                    Comments = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.",
                     CreatedOn = DateTime.Now
                 },
                 new Result

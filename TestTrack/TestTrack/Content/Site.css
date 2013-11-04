@@ -125,22 +125,22 @@ span.glyphicon-chevron-down {
     font-size: inherit;
 }
 
-select.blocked {
+.blocked {
     background-color: #2f7ed8;
     color: #ffffff;
 }
 
-select.failed {
+.failed {
     background-color: #910000;
     color: #ffffff;
 }
 
-select.passed {
-    background-color: #8bbc21;
+.passed {
+    background-color: #8bbc21 !important;
     color: #ffffff;
 }
 
-select.retest {
+.retest {
     background-color: #0d233a;
     color: #ffffff;
 }

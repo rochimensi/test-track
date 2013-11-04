@@ -9,7 +9,7 @@
         </div>
         <div class="col-md-9">
             @* Action Link que me lleve a ver los details del TC *@
-            <p><small>@Html.ActionLink(Model.TestCase, "Index", "TestCases", new { id = Model.TestCaseID }, null)</small></p>
+            <p><small>@Html.ActionLink(Model.TestCase, "Index", "Results", new { id = Model.TestCaseID }, null)</small></p>
         </div>
         <div class="col-md-2">
                 @Html.DropDownListFor(model => model.SelectedState, Model.States, new { @onchange = "this.form.submit()", @class = "form-control " + @Model.SelectedState.ToString().ToLower() })
