@@ -9,18 +9,24 @@ namespace TestTrack.ViewModels
     {
         public int IterationID { get; set; }
 
-        [Display(Name = "Iteration Name")]
+        [Display(Name = "Title")]
+        [Required]
+        [StringLength(100)]
         public string Title { get; set; }
 
-        [Display(Name = "End Date")]
-        [DataType(DataType.Date)]
-        public DateTime DueDate { get; set; }
-
-        [Display(Name = "Start Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Start date")]
         [Required]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "End date")]
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime DueDate { get; set; }
+
+        [Display(Name = "Project")]
         [HiddenInput(DisplayValue = false)]
         public int ProjectID { get; set; }
           

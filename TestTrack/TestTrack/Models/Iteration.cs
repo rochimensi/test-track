@@ -12,19 +12,16 @@ namespace TestTrack.Models
         [Key]
         public int IterationID { get; set; }
 
-        [Display(Name = "Iteration Name")]
         [Required]
         [StringLength(100)]
         public string Title { get; set; }
 
         [Display(Name = "Start Date")]
         [Required]
-        [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
         [Display(Name = "End Date")]
         [Required]
-        [DataType(DataType.Date)]
         public DateTime DueDate { get; set; }
 
         [ForeignKey("Project")]

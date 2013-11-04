@@ -18,34 +18,49 @@
         <div class="form-group">
             <div class="editor-label">
                 @Html.LabelFor(model => model.Title)
+                <span class="text-danger">*</span>
             </div>
             <div class="editor-field">
                 @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+            <div class="editor-validation-error">
+                @Html.ValidationMessageFor(model => model.Title, null, new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             <div class="editor-label">
                 @Html.LabelFor(model => model.StartDate)
+                <span class="text-danger">*</span>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.StartDate)
-                @Html.ValidationMessageFor(model => model.StartDate)
+            </div>
+            <div class="editor-validation-error">
+                @Html.ValidationMessageFor(model => model.StartDate, null, new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             <div class="editor-label">
                 @Html.LabelFor(model => model.DueDate)
+                <span class="text-danger">*</span>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.DueDate)
-                @Html.ValidationMessageFor(model => model.DueDate)
+            </div>
+            <div class="editor-validation-error">
+                @Html.ValidationMessageFor(model => model.DueDate, null, new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ProjectID)
+                <span class="text-danger">*</span>
+            </div>
             <div class="editor-field">
-                @Html.DropDownListFor(model => model.ProjectID, Model.Projects, new { @class="form-control" })
-                @Html.ValidationMessageFor(model => model.ProjectID)
+                @Html.DropDownListFor(model => model.ProjectID, Model.Projects, "Select an option", new { @class = "form-control" })
+            </div>
+            <div class="editor-validation-error">
+                @Html.ValidationMessageFor(model => model.ProjectID, null, new { @class = "text-danger" })
             </div>
         </div>
         <p>

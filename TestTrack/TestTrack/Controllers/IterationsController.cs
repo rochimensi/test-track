@@ -2,6 +2,7 @@
 using DotNet.Highcharts.Enums;
 using DotNet.Highcharts.Helpers;
 using DotNet.Highcharts.Options;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace TestTrack.Controllers
         {
             var iterationVM = new IterationVM
             {
+                StartDate = DateTime.Now,
+                DueDate = DateTime.Now,
                 Projects = new SelectList(db.Projects.ToList(), "ProjectID", "Title")
             };
 
@@ -33,9 +36,9 @@ namespace TestTrack.Controllers
             Iteration iteration = new Iteration()
             {
                 Title = iterationVM.Title,
+                StartDate = iterationVM.StartDate,
                 DueDate = iterationVM.DueDate,
-                ProjectID = iterationVM.ProjectID,
-                Project = db.Projects.Find(iterationVM.ProjectID)
+                ProjectID = iterationVM.ProjectID
             };
 
             db.Iterations.Add(iteration);
@@ -55,6 +58,7 @@ namespace TestTrack.Controllers
             {
                 IterationID = iteration.IterationID,
                 Title = iteration.Title,
+                StartDate = iteration.StartDate,
                 DueDate = iteration.DueDate,
                 ProjectID = iteration.ProjectID,
                 Projects = new SelectList(db.Projects.ToList(), "ProjectID", "Title", iteration.ProjectID)
@@ -67,14 +71,12 @@ namespace TestTrack.Controllers
         public ActionResult Edit(IterationVM iterationVM)
         {
             var iteration = db.Iterations.Find(iterationVM.IterationID);
-
             if (iteration == null) return HttpNotFound();
 
             iteration.IterationID = iterationVM.IterationID;
             iteration.Title = iterationVM.Title;
             iteration.DueDate = iterationVM.DueDate;
             iteration.ProjectID = iterationVM.ProjectID;
-            iteration.Project = db.Projects.Find(iterationVM.ProjectID);
 
             db.Entry(iteration).State = EntityState.Modified;
             db.SaveChanges();
