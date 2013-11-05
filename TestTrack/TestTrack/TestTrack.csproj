@@ -433,6 +433,7 @@
     <Content Include="Views\TestSuites\Create.cshtml" />
     <Content Include="Views\ExecuteTestRun\_ListDisabled.cshtml" />
     <Content Include="Views\Iterations\_LineChart.cshtml" />
+    <Content Include="Views\Results\_BarChart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -5,6 +5,7 @@ using DotNet.Highcharts.Options;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
 using System.Web.Mvc;
 using TestTrack.Models;
@@ -22,7 +23,7 @@ namespace TestTrack.Controllers
         public ActionResult Index(int id = 0)
         {
             var testCase = db.TestCases.Find(id);
-            if(testCase == null) return HttpNotFound();
+            if (testCase == null) return HttpNotFound();
 
             int[] states = StatesCount(testCase.Results);
 
@@ -30,7 +31,13 @@ namespace TestTrack.Controllers
             {
                 TestCase = testCase.Title,
                 TestCaseID = id,
-                Results = testCase.Results
+                Results = testCase.Results,
+                TestRunID = testCase.Results.First().TestRunID,
+                TestRun = testCase.Results.First().TestRun.Title,
+                blocked = states[0],
+                failed = states[1],
+                passed = states[2],
+                retest = states[3]
             };
 
             return View(resultsPerTestCaseVM);
@@ -180,13 +187,13 @@ namespace TestTrack.Controllers
             if (testRun == null) return HttpNotFound();
 
             int[] states = StatesCount(testRun.Results);
-            int percentage = 0; 
+            int percentage = 0;
 
             if (testRun.Results.Count() > 0)
             {
                 percentage = (states[2] * 100) / (states[0] + states[1] + states[2] + states[3] + states[4]);
             }
-    
+
             return PartialView("_Percentage", percentage);
         }
 
@@ -199,7 +206,7 @@ namespace TestTrack.Controllers
             int[] states = StatesCount(testRun.Results);
             int sum = (states[0] + states[1] + states[2] + states[3] + states[4]);
 
-            int[] percentages = null; 
+            int[] percentages = null;
 
             if (testRun.Results.Count() > 0)
             {
@@ -208,9 +215,67 @@ namespace TestTrack.Controllers
             return PartialView("_ProgressBar", percentages);
         }
 
+        [ChildActionOnly]
+        public ActionResult DrawBarChart(int id = 0)
+        {
+            var testCase = db.TestCases.Find(id);
+            if (testCase  == null) return HttpNotFound();
+
+            int[] states = StatesCount(testCase.Results);
+
+            Highcharts chart = new Highcharts("chart")
+                .InitChart(new Chart { DefaultSeriesType = ChartTypes.Bar })
+                .SetTitle(new Title { Text = "Historic Test Case Results by State" })
+                .SetSubtitle(new Subtitle { Text = "Blocked - Failed - Passed - Retest" })
+                .SetXAxis(new XAxis
+                {
+                    Title = new XAxisTitle { Text = string.Empty }
+                })
+                .SetYAxis(new YAxis
+                {
+                    Min = 0,
+                    Title = new YAxisTitle
+                    {
+                        Text = "Number of results",
+                        Align = AxisTitleAligns.High
+                    },
+                    Max = states.ToList().Max() * 1.2 
+                })
+                .SetTooltip(new Tooltip { Formatter = "function() { return ''+ this.series.name +': '+ this.y +' results'; }" })
+                .SetPlotOptions(new PlotOptions
+                {
+                    Bar = new PlotOptionsBar
+                    {
+                        DataLabels = new PlotOptionsBarDataLabels { Enabled = true }
+                    }
+                })
+                .SetLegend(new Legend
+                {
+                    Layout = Layouts.Vertical,
+                    Align = HorizontalAligns.Right,
+                    VerticalAlign = VerticalAligns.Top,
+                    X = -70,
+                    Y = 50,
+                    Floating = true,
+                    BorderWidth = 1,
+                    BackgroundColor = new BackColorOrGradient(ColorTranslator.FromHtml("#FFFFFF")),
+                    Shadow = true
+                })
+                .SetCredits(new Credits { Enabled = false })
+                .SetSeries(new[]
+                    {
+                        new Series { Name = "Blocked", Data = new Data(new object[] { states[0] }) },
+                        new Series { Name = "Retest", Data = new Data(new object[] { states[3] }) },
+                        new Series { Name = "Passed", Data = new Data(new object[] { states[2] }) },
+                        new Series { Name = "Failed", Data = new Data(new object[] { states[1] }) }
+                    });
+
+            return PartialView("_BarChart", chart);
+        }
+
         public int[] StatesCount(ICollection<Result> results)
         {
-            int[] statesCount = new int[5]{0,0,0,0,0};
+            int[] statesCount = new int[5] { 0, 0, 0, 0, 0 };
 
             foreach (var result in results)
             {

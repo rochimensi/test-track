@@ -202,3 +202,7 @@ span.glyphicon-chevron-down {
 .progress-bar-warning {
     background-color: #2f7ed8 !important;
 }
+
+#chart_container {
+    margin-bottom: 30px;
+}

@@ -4,15 +4,21 @@
     ViewBag.Title = "Index";
 }
 
+<ol class="breadcrumb">
+    <li>@Html.ActionLink(Model.TestRun, "Index", "ExecuteTestRun", new { id = @Model.TestRunID }, null)</li>
+    <li class="active">@Model.TestCase</li>
+</ol>
+
 <div class="content">
     <div class="page-header">
         <h2>@Model.TestCase &nbsp;<small>@Html.ActionLink(" ", "Edit", "TestCases", new { id = Model.TestCaseID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit Test Case" })&nbsp;@Html.ActionLink(" ", "Delete", "TestCases", new { id = Model.TestCaseID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
     </div>
-    @* Bar chart con results *@
+
+    @Html.Action("DrawBarChart", "Results", new { id = Model.TestCaseID })
+
     <div class="panel-group" id="accordion">
-        @if (Model.Results.Count() > 0)
+        @foreach (var item in Model.Results)
         {
-            var item = Model.Results.First();
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
@@ -37,37 +43,30 @@
                         </a>
                     </h4>
                 </div>
-                <div id="#result_@item.ResultID" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        <p>@item.Comments</p>
-                        @if (item.Defects.Count() == 0)
-                        {
-                            <p>No defects.</p>
-                        }
+                @if (item == Model.Results.First())
+                {
+                    <div id="#result_@item.ResultID" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <p>@item.Comments</p>
+                            @if (item.Defects.Count() == 0)
+                            {
+                                <p>No defects.</p>
+                            }
+                        </div>
                     </div>
-                </div>
-            </div>
-        }
-        @for (var i = 1; i < Model.Results.Count(); i++)
-        {
-            var item = Model.Results.ElementAt(i);
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <span class="badge passed">Passed</span>
-                        <a data-toggle="collapse" data-parent="#accordion" href="#result_@item.ResultID">Result from <strong>@item.CreatedOn.ToShortDateString()</strong>
-                        </a>
-                    </h4>
-                </div>
-                <div id="#result_@item.ResultID" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <p>@item.Comments</p>
-                        @if (item.Defects.Count() == 0)
-                        {
-                            <p>No defects.</p>
-                        }
+                }
+                else
+                {
+                    <div id="#result_@item.ResultID" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p>@item.Comments</p>
+                            @if (item.Defects.Count() == 0)
+                            {
+                                <p>No defects.</p>
+                            }
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         }
     </div>
