@@ -41,6 +41,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.2.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\packages\Castle.Windsor.3.2.1\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="DotNet.Highcharts">
       <HintPath>..\packages\DotNet.Highcharts.2.0\lib\DotNet.Highcharts.dll</HintPath>
     </Reference>
@@ -186,6 +198,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ExecuteTestRunController.cs" />
@@ -208,6 +221,11 @@
     </Compile>
     <Compile Include="Helpers\Common.cs" />
     <Compile Include="Helpers\SessionWrapper.cs" />
+    <Compile Include="Infrastructure\Automapper\AutomapperConfiguration.cs" />
+    <Compile Include="Infrastructure\Automapper\IObjectMapperConfigurator.cs" />
+    <Compile Include="Infrastructure\Ioc\WindsorInstaller.cs" />
+    <Compile Include="Infrastructure\Ioc\WindsorControllerFactory.cs" />
+    <Compile Include="Infrastructure\Mappings\ProjectMappers.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Defect.cs" />
     <Compile Include="Models\IAuditable.cs" />
@@ -438,6 +456,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Filters\" />
+    <Folder Include="Infrastructure\EF\" />
     <Folder Include="Views\Steps\" />
   </ItemGroup>
   <ItemGroup>

@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using TestTrack.Models;
 using TestTrack.ViewModels;
+
+
+//TODO: Review way there's a project list VM instead of using IList<ProjectVM> ?
+//TODO: implement automapper for mapping models to viewModels
 
 namespace TestTrack.Controllers
 {
@@ -14,14 +19,17 @@ namespace TestTrack.Controllers
         private TestTrackDBContext db = new TestTrackDBContext();
 
         // GET: /Projects/
-
         public ActionResult Index()
         {
-            ProjectsListVM vm = new ProjectsListVM();
+            ProjectsListVM vm = new ProjectsListVM(); 
             UserSettings userSettings = SessionWrapper.UserSettings;
             var projects = (from p in db.Projects
                            orderby p.Title
                            select p).ToList();
+
+           //TESTING Mapping example
+           //var projectsVM = Mapper.Map<IList<Project>, IList<ProjectVM>>(projects);
+
             vm.SelectedProject = userSettings.workingProject;
             vm.Values = projects;
             return View(vm);
