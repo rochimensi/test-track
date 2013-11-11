@@ -18,13 +18,13 @@ namespace TestTrack.Controllers
         private TestTrackDBContext db = new TestTrackDBContext();
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(int id = 0)
         {
             var iterationVM = new IterationVM
             {
                 StartDate = DateTime.Now,
                 DueDate = DateTime.Now,
-                Projects = new SelectList(db.Projects.ToList(), "ProjectID", "Title")
+                ProjectID = id
             };
 
             return View("Create", iterationVM);
@@ -60,8 +60,7 @@ namespace TestTrack.Controllers
                 Title = iteration.Title,
                 StartDate = iteration.StartDate,
                 DueDate = iteration.DueDate,
-                ProjectID = iteration.ProjectID,
-                Projects = new SelectList(db.Projects.ToList(), "ProjectID", "Title", iteration.ProjectID)
+                ProjectID = iteration.ProjectID
             };
 
             return View(iterationVM);

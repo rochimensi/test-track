@@ -1,4 +1,4 @@
-﻿@model TestTrack.Models.Iteration
+﻿@model TestTrack.ViewModels.IterationVM
 
 @{
     ViewBag.Title = "Iterations";
@@ -11,13 +11,13 @@
         <p>Organize your project backlog in Iterations.</p>
         <p>By assigning test plans to your iterations you can easily monitor your iteration's status and activity.</p>
         <p>
-            @Html.ActionLink("Create New", "Create", "Iterations", null, new { @class = "btn btn-primary btn-lg" })
+            @Html.ActionLink("Create New", "Create", "Iterations", new { id = Model.ProjectID }, new { @class = "btn btn-primary btn-lg" })
         </p>
     </div>
 </div>
-@if (Model != null)
+@if (Model.IterationID != 0)
 {
-    <h2>Iterations for @Model.Project.Title</h2>
+    <h2>Iterations for @Model.Project</h2>
     
     <div class="dl-horizontal">
         @Html.Action("List", "Iterations")
@@ -47,7 +47,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <span class="badge">@Model.TestPlans.Count()</span>
+                        <span class="badge">@Model.TestPlansCount</span>
                         <a data-toggle="collapse" data-parent="#accordion" href="#testRunsPanel">
                             <strong>Test Plans</strong> for @Model.Title
                         </a>

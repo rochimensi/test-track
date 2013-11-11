@@ -29,7 +29,9 @@ namespace TestTrack.ViewModels
         [Display(Name = "Project")]
         [HiddenInput(DisplayValue = false)]
         public int ProjectID { get; set; }
-          
-        public IEnumerable<SelectListItem> Projects { get; set; }
+
+        public string Project { get; set; }
+
+        public int TestPlansCount { get; set; }
     }
 }
