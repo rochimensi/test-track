@@ -25,15 +25,17 @@ namespace TestTrack.Controllers
             var testCase = db.TestCases.Find(id);
             if (testCase == null) return HttpNotFound();
 
-            int[] states = StatesCount(testCase.Results);
+            var results = (from r in db.Results
+                           where r.TestCaseID == id
+                           orderby r.CreatedOn descending
+                           select r).ToList();
+            int[] states = StatesCount(results);
 
             var resultsPerTestCaseVM = new ResultsPerTestCaseVM
             {
                 TestCase = testCase.Title,
                 TestCaseID = id,
-                Results = testCase.Results,
-                TestRunID = testCase.Results.First().TestRunID,
-                TestRun = testCase.Results.First().TestRun.Title,
+                Results = results,
                 blocked = states[0],
                 failed = states[1],
                 passed = states[2],
@@ -41,6 +43,39 @@ namespace TestTrack.Controllers
             };
 
             return View(resultsPerTestCaseVM);
+        }
+
+        [HttpGet]
+        public ActionResult Create(int id = 0, string state = "")
+        {
+            int testRunID = db.TestCases.Find(id).Results.First().TestRunID;
+            ResultsListVM vm = new ResultsListVM
+            {
+                TestCaseID = id,
+                TestCase = db.TestCases.Find(id).Title,
+                SelectedStateName = state,
+                TestRunID = testRunID
+            };
+            return PartialView(vm);
+        }
+
+        [HttpPost]
+        public ActionResult Create(ResultsListVM vm)
+        {
+            var result = new Result
+            {
+                TestRunID = vm.TestRunID,
+                TestCaseID = vm.TestCaseID,
+                TestCase = db.TestCases.Find(vm.TestCaseID),
+                TestRun = db.TestRuns.Find(vm.TestRunID),
+                Comments = vm.Comments,
+                CreatedOn = DateTime.Now,
+                State = (State)Enum.Parse(typeof(State), vm.SelectedStateName)
+            };
+            db.Results.Add(result);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "ExecuteTestRun", new { id = vm.TestRunID });
         }
 
         [HttpGet]
@@ -77,20 +112,21 @@ namespace TestTrack.Controllers
             // If there is at least 1 test case checked
             if (vm.SelectedTestCases != null)
             {
-                foreach (var item in vm.SelectedTestCases)
+                foreach (var testCaseID in vm.SelectedTestCases)
                 {
-                    if (uncheckedTestCases.Contains(Convert.ToInt32(item)))
+                    if (uncheckedTestCases.Contains(Convert.ToInt32(testCaseID)))
                     {
-                        uncheckedTestCases.Remove(Convert.ToInt32(item));
+                        int id = Convert.ToInt32(testCaseID);
+                        uncheckedTestCases.RemoveAll(item => item == id);
                     }
                     else
                     {
                         var result = new Result
                         {
                             TestRunID = vm.TestRunID,
-                            TestCaseID = Convert.ToInt32(item),
+                            TestCaseID = Convert.ToInt32(testCaseID),
                             State = State.Untested,
-                            TestCase = db.TestCases.Find(Convert.ToInt32(item)),
+                            TestCase = db.TestCases.Find(Convert.ToInt32(testCaseID)),
                             TestRun = db.TestRuns.Find(vm.TestRunID)
                         };
 
@@ -117,8 +153,7 @@ namespace TestTrack.Controllers
             }
         }
 
-        // GET: /Results/Delete/5
-
+        [HttpGet]
         public ActionResult Delete(int id = 0)
         {
             Result result = db.Results.Find(id);
@@ -126,19 +161,17 @@ namespace TestTrack.Controllers
             {
                 return HttpNotFound();
             }
-            return View(result);
+            return PartialView(result);
         }
 
-        // POST: /Results/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
             Result result = db.Results.Find(id);
+            int testCaseID = result.TestCaseID;
             db.Results.Remove(result);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = testCaseID });
         }
 
         [ChildActionOnly]
@@ -147,7 +180,7 @@ namespace TestTrack.Controllers
             var testRun = db.TestRuns.Find(id);
             if (testRun == null) return HttpNotFound();
 
-            int[] states = StatesCount(testRun.Results);
+            int[] states = StatesCount(GetDistinctResults(testRun.TestRunID));
 
             Highcharts chart = new Highcharts("chart")
                 .InitChart(new Chart { PlotShadow = false, PlotBackgroundColor = null, PlotBorderWidth = null })
@@ -219,7 +252,7 @@ namespace TestTrack.Controllers
         public ActionResult DrawBarChart(int id = 0)
         {
             var testCase = db.TestCases.Find(id);
-            if (testCase  == null) return HttpNotFound();
+            if (testCase == null) return HttpNotFound();
 
             int[] states = StatesCount(testCase.Results);
 
@@ -239,7 +272,7 @@ namespace TestTrack.Controllers
                         Text = "Number of results",
                         Align = AxisTitleAligns.High
                     },
-                    Max = states.ToList().Max() * 1.2 
+                    Max = states.ToList().Max() * 1.2
                 })
                 .SetTooltip(new Tooltip { Formatter = "function() { return ''+ this.series.name +': '+ this.y +' results'; }" })
                 .SetPlotOptions(new PlotOptions
@@ -271,6 +304,26 @@ namespace TestTrack.Controllers
                     });
 
             return PartialView("_BarChart", chart);
+        }
+
+        private ICollection<Result> GetDistinctResults(int testRunID)
+        {
+            var sortedResults = (from r in db.Results
+                                 where r.TestRunID == testRunID
+                                 orderby r.TestCaseID, r.CreatedOn descending
+                                 select r).ToList();
+
+            List<Result> distinctResults = new List<Result>();
+            if (sortedResults.Count() > 0)
+                distinctResults.Add(sortedResults.First());
+
+            for (int i = 1; i < sortedResults.Count(); i++)
+            {
+                if (sortedResults.ElementAt(i).TestCaseID != sortedResults.ElementAt(i - 1).TestCaseID)
+                    distinctResults.Add(sortedResults.ElementAt(i));
+            }
+
+            return distinctResults;
         }
 
         public int[] StatesCount(ICollection<Result> results)

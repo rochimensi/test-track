@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
@@ -20,8 +21,8 @@ namespace TestTrack.Controllers
             ExecuteTestRunVM vm = new ExecuteTestRunVM();
 
             var testRun = (from value in db.TestRuns
-                            where value.TestRunID == id
-                            select value).First();
+                           where value.TestRunID == id
+                           select value).First();
             vm.TestRun = testRun.Title;
             vm.TestRunID = testRun.TestRunID;
             vm.Closed = testRun.Closed;
@@ -32,7 +33,7 @@ namespace TestTrack.Controllers
             vm.Iteration = testPlan.Iteration.Title;
             vm.IterationID = testPlan.IterationID;
             vm.TestSuiteID = testPlan.TeamID;
-            vm.Results = testRun.Results;
+            vm.Results = GetDistinctResults(testRun.TestRunID);
 
             return View(vm);
         }
@@ -42,8 +43,8 @@ namespace TestTrack.Controllers
         {
             ResultsListVM vm = new ResultsListVM();
             var result = (from value in db.Results
-                            where value.ResultID == id
-                            select value).First();
+                          where value.ResultID == id
+                          select value).First();
             vm.ResultID = id;
             vm.States = Common.ToSelectList<TestTrack.Models.State>();
             vm.SelectedState = result.State;
@@ -69,17 +70,24 @@ namespace TestTrack.Controllers
             return PartialView("_ListDisabled", vm);
         }
 
-        [HttpPost]
-        public ActionResult SetResult(ResultsListVM vm)
+        private IEnumerable<Result> GetDistinctResults(int testRunID)
         {
-            var result = db.Results.Find(vm.ResultID);
-            if (result == null) return HttpNotFound();
-            
-            result.State = vm.SelectedState;
-            db.Entry(result).State = EntityState.Modified;
-            db.SaveChanges();
+            var sortedResults = (from r in db.Results
+                                 where r.TestRunID == testRunID
+                                 orderby r.TestCaseID, r.CreatedOn descending
+                                 select r).ToList();
 
-            return Redirect(Request.UrlReferrer.ToString());
+            List<Result> distinctResults = new List<Result>();
+            if (sortedResults.Count() > 0)
+                distinctResults.Add(sortedResults.First());
+
+            for (int i = 1; i < sortedResults.Count(); i++)
+            {
+                if (sortedResults.ElementAt(i).TestCaseID != sortedResults.ElementAt(i - 1).TestCaseID)
+                    distinctResults.Add(sortedResults.ElementAt(i));
+            }
+
+            return distinctResults;
         }
     }
 }

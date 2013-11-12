@@ -4,11 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-<ol class="breadcrumb">
-    <li>@Html.ActionLink(Model.TestRun, "Index", "ExecuteTestRun", new { id = @Model.TestRunID }, null)</li>
-    <li class="active">@Model.TestCase</li>
-</ol>
-
 <div class="content">
     <div class="page-header">
         <h2>@Model.TestCase &nbsp;<small>@Html.ActionLink(" ", "Edit", "TestCases", new { id = Model.TestCaseID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit Test Case" })&nbsp;@Html.ActionLink(" ", "Delete", "TestCases", new { id = Model.TestCaseID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
@@ -46,7 +41,7 @@
                 </div>
                 @if (item == Model.Results.First())
                 {
-                    <div id="#result_@item.ResultID" class="panel-collapse collapse in">
+                    <div id="result_@item.ResultID" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <p>@item.Comments</p>
                             @if (item.Defects.Count() == 0)
@@ -58,7 +53,7 @@
                 }
                 else
                 {
-                    <div id="#result_@item.ResultID" class="panel-collapse collapse">
+                    <div id="result_@item.ResultID" class="panel-collapse collapse">
                         <div class="panel-body">
                             <p>@item.Comments</p>
                             @if (item.Defects.Count() == 0)

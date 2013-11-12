@@ -15,7 +15,7 @@
         <strong>@Model.TestRun</strong>
         @if (!Model.Closed)
         {
-            @Html.ActionLink(" ", "Edit", "TestRuns", new { id = Model.TestRunID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit"})  
+            @Html.ActionLink(" ", "Edit", "TestRuns", new { id = Model.TestRunID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })  
         }
         | @Html.ActionLink(" ", "Delete", "TestRuns", new { id = Model.TestRunID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })
     </div>
@@ -55,14 +55,15 @@
             {
                 foreach (var item in Model.Results)
                 {
-                    @Html.Action("List", "ExecuteTestRun", new { id = item.ResultID })
+            @Html.Action("List", "ExecuteTestRun", new { id = item.ResultID })
                 }
             }
-            else {  
+            else
+            {
                 foreach (var item in Model.Results)
                 {
-                    @Html.Action("ListDisabled", "ExecuteTestRun", new { id = item.ResultID })
-                }     
+            @Html.Action("ListDisabled", "ExecuteTestRun", new { id = item.ResultID })
+                }
             }
         }
     </div>
@@ -73,3 +74,16 @@
 
 <!-- SELECT TEST CASES MODAL -->
 <div class="modal fade" id="selectTestCasesModal" tabindex="-1" role="dialog" aria-labelledby="select" aria-hidden="true"></div>
+
+<!-- ADD RESULT MODAL -->
+<div class="modal fade" id="modalResultForTestCase" tabindex="-1" role="dialog" aria-labelledby="result" aria-hidden="true"></div>
+
+<script>
+    $(document).ready(function () {
+        $(".row select").change(function () {
+            $('#modalResultForTestCase').modal({
+                remote: "/Results/Create/" + $(this).attr("data-id") + "/" + $(this).val()
+            });
+        });
+    });
+</script>

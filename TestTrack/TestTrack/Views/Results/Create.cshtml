@@ -1,0 +1,59 @@
+﻿@model TestTrack.ViewModels.ResultsListVM
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.TestCaseID)
+    @Html.HiddenFor(model => model.TestRunID)
+    @Html.HiddenFor(model => model.SelectedStateName)
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header @Model.SelectedStateName.ToLower()">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add Test Result</h4>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <label>Status</label>
+                    <p>
+                        @switch (Model.SelectedStateName)
+                        {
+                            case "Blocked":
+                            <span class="badge blocked">Blocked</span>
+                                break;
+                            case "Failed":
+                            <span class="badge failed">Failed</span>
+                                break;
+                            case "Passed":
+                            <span class="badge passed">Passed</span>
+                                break;
+                            case "Retest":
+                            <span class="badge retest">Retest</span>
+                                break;
+                            default:
+                                <span class="badge">Untested</span>
+                                break;
+                        }
+                    </p>
+                    <div class="form-group">
+                        <div class="editor-label">
+                            <label>Comments</label>
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextAreaFor(model => model.Comments, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Comments)
+                        </div>
+                        <small>Describe your test result.</small>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-default" href="/ExecuteTestRun/Index/@Model.TestRunID">Cancel</a>
+                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i>Add Test Result</button>
+            </div>
+        </div>
+    </div>
+}

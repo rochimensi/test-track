@@ -11,10 +11,6 @@ namespace TestTrack.ViewModels
         
         public int TestCaseID { get; set; }
 
-        public int TestRunID { get; set; }
-
-        public string TestRun { get; set; }
-
         public string TestCase { get; set; }
 
         public int blocked { get; set; }
