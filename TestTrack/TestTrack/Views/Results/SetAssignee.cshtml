@@ -1,0 +1,38 @@
+﻿@model TestTrack.ViewModels.ResultsListVM
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.ResultID)
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Set Assignee for testing</h4>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    @Html.HiddenFor(model => model.ResultID)
+                    @Html.HiddenFor(model => model.TestRunID)
+                    <div class="form-group">
+                        <div class="editor-label">
+                            <label>Assignee</label>
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.AssignedTo, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.AssignedTo)
+                        </div>
+                        <small>Set the QA's name that will test this test case.</small>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i>Save</button>
+            </div>
+        </div>
+    </div>
+}

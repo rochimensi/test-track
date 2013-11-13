@@ -4,6 +4,7 @@ using DotNet.Highcharts.Helpers;
 using DotNet.Highcharts.Options;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web.Mvc;
@@ -78,6 +79,33 @@ namespace TestTrack.Controllers
                 State = (State)Enum.Parse(typeof(State), vm.SelectedStateName)
             };
             db.Results.Add(result);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "ExecuteTestRun", new { id = vm.TestRunID });
+        }
+
+        [HttpGet]
+        public ActionResult SetAssignee(int id = 0)
+        {
+            ResultsListVM vm = new ResultsListVM
+            {
+                TestCaseID = db.Results.Find(id).TestCaseID,
+                ResultID = id,
+                TestRunID = db.Results.Find(id).TestRunID
+            };
+
+            return PartialView(vm);
+        }
+
+        [HttpPost]
+        public ActionResult SetAssignee(ResultsListVM vm)
+        {
+            var result = db.Results.Find(vm.ResultID);
+            if (result == null) return HttpNotFound();
+
+            result.AssignedTo = vm.AssignedTo;
+
+            db.Entry(result).State = EntityState.Modified;
             db.SaveChanges();
 
             return RedirectToAction("Index", "ExecuteTestRun", new { id = vm.TestRunID });

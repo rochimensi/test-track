@@ -31,6 +31,9 @@ namespace TestTrack.Models
         [StringLength(1000)]
         public string Comments { get; set; }
 
+        [StringLength(100)]
+        public string AssignedTo { get; set; }
+
         public virtual TestCase TestCase { get; set; }
         public virtual TestRun TestRun { get; set; }
 

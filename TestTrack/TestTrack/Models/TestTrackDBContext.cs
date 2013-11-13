@@ -421,6 +421,7 @@ namespace TestTrack.Models
                     TestRunID = 2,
                     State = State.Passed,
                     Comments = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.",
+                    AssignedTo = "Carlitos",
                     CreatedOn = DateTime.Now
                 },
                 new Result
@@ -430,6 +431,7 @@ namespace TestTrack.Models
                     TestRunID = 2,
                     State = State.Failed,
                     Comments = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.",
+                    AssignedTo = "Ro",
                     CreatedOn = DateTime.Now
                 },
                 new Result
@@ -439,6 +441,7 @@ namespace TestTrack.Models
                     TestRunID = 2,
                     State = State.Passed,
                     Comments = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.",
+                    AssignedTo = "Mati",
                     CreatedOn = DateTime.Now
                 },
                 new Result
@@ -448,6 +451,7 @@ namespace TestTrack.Models
                     TestRunID = 2,
                     State = State.Failed,
                     Comments = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.",
+                    AssignedTo = "Marcelo",
                     CreatedOn = DateTime.Now
                 },
                 new Result
@@ -457,6 +461,7 @@ namespace TestTrack.Models
                     TestRunID = 2,
                     State = State.Failed,
                     Comments = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.",
+                    AssignedTo = "Diego",
                     CreatedOn = DateTime.Now
                 },
                 new Result

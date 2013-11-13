@@ -57,6 +57,7 @@ namespace TestTrack.Controllers
                           where value.ResultID == id
                           select value).First();
             vm.ResultID = id;
+            vm.AssignedTo = result.AssignedTo;
             vm.TestRunID = result.TestRunID;
             vm.States = Common.ToSelectList<TestTrack.Models.State>();
             vm.SelectedState = result.State;

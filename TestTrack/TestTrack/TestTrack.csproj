@@ -453,6 +453,9 @@
     <Content Include="Views\Iterations\_LineChart.cshtml" />
     <Content Include="Views\Results\_BarChart.cshtml" />
     <Content Include="Views\Results\Create.cshtml" />
+    <Content Include="Views\Results\SetAssignee.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

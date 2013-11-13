@@ -4,8 +4,18 @@
     <div class="col-md-1 tc-id">
         <p><small>@Model.TestCaseID</small></p>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-7">
         <p><small><a href="/Results/Index/@Model.TestRunID/@Model.TestCaseID">@Model.TestCase</a></small></p>
+    </div>
+    <div class="col-md-2">
+        @if (Model.AssignedTo != null)
+        {
+            <p><small>@Html.ActionLink(@Model.AssignedTo, "SetAssignee", "Results", new { id = Model.TestCaseID }, new { @data_target = "#modalAssignTo", @data_toggle = "modal" })</small></p>
+        }
+        else
+        {
+            <p><small>@Html.ActionLink("Assign..", "SetAssignee", "Results", new { id = Model.TestCaseID }, new { @data_target = "#modalAssignTo", @data_toggle = "modal" })</small></p>
+        }
     </div>
     <div class="col-md-2">
         @Html.DropDownListFor(model => model.SelectedState, Model.States, new { @class = "form-control " + @Model.SelectedState.ToString().ToLower(), @data_id = Model.ResultID })

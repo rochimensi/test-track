@@ -22,6 +22,9 @@ namespace TestTrack.ViewModels
 
         public int TestCaseID { get; set; }
 
+        [StringLength(100)]
+        public string AssignedTo { get; set; }
+
         [StringLength(1000)]
         public string Comments { get; set; }
     }
