@@ -14,7 +14,7 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        @Html.HiddenFor(model => model.TeamID)
+        @Html.HiddenFor(model => model.ProjectID)
         <div class="form-group">
             <div class="editor-label">
                 @Html.LabelFor(model => model.Name)
@@ -25,18 +25,6 @@
             </div>
             <div class="editor-validation-error">
                 @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.ProjectID)
-                <span class="text-danger">*</span>
-            </div>
-            <div class="editor-field">
-                @Html.DropDownListFor(model => model.ProjectID, Model.Projects, "Select an option", new { @class = "form-control" })
-            </div>
-            <div class="editor-validation-error">
-                @Html.ValidationMessageFor(model => model.ProjectID, null, new { @class = "text-danger" })
             </div>
         </div>
         <p>

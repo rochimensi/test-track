@@ -36,9 +36,10 @@ namespace TestTrack.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            UserSettings userSettings = SessionWrapper.UserSettings;
             var TeamVM = new TeamVM
             {
-                Projects = new SelectList(db.Projects.ToList(), "ProjectID", "Title")
+                ProjectID = userSettings.workingProject
             };
 
             return View("Create", TeamVM);
@@ -49,10 +50,8 @@ namespace TestTrack.Controllers
         {
             var team = new Team
             {
-                TeamID = teamVM.TeamID,
                 Name = teamVM.Name,
                 ProjectID = teamVM.ProjectID,
-                Project = db.Projects.Find(teamVM.ProjectID)
             };
 
             db.Teams.Add(team);
