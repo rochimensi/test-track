@@ -51,7 +51,7 @@
                         <a data-toggle="collapse" data-parent="#accordion" href="#testRunsPanel">
                             <strong>Test Plans</strong> for @Model.Title
                         </a>
-                        @Html.ActionLink("Add Test Plan", "Create", "TestPlans", null, new { @class = "btn btn-default btn-md heading-btn" })
+                        @Html.ActionLink("Add Test Plan", "Create", "TestPlans", new { id = Model.IterationID }, new { @class = "btn btn-default btn-md heading-btn" })
                     </h4>
                 </div>
                 <div id="testRunsPanel" class="panel-collapse collapse in">

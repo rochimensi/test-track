@@ -26,10 +26,10 @@ namespace TestTrack.Controllers
         // GET: /TestSuites/Create
         [HttpGet]
         public ActionResult Create()
-        {        
+        {   
             TestSuiteVM testSuiteVM = new TestSuiteVM
             {
-                Teams = new SelectList(db.Teams, "TeamID", "Title")
+                Teams = new SelectList(GetTeamsWithNoTestsuite(), "TeamID", "Name")
             };
 
             return View("Create", testSuiteVM);
@@ -61,7 +61,7 @@ namespace TestTrack.Controllers
             {
                 Title = testsuite.Title,
                 TeamID = testsuite.TeamID,
-                Teams = new SelectList(db.Teams, "TeamID", "Title")
+                Teams = new SelectList(GetTeamsWithNoTestsuite(), "TeamID", "Name")
             };
 
             return View("Edit", testSuiteVM);
@@ -77,7 +77,7 @@ namespace TestTrack.Controllers
             testsuite.Title = testSuiteVM.Title;
             testsuite.TeamID = testSuiteVM.TeamID;
 
-            db.TestSuites.Add(testsuite);
+            db.Entry(testsuite).State = EntityState.Modified;
             db.SaveChanges();
 
             return RedirectToAction("Index", "TestCasesPerTestSuite", new { id = testsuite.TeamID });
@@ -116,6 +116,29 @@ namespace TestTrack.Controllers
             vm.Values = new SelectList(testSuites, "TeamID", "Title");
 
             return PartialView("_List", vm);
+        }
+
+        private ICollection<Team> GetTeamsWithNoTestsuite()
+        {
+            UserSettings userSettings = SessionWrapper.UserSettings;
+            var teamsInProject = (from team in db.Teams
+                                 where team.ProjectID == userSettings.workingProject
+                                 select team).ToList();
+            var testSuites = (from ts in db.TestSuites
+                              select ts.TeamID).ToList();
+
+            IList<Team> teamsWithNoTestSuite = new List<Team>();
+            foreach (var team in teamsInProject)
+            {
+                teamsWithNoTestSuite.Add(team);
+            }
+            foreach (var team in teamsInProject)
+            {
+                if (testSuites.Contains(team.TeamID))
+                    teamsWithNoTestSuite.Remove(team);
+            }
+
+            return teamsWithNoTestSuite;
         }
 
         protected override void Dispose(bool disposing)

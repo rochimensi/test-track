@@ -14,12 +14,15 @@ namespace TestTrack.Controllers
         private TestTrackDBContext db = new TestTrackDBContext();
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(int id = 0)
         {
+            var iteration = db.Iterations.Find(id);
+            if (iteration == null) return HttpNotFound();
+
             var testPlanVM = new TestPlanVM
             {
-                Iterations = new SelectList(db.Iterations.ToList(), "IterationID", "Title"),
-                Teams = new SelectList(db.Teams.ToList(), "TeamID", "Title")
+                IterationID = iteration.IterationID,
+                Teams = new SelectList(db.Teams.ToList(), "TeamID", "Name")
             };
 
             return View("Create", testPlanVM);
@@ -59,7 +62,7 @@ namespace TestTrack.Controllers
                 IterationID = testPlan.IterationID,
                 Iterations = new SelectList(db.Iterations.ToList(), "IterationID", "Title", testPlan.IterationID),
                 TeamID = testPlan.TeamID,
-                Teams = new SelectList(db.Teams.ToList(), "TeamID", "Title", testPlan.TeamID)
+                Teams = new SelectList(db.Teams.ToList(), "TeamID", "Name", testPlan.TeamID)
             };
 
             return View(testPlanVM);

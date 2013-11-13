@@ -4,6 +4,12 @@
     ViewBag.Title = "Index";
 }
 
+<ol class="breadcrumb">
+    <li>@Html.ActionLink(Model.TestRun, "Index", "ExecuteTestRun", new { id = @Model.TestRunID }, null)</li>
+    <li class="active">@Model.TestCase</li>
+</ol>
+
+
 <div class="content">
     <div class="page-header">
         <h2>@Model.TestCase &nbsp;<small>@Html.ActionLink(" ", "Edit", "TestCases", new { id = Model.TestCaseID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit Test Case" })&nbsp;@Html.ActionLink(" ", "Delete", "TestCases", new { id = Model.TestCaseID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
@@ -32,6 +38,7 @@
                             <span class="badge retest">Retest</span>
                                 break;
                             default:
+                            <span class="badge">Untested</span>
                                 break;
                         }
                         <a data-toggle="collapse" data-parent="#accordion" href="#result_@item.ResultID">Result from <strong>@item.CreatedOn.ToShortDateString()</strong>

@@ -26,7 +26,7 @@
 </div>
 <p>@Model.TestPlanDescription</p><br />
 
-@if (Model.TestRuns.Count() > 0)
+@if (Model.TestRuns.Count() > 0 || Model.ClosedTestRuns.Count() > 0)
 {
     <div class="content">
         <div class="panel-group" id="accordion">

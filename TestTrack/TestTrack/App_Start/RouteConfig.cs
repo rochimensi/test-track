@@ -24,6 +24,12 @@ namespace TestTrack
                 url: "Results/Create/{id}/{state}",
                 defaults: new { controller = "Results", action = "Create", id = UrlParameter.Optional, state = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "TestCaseOnTestRun",
+                url: "Results/Index/{id}/{tcId}",
+                defaults: new { controller = "Results", action = "Index", id = UrlParameter.Optional, tcId = UrlParameter.Optional }
+            );
         }
     }
 }

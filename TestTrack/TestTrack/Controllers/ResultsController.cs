@@ -4,7 +4,6 @@ using DotNet.Highcharts.Helpers;
 using DotNet.Highcharts.Options;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Web.Mvc;
@@ -20,13 +19,16 @@ namespace TestTrack.Controllers
 
         // GET: /Results/
 
-        public ActionResult Index(int id = 0)
+        public ActionResult Index(int id = 0, int tcId = 0)
         {
-            var testCase = db.TestCases.Find(id);
+            var testRun = db.TestRuns.Find(id);
+            if (testRun == null) return HttpNotFound();
+
+            var testCase = db.TestCases.Find(tcId);
             if (testCase == null) return HttpNotFound();
 
             var results = (from r in db.Results
-                           where r.TestCaseID == id
+                           where r.TestCaseID == tcId
                            orderby r.CreatedOn descending
                            select r).ToList();
             int[] states = StatesCount(results);
@@ -34,7 +36,9 @@ namespace TestTrack.Controllers
             var resultsPerTestCaseVM = new ResultsPerTestCaseVM
             {
                 TestCase = testCase.Title,
-                TestCaseID = id,
+                TestCaseID = tcId,
+                TestRun = testRun.Title,
+                TestRunID = testRun.TestRunID,
                 Results = results,
                 blocked = states[0],
                 failed = states[1],
@@ -48,11 +52,12 @@ namespace TestTrack.Controllers
         [HttpGet]
         public ActionResult Create(int id = 0, string state = "")
         {
-            int testRunID = db.TestCases.Find(id).Results.First().TestRunID;
+            int testRunID = db.Results.Find(id).TestRunID;
+            int testCaseID = db.Results.Find(id).TestCaseID;
             ResultsListVM vm = new ResultsListVM
             {
-                TestCaseID = id,
-                TestCase = db.TestCases.Find(id).Title,
+                TestCaseID = testCaseID,
+                TestCase = db.TestCases.Find(testCaseID).Title,
                 SelectedStateName = state,
                 TestRunID = testRunID
             };
@@ -219,7 +224,7 @@ namespace TestTrack.Controllers
             var testRun = db.TestRuns.Find(id);
             if (testRun == null) return HttpNotFound();
 
-            int[] states = StatesCount(testRun.Results);
+            int[] states = StatesCount(GetDistinctResults(testRun.TestRunID));
             int percentage = 0;
 
             if (testRun.Results.Count() > 0)
@@ -236,7 +241,7 @@ namespace TestTrack.Controllers
             var testRun = db.TestRuns.Find(id);
             if (testRun == null) return HttpNotFound();
 
-            int[] states = StatesCount(testRun.Results);
+            int[] states = StatesCount(GetDistinctResults(testRun.TestRunID));
             int sum = (states[0] + states[1] + states[2] + states[3] + states[4]);
 
             int[] percentages = null;

@@ -5,9 +5,9 @@
         <p><small>@Model.TestCaseID</small></p>
     </div>
     <div class="col-md-9">
-        <p><small>@Html.ActionLink(Model.TestCase, "Index", "Results", new { id = Model.TestCaseID }, null)</small></p>
+        <p><small><a href="/Results/Index/@Model.TestRunID/@Model.TestCaseID">@Model.TestCase</a></small></p>
     </div>
     <div class="col-md-2">
-        @Html.DropDownListFor(model => model.SelectedState, Model.States, new { @class = "form-control " + @Model.SelectedState.ToString().ToLower(), @data_id = Model.TestCaseID })
+        @Html.DropDownListFor(model => model.SelectedState, Model.States, new { @class = "form-control " + @Model.SelectedState.ToString().ToLower(), @data_id = Model.ResultID })
     </div>
 </div>

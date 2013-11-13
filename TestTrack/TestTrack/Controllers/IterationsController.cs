@@ -74,6 +74,7 @@ namespace TestTrack.Controllers
 
             iteration.IterationID = iterationVM.IterationID;
             iteration.Title = iterationVM.Title;
+            iteration.StartDate = iterationVM.StartDate;
             iteration.DueDate = iterationVM.DueDate;
             iteration.ProjectID = iterationVM.ProjectID;
 
