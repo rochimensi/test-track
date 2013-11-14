@@ -4,35 +4,43 @@
     ViewBag.Title = "Teams";
 }
 
-<div class="page-header">
-    <h1>Add Team</h1>
-</div>
+<!-- Header -->
+@Html.Partial("~/Views/Shared/_Header.cshtml")
 
-@using (Html.BeginForm("Create", "Teams"))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        @Html.HiddenFor(model => model.ProjectID)
-        <div class="form-group">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Name)
-                <span class="text-danger">*</span>
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
-            </div>
-            <div class="editor-validation-error">
-                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
-            </div>
+<!-- Main -->
+<div class="container">
+    <div class="main">
+        <div class="page-header">
+            <h1>Add Team</h1>
         </div>
-        <p>
-            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Save</button>
-            @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
-        </p>
-    </fieldset>
-}
+
+        @using (Html.BeginForm("Create", "Teams"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                @Html.HiddenFor(model => model.ProjectID)
+                <div class="form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Name)
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                    </div>
+                    <div class="editor-validation-error">
+                        @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <p>
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i>Save</button>
+                    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+                </p>
+            </fieldset>
+        }
+    </div>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

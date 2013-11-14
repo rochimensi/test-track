@@ -4,47 +4,55 @@
     ViewBag.Title = "Teams";
 }
 
-<div class="page-header">
-    <h1>Edit Team</h1>
+<!-- Header -->
+@Html.Partial("~/Views/Shared/_Header.cshtml")
+
+<!-- Main -->
+<div class="container">
+    <div class="main">
+        <div class="page-header">
+            <h1>Edit Team</h1>
+        </div>
+
+        @using (Html.BeginForm("Edit", "Teams"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                @Html.HiddenFor(model => model.TeamID)
+                <div class="form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Name)
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                    </div>
+                    <div class="editor-validation-error">
+                        @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.ProjectID)
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model.ProjectID, Model.Projects, "Select an option", new { @class = "form-control" })
+                    </div>
+                    <div class="editor-validation-error">
+                        @Html.ValidationMessageFor(model => model.ProjectID, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <p>
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i>Save</button>
+                    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+                </p>
+            </fieldset>
+        }
+    </div>
 </div>
-
-@using (Html.BeginForm("Edit", "Teams"))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        @Html.HiddenFor(model => model.TeamID)
-        <div class="form-group">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Name)
-                <span class="text-danger">*</span>
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
-            </div>
-            <div class="editor-validation-error">
-                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.ProjectID)
-                <span class="text-danger">*</span>
-            </div>
-            <div class="editor-field">
-                @Html.DropDownListFor(model => model.ProjectID, Model.Projects, "Select an option", new { @class="form-control" })
-            </div>
-            <div class="editor-validation-error">
-                @Html.ValidationMessageFor(model => model.ProjectID, null, new { @class = "text-danger" })
-            </div>
-        </div>
-        <p>
-            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Save</button>
-            @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
-        </p>
-    </fieldset>
-}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
