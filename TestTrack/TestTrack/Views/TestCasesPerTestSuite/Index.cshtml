@@ -4,52 +4,60 @@
     ViewBag.Title = "Test Suites";
 }
 
-<div class="jumbotron">
-    <div class="container">
-        <h1>Test Suites</h1>
-        <p>QA Teams may reach hundreds or thousands of test cases while designing or exploring.</p>
-        <p>Organization is provided by Test Suites, which group test cases related to each team.</p>
-        <p>Add your Test Suite and start filling it up!</p>
-        <p>
-            @Html.ActionLink("Create New", "Create", "TestSuites", null, new { @class = "btn btn-primary btn-lg" })
-        </p>
-    </div>
-</div>
+<!-- Header -->
+@Html.Partial("~/Views/Shared/_Header.cshtml")
 
-@if (Model != null)
-{
-    <div class="dl-horizontal">
-        <h2>Test Suites for @Model.Team.Project.Title</h2>
-        @Html.Action("List", "TestSuites")
-    </div>
-    
-    <div class="content">
-        <div class="page-header">
-            <h2>@Model.Title &nbsp;<small>@Html.ActionLink(" ", "Edit", "TestSuites", new { id = Model.TeamID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })&nbsp;@Html.ActionLink(" ", "Delete", "TestSuites", new { id = Model.TeamID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
+<!-- Main -->
+<div class="container">
+    <div class="main">
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Test Suites</h1>
+                <p>QA Teams may reach hundreds or thousands of test cases while designing or exploring.</p>
+                <p>Organization is provided by Test Suites, which group test cases related to each team.</p>
+                <p>Add your Test Suite and start filling it up!</p>
+                <p>
+                    @Html.ActionLink("Create New", "Create", "TestSuites", null, new { @class = "btn btn-primary btn-lg" })
+                </p>
+            </div>
         </div>
-    </div>
+
+        @if (Model != null)
+        {
+            <div class="dl-horizontal">
+                <h2>Test Suites for @Model.Team.Project.Title</h2>
+                @Html.Action("List", "TestSuites")
+            </div>
     
-    <div class="content">
-        <div class="panel-group" id="accordion">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <span class="badge">@Model.TestCases.Count()</span>
-                        <a data-toggle="collapse" data-parent="#accordion" href="#testRunsPanel">
-                            <strong>Test Cases</strong> for @Model.Title
-                        </a>
-                        @Html.ActionLink("Add Test Case", "Create", "TestCases", new { id = Model.TeamID }, new { @class = "btn btn-default btn-md heading-btn" })
-                    </h4>
+            <div class="content">
+                <div class="page-header">
+                    <h2>@Model.Title &nbsp;<small>@Html.ActionLink(" ", "Edit", "TestSuites", new { id = Model.TeamID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })&nbsp;@Html.ActionLink(" ", "Delete", "TestSuites", new { id = Model.TeamID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
                 </div>
-                <div id="testRunsPanel" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        @Html.Action("List", "TestCases", new { id = Model.TeamID })
+            </div>
+    
+            <div class="content">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <span class="badge">@Model.TestCases.Count()</span>
+                                <a data-toggle="collapse" data-parent="#accordion" href="#testRunsPanel">
+                                    <strong>Test Cases</strong> for @Model.Title
+                                </a>
+                                @Html.ActionLink("Add Test Case", "Create", "TestCases", new { id = Model.TeamID }, new { @class = "btn btn-default btn-md heading-btn" })
+                            </h4>
+                        </div>
+                        <div id="testRunsPanel" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                @Html.Action("List", "TestCases", new { id = Model.TeamID })
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
-}
+</div>
 
 <!-- DELETE MODAL -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true"></div>

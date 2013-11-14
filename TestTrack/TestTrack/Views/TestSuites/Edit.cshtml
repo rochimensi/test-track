@@ -1,31 +1,39 @@
 ﻿@model TestTrack.ViewModels.TestSuiteVM
 
-<div class="page-header">
-    <h1>Edit Test Suite</h1>
-</div>
+<!-- Header -->
+@Html.Partial("~/Views/Shared/_Header.cshtml")
 
-@using (Html.BeginForm("Edit", "TestSuites"))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        @Html.HiddenFor(model => model.TeamID)
-        <div class="form-group">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Title)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Title)
-            </div>
+<!-- Main -->
+<div class="container">
+    <div class="main">
+        <div class="page-header">
+            <h1>Edit Test Suite</h1>
         </div>
-        <p>
-            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Save</button>
-            @Html.ActionLink("Cancel", "Index", "TestCasesPerTestSuite", new { id = Model.TeamID }, new { @class = "btn btn-default" })
-        </p>
-    </fieldset>
-}
+
+        @using (Html.BeginForm("Edit", "TestSuites"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                @Html.HiddenFor(model => model.TeamID)
+                <div class="form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Title)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Title)
+                    </div>
+                </div>
+                <p>
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i>Save</button>
+                    @Html.ActionLink("Cancel", "Index", "TestCasesPerTestSuite", new { id = Model.TeamID }, new { @class = "btn btn-default" })
+                </p>
+            </fieldset>
+        }
+    </div>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
