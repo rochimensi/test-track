@@ -8,7 +8,9 @@ namespace TestTrack.ViewModels
     {
         public int TestRunID { get; set; }
 
-        [Display(Name = "Test Run Name")]
+        [Display(Name = "Title")]
+        [Required]
+        [StringLength(100)]
         public string Title { get; set; }
 
         [HiddenInput(DisplayValue = false)]

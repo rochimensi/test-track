@@ -12,7 +12,6 @@ namespace TestTrack.Models
         [Key]
         public int TestRunID { get; set; }
 
-        [Display(Name = "Test Run Name")]
         [Required]
         [StringLength(100)]
         public string Title { get; set; }
@@ -22,8 +21,8 @@ namespace TestTrack.Models
         [ForeignKey("TestPlan")]
         [Required]
         public int TestPlanID { get; set; }
-
         public virtual TestPlan TestPlan { get; set; }
+        
         public virtual ICollection<Result> Results { get; set; }
 
         public DateTime CreatedOn { get; set; }
