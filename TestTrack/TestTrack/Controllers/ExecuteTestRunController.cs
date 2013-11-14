@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using TestTrack.Filters;
 using TestTrack.Helpers;
 using TestTrack.Models;
 using TestTrack.ViewModels;
@@ -8,6 +9,7 @@ using TestTrack.ViewModels;
 namespace TestTrack.Controllers
 {
     [Authorize]
+    [ProjectsAvailability]
     public class ExecuteTestRunController : BaseController
     {
         private TestTrackDBContext db = new TestTrackDBContext();

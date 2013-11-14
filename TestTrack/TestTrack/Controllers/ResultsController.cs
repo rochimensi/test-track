@@ -8,12 +8,14 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web.Mvc;
+using TestTrack.Filters;
 using TestTrack.Models;
 using TestTrack.ViewModels;
 
 namespace TestTrack.Controllers
 {
     [Authorize]
+    [ProjectsAvailability]
     public class ResultsController : BaseController
     {
         private TestTrackDBContext db = new TestTrackDBContext();

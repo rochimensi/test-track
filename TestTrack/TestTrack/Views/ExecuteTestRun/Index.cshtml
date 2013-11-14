@@ -4,68 +4,76 @@
     ViewBag.Title = "Execute";
 }
 
-<ol class="breadcrumb">
-    <li>@Html.ActionLink(Model.Iteration, "Index", "TestPlanPerIteration", new { id = @Model.IterationID }, null)</li>
-    <li>@Html.ActionLink(Model.TestPlan, "Index", "TestRunsOnTestPlan", new { id = @Model.TestPlanID }, null)</li>
-    <li class="active">@Model.TestRun</li>
-</ol>
+<!-- Header -->
+@Html.Partial("~/Views/Shared/_Header.cshtml")
 
-<div class="content">
-    <div class="header">
-        <strong>@Model.TestRun</strong>
-        @if (!Model.Closed)
-        {
-            @Html.ActionLink(" ", "Edit", "TestRuns", new { id = Model.TestRunID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })  
-        }
-        | @Html.ActionLink(" ", "Delete", "TestRuns", new { id = Model.TestRunID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })
-    </div>
-    <div class="content-body">
-        @if (Model.Closed)
-        {
-            <div class="alert alert-warning">This Test Run is closed. You can no longer modify this test run or add new test results.</div>
-        }
+<!-- Main -->
+<div class="container">
+    <div class="main">
+        <ol class="breadcrumb">
+            <li>@Html.ActionLink(Model.Iteration, "Index", "TestPlanPerIteration", new { id = @Model.IterationID }, null)</li>
+            <li>@Html.ActionLink(Model.TestPlan, "Index", "TestRunsOnTestPlan", new { id = @Model.TestPlanID }, null)</li>
+            <li class="active">@Model.TestRun</li>
+        </ol>
 
-        @if (Model.Results.Count() > 0)
-        {
-            <div class="row">
-                <div class="col-md-6 chart">
-                    @Html.Action("DrawChart", "Results", new { id = Model.TestRunID })
-                </div>
-                <div class="col-md-6">
-                    @Html.Action("Percentage", "Results", new { id = Model.TestRunID })
-                </div>
+        <div class="content">
+            <div class="header">
+                <strong>@Model.TestRun</strong>
+                @if (!Model.Closed)
+                {
+                    @Html.ActionLink(" ", "Edit", "TestRuns", new { id = Model.TestRunID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })  
+                }
+                | @Html.ActionLink(" ", "Delete", "TestRuns", new { id = Model.TestRunID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })
             </div>
-        }
-    </div>
-    <div class="header header-btn">
-        <strong>Tests</strong>
-        @if (!Model.Closed)
-        {
-            @Html.ActionLink("Select Test Cases", "AssignTestCases", "Results", new { id = Model.TestRunID }, new { @class = "btn btn-default btn-md", @data_target = "#selectTestCasesModal", @data_toggle = "modal" })
-        }
-    </div>
-    <div class="content-body">
-        @if (Model.Results.Count() == 0)
-        {
-            <div class="alert alert-warning">Nothing to execute! No test cases were added into this test run.</div>
-        }
-        else
-        {
-            if (!Model.Closed)
-            {
-                foreach (var item in Model.Results)
+            <div class="content-body">
+                @if (Model.Closed)
                 {
-            @Html.Action("List", "ExecuteTestRun", new { id = item.ResultID })
+                    <div class="alert alert-warning">This Test Run is closed. You can no longer modify this test run or add new test results.</div>
                 }
-            }
-            else
-            {
-                foreach (var item in Model.Results)
+
+                @if (Model.Results.Count() > 0)
                 {
-            @Html.Action("ListDisabled", "ExecuteTestRun", new { id = item.ResultID })
+                    <div class="row">
+                        <div class="col-md-6 chart">
+                            @Html.Action("DrawChart", "Results", new { id = Model.TestRunID })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.Action("Percentage", "Results", new { id = Model.TestRunID })
+                        </div>
+                    </div>
                 }
-            }
-        }
+            </div>
+            <div class="header header-btn">
+                <strong>Tests</strong>
+                @if (!Model.Closed)
+                {
+                    @Html.ActionLink("Select Test Cases", "AssignTestCases", "Results", new { id = Model.TestRunID }, new { @class = "btn btn-default btn-md", @data_target = "#selectTestCasesModal", @data_toggle = "modal" })
+                }
+            </div>
+            <div class="content-body">
+                @if (Model.Results.Count() == 0)
+                {
+                    <div class="alert alert-warning">Nothing to execute! No test cases were added into this test run.</div>
+                }
+                else
+                {
+                    if (!Model.Closed)
+                    {
+                        foreach (var item in Model.Results)
+                        {
+                    @Html.Action("List", "ExecuteTestRun", new { id = item.ResultID })
+                        }
+                    }
+                    else
+                    {
+                        foreach (var item in Model.Results)
+                        {
+                    @Html.Action("ListDisabled", "ExecuteTestRun", new { id = item.ResultID })
+                        }
+                    }
+                }
+            </div>
+        </div>
     </div>
 </div>
 

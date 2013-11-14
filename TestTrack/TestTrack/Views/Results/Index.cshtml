@@ -4,74 +4,82 @@
     ViewBag.Title = "Index";
 }
 
-<ol class="breadcrumb">
-    <li>@Html.ActionLink(Model.TestRun, "Index", "ExecuteTestRun", new { id = @Model.TestRunID }, null)</li>
-    <li class="active">@Model.TestCase</li>
-</ol>
+<!-- Header -->
+@Html.Partial("~/Views/Shared/_Header.cshtml")
+
+<!-- Main -->
+<div class="container">
+    <div class="main">
+        <ol class="breadcrumb">
+            <li>@Html.ActionLink(Model.TestRun, "Index", "ExecuteTestRun", new { id = @Model.TestRunID }, null)</li>
+            <li class="active">@Model.TestCase</li>
+        </ol>
 
 
-<div class="content">
-    <div class="page-header">
-        <h2>@Model.TestCase &nbsp;<small>@Html.ActionLink(" ", "Edit", "TestCases", new { id = Model.TestCaseID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit Test Case" })&nbsp;@Html.ActionLink(" ", "Delete", "TestCases", new { id = Model.TestCaseID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
-    </div>
+        <div class="content">
+            <div class="page-header">
+                <h2>@Model.TestCase &nbsp;<small>@Html.ActionLink(" ", "Edit", "TestCases", new { id = Model.TestCaseID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit Test Case" })&nbsp;@Html.ActionLink(" ", "Delete", "TestCases", new { id = Model.TestCaseID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
+            </div>
 
-    @Html.Action("DrawBarChart", "Results", new { id = Model.TestCaseID })
+            @Html.Action("DrawBarChart", "Results", new { id = Model.TestCaseID })
 
-    <div class="panel-group" id="accordion">
-        @foreach (var item in Model.Results)
-        {
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        @switch (item.State)
+            <div class="panel-group" id="accordion">
+                @foreach (var item in Model.Results)
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                @switch (item.State)
+                                {
+                                    case TestTrack.Models.State.Blocked:
+                                    <span class="badge blocked">Blocked</span>
+                                        break;
+                                    case TestTrack.Models.State.Failed:
+                                    <span class="badge failed">Failed</span>
+                                        break;
+                                    case TestTrack.Models.State.Passed:
+                                    <span class="badge passed">Passed</span>
+                                        break;
+                                    case TestTrack.Models.State.Retest:
+                                    <span class="badge retest">Retest</span>
+                                        break;
+                                    default:
+                                    <span class="badge">Untested</span>
+                                        break;
+                                }
+                                <a data-toggle="collapse" data-parent="#accordion" href="#result_@item.ResultID">Result from <strong>@item.CreatedOn.ToShortDateString()</strong>
+                                </a>
+                                @Html.ActionLink(" ", "Delete", "Results", new { id = item.ResultID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })
+                            </h4>
+                        </div>
+                        @if (item == Model.Results.First())
                         {
-                            case TestTrack.Models.State.Blocked:
-                            <span class="badge blocked">Blocked</span>
-                                break;
-                            case TestTrack.Models.State.Failed:
-                            <span class="badge failed">Failed</span>
-                                break;
-                            case TestTrack.Models.State.Passed:
-                            <span class="badge passed">Passed</span>
-                                break;
-                            case TestTrack.Models.State.Retest:
-                            <span class="badge retest">Retest</span>
-                                break;
-                            default:
-                            <span class="badge">Untested</span>
-                                break;
+                            <div id="result_@item.ResultID" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <p>@item.Comments</p>
+                                    @if (item.Defects.Count() == 0)
+                                    {
+                                        <p>No defects.</p>
+                                    }
+                                </div>
+                            </div>
                         }
-                        <a data-toggle="collapse" data-parent="#accordion" href="#result_@item.ResultID">Result from <strong>@item.CreatedOn.ToShortDateString()</strong>
-                        </a>
-                        @Html.ActionLink(" ", "Delete", "Results", new { id = item.ResultID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })
-                    </h4>
-                </div>
-                @if (item == Model.Results.First())
-                {
-                    <div id="result_@item.ResultID" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                            <p>@item.Comments</p>
-                            @if (item.Defects.Count() == 0)
-                            {
-                                <p>No defects.</p>
-                            }
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <div id="result_@item.ResultID" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <p>@item.Comments</p>
-                            @if (item.Defects.Count() == 0)
-                            {
-                                <p>No defects.</p>
-                            }
-                        </div>
+                        else
+                        {
+                            <div id="result_@item.ResultID" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p>@item.Comments</p>
+                                    @if (item.Defects.Count() == 0)
+                                    {
+                                        <p>No defects.</p>
+                                    }
+                                </div>
+                            </div>
+                        }
                     </div>
                 }
             </div>
-        }
+        </div>
     </div>
 </div>
 
