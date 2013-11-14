@@ -12,7 +12,6 @@ namespace TestTrack.Models
         [Key]
         public int TestPlanID { get; set; }
 
-        [Display(Name = "Test Plan Name")]
         [Required]
         [StringLength(100)]
         public string Title { get; set; }
@@ -24,13 +23,11 @@ namespace TestTrack.Models
         [ForeignKey("Iteration")]
         [Required]
         public int IterationID { get; set; }
-
         public virtual Iteration Iteration { get; set; }
 
         [ForeignKey("Team")]
         [Required]
         public int TeamID { get; set; }
-
         public virtual Team Team { get; set; }
 
         public virtual ICollection<TestRun> TestRuns { get; set; }
