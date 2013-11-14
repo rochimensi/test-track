@@ -23,6 +23,7 @@ namespace TestTrack.ViewModels
         public IEnumerable<SelectListItem> Iterations { get; set; }
 
         [Display(Name = "Team")]
+        [Required]
         [HiddenInput(DisplayValue = false)]
         public int TeamID { get; set; }
         public IEnumerable<SelectListItem> Teams { get; set; }
