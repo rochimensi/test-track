@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using TestTrack.Models;
 using TestTrack.ViewModels;
+using TestTrack.Filters;
 
 
 //TODO: Review way there's a project list VM instead of using IList<ProjectVM> ?
@@ -21,14 +22,14 @@ namespace TestTrack.Controllers
         // GET: /Projects/
         public ActionResult Index()
         {
-            ProjectsListVM vm = new ProjectsListVM(); 
+            ProjectsListVM vm = new ProjectsListVM();
             UserSettings userSettings = SessionWrapper.UserSettings;
             var projects = (from p in db.Projects
-                           orderby p.Title
-                           select p).ToList();
+                            orderby p.Title
+                            select p).ToList();
 
-           //TESTING Mapping example
-           //var projectsVM = Mapper.Map<IList<Project>, IList<ProjectVM>>(projects);
+            //TESTING Mapping example
+            //var projectsVM = Mapper.Map<IList<Project>, IList<ProjectVM>>(projects);
 
             vm.SelectedProject = userSettings.workingProject;
             vm.Values = projects;
@@ -56,27 +57,27 @@ namespace TestTrack.Controllers
             return RedirectToAction("Index");
         }
 
+        [ProjectsAvailability]
+        [HttpGet] // GET: /Projects/Edit/5
+        public ActionResult Edit(int id = 0)
+        {
+            var project = db.Projects.Find(id);
 
-         [HttpGet] // GET: /Projects/Edit/5
-         public ActionResult Edit(int id = 0)
-         {
-             var project = db.Projects.Find(id);
+            if (project == null) return HttpNotFound();
 
-             if (project == null)return HttpNotFound();
+            var projectVM = new ProjectVM
+            {
+                Description = project.Description,
+                ProjectID = project.ProjectID,
+                Title = project.Title
+            };
 
-             var projectVM = new ProjectVM
-             {
-                 Description = project.Description,
-                 ProjectID = project.ProjectID,
-                 Title = project.Title
-             };
+            return View(projectVM);
+        }
 
-             return View(projectVM);
-         }
-
-
+        [ProjectsAvailability]
         [HttpPost]
-         public ActionResult Edit(ProjectVM projectVM)
+        public ActionResult Edit(ProjectVM projectVM)
         {
             var project = db.Projects.Find(projectVM.ProjectID);
 
@@ -91,6 +92,7 @@ namespace TestTrack.Controllers
             return RedirectToAction("Index");
         }
 
+        [ProjectsAvailability]
         [HttpGet]
         public ActionResult Delete(int id = 0)
         {
@@ -99,11 +101,12 @@ namespace TestTrack.Controllers
 
             return PartialView(project);
         }
-         
-        [HttpPost,ValidateAntiForgeryToken, ActionName("Delete")] 
+
+        [ProjectsAvailability]
+        [HttpPost, ValidateAntiForgeryToken, ActionName("Delete")]
         public ActionResult DeleteConfirm(int id)
-        { 
-            db.Projects.Remove( db.Projects.Find(id));
+        {
+            db.Projects.Remove(db.Projects.Find(id));
 
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -119,7 +122,7 @@ namespace TestTrack.Controllers
                            orderby p.Title
                            select p;
             vm.Values = new SelectList(projects.ToList(), "ProjectID", "Title");
- 
+
             if (userSettings.workingProject > 0)
             {
                 // Select the current project in user settings.

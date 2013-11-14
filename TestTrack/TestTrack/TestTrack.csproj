@@ -216,6 +216,7 @@
     <Compile Include="Controllers\TestPlansController.cs" />
     <Compile Include="Controllers\TestRunsController.cs" />
     <Compile Include="Controllers\TestSuitesController.cs" />
+    <Compile Include="Filters\ProjectsAvailability.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -456,10 +457,10 @@
     <Content Include="Views\Results\SetAssignee.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Shared\_NoProjectsHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Filters\" />
     <Folder Include="Infrastructure\EF\" />
     <Folder Include="Views\Steps\" />
   </ItemGroup>
