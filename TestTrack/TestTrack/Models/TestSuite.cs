@@ -11,15 +11,13 @@ namespace TestTrack.Models
     {
         [Key]
         public int TeamID { get; set; }
+        public virtual Team Team { get; set; }
 
-        [Display(Name = "Test Suite Name")]
         [Required]
         [StringLength(100)]
         public string Title { get; set; }
 
         public virtual ICollection<TestCase> TestCases { get; set; }
-
-        public virtual Team Team { get; set; }
 
         public DateTime CreatedOn { get; set; }
         public DateTime? LastModified { get; set; }

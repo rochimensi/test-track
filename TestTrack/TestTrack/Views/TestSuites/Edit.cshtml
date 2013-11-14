@@ -1,5 +1,9 @@
 ﻿@model TestTrack.ViewModels.TestSuiteVM
 
+@{
+    ViewBag.Title = "Test suites";
+}
+
 <!-- Header -->
 @Html.Partial("~/Views/Shared/_Header.cshtml")
 
@@ -17,17 +21,21 @@
 
             <fieldset>
                 @Html.HiddenFor(model => model.TeamID)
+
                 <div class="form-group">
                     <div class="editor-label">
                         @Html.LabelFor(model => model.Title)
+                        <span class="text-danger">*</span>
                     </div>
                     <div class="editor-field">
                         @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Title)
+                    </div>
+                    <div class="editor-validation-error">
+                        @Html.ValidationMessageFor(model => model.Title, null, new { @class = "text-danger" })
                     </div>
                 </div>
                 <p>
-                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i>Save</button>
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Save</button>
                     @Html.ActionLink("Cancel", "Index", "TestCasesPerTestSuite", new { id = Model.TeamID }, new { @class = "btn btn-default" })
                 </p>
             </fieldset>
