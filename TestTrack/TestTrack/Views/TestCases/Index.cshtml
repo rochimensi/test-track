@@ -4,106 +4,114 @@
     ViewBag.Title = "Test Case";
 }
 
-<ol class="breadcrumb">
-    <li>@Html.ActionLink(Model.TestSuite, "Index", "TestCasesPerTestSuite", null, null)</li>
-    <li class="active">@Model.Title</li>
-</ol>
+<!-- Header -->
+@Html.Partial("~/Views/Shared/_Header.cshtml")
 
-<div class="content">
-    <div class="page-header">
-        <h2>@Model.Title &nbsp;<small>@Html.ActionLink(" ", "Edit", "TestCases", new { id = Model.TestCaseID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })&nbsp;@Html.ActionLink(" ", "Delete", "TestCases", new { id = Model.TestCaseID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
-    </div>
-    <div class="row tc-info">
-        <div class="col-md-3">
-            <div class="form-group">
-                <div class="editor-label">
-                    <label>Method</label>
+<!-- Main -->
+<div class="container">
+    <div class="main">
+        <ol class="breadcrumb">
+            <li>@Html.ActionLink(Model.TestSuite, "Index", "TestCasesPerTestSuite", null, null)</li>
+            <li class="active">@Model.Title</li>
+        </ol>
+
+        <div class="content">
+            <div class="page-header">
+                <h2>@Model.Title &nbsp;<small>@Html.ActionLink(" ", "Edit", "TestCases", new { id = Model.TestCaseID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })&nbsp;@Html.ActionLink(" ", "Delete", "TestCases", new { id = Model.TestCaseID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
+            </div>
+            <div class="row tc-info">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="editor-label">
+                            <label>Method</label>
+                        </div>
+                        <div class="editor-field">
+                            @Model.Method
+                        </div>
+                    </div>
                 </div>
-                <div class="editor-field">
-                    @Model.Method
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="editor-label">
+                            <label>Type</label>
+                        </div>
+                        <div class="editor-field">
+                            @Model.Type
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="editor-label">
+                            <label>Priority</label>
+                        </div>
+                        <div class="editor-field">
+                            @Model.Priority
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="editor-label">
+                            <label>Tags</label>
+                        </div>
+                        <div class="editor-field">
+                            @Model.Tags
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
             <div class="form-group">
                 <div class="editor-label">
-                    <label>Type</label>
+                    @Html.LabelFor(model => model.Description)
                 </div>
                 <div class="editor-field">
-                    @Model.Type
+                    @Model.Description
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
             <div class="form-group">
                 <div class="editor-label">
-                    <label>Priority</label>
+                    @Html.LabelFor(model => model.PreConditions)
                 </div>
                 <div class="editor-field">
-                    @Model.Priority
+                    @Model.PreConditions
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                <div class="editor-label">
-                    <label>Tags</label>
-                </div>
-                <div class="editor-field">
-                    @Model.Tags
-                </div>
+            <br />
+            <h4>Steps</h4>
+            <div class="content-body">
+                <table class="table" id="stepsTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                <strong>#</strong>
+                            </th>
+                            <th>
+                                <strong>Action</strong>
+                            </th>
+                            <th>
+                                <strong>Expected Result</strong>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < Model.Steps.Count(); i++)
+                        {
+                            <tr>
+                                <td>
+                                    <label>@Model.labels[i]</label></td>
+                                <td>
+                                    @Model.Steps.ElementAt(i).Action
+                                </td>
+                                <td>
+                                    @Model.Steps.ElementAt(i).Result
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Description)
-        </div>
-        <div class="editor-field">
-            @Model.Description
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PreConditions)
-        </div>
-        <div class="editor-field">
-            @Model.PreConditions
-        </div>
-    </div>
-    <br />
-    <h4>Steps</h4>
-    <div class="content-body">
-        <table class="table" id="stepsTable">
-            <thead>
-                <tr>
-                    <th>
-                        <strong>#</strong>
-                    </th>
-                    <th>
-                        <strong>Action</strong>
-                    </th>
-                    <th>
-                        <strong>Expected Result</strong>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @for(var i = 0; i < Model.Steps.Count(); i++)
-                {
-                    <tr>
-                        <td>
-                            <label>@Model.labels[i]</label></td>
-                        <td>
-                            @Model.Steps.ElementAt(i).Action
-                        </td>
-                        <td>
-                            @Model.Steps.ElementAt(i).Result
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
     </div>
 </div>
 

@@ -4,139 +4,147 @@
     ViewBag.Title = "Create";
 }
 
-<div class="page-header">
-    <h1>Add Test Case</h1>
-</div>
+<!-- Header -->
+@Html.Partial("~/Views/Shared/_Header.cshtml")
 
-@using (Html.BeginForm("Create", "TestCases"))
-{
+<!-- Main -->
+<div class="container">
+    <div class="main">
+        <div class="page-header">
+            <h1>Add Test Case</h1>
+        </div>
+
+        @using (Html.BeginForm("Create", "TestCases"))
+        {
   
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
 
-    @Html.HiddenFor(model => model.TestSuiteID)
-    @Html.HiddenFor(model => model.TestCaseID)
+            @Html.HiddenFor(model => model.TestSuiteID)
+            @Html.HiddenFor(model => model.TestCaseID)
 
-    <fieldset>
-        <div class="form-group tc-title">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Title)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Title)
-            </div>
-        </div>
-
-        <div class="row tc-info">
-            <div class="col-md-3">
-                <div class="form-group">
+            <fieldset>
+                <div class="form-group tc-title">
                     <div class="editor-label">
-                        @Html.LabelFor(model => model.Method)
+                        @Html.LabelFor(model => model.Title)
                     </div>
                     <div class="editor-field">
-                        @Html.DropDownListFor(model => model.Method, Model.Methods, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Method)
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Title)
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
+
+                <div class="row tc-info">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Method)
+                            </div>
+                            <div class="editor-field">
+                                @Html.DropDownListFor(model => model.Method, Model.Methods, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Method)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Type)
+                            </div>
+                            <div class="editor-field">
+                                @Html.DropDownListFor(model => model.Type, Model.Types, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Type)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Priority)
+                            </div>
+                            <div class="editor-field">
+                                @Html.DropDownListFor(model => model.Priority, Model.Priorities, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Priority)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Tags)
+                            </div>
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.Tags, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Tags)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="editor-label">
-                        @Html.LabelFor(model => model.Type)
+                        @Html.LabelFor(model => model.Description)
                     </div>
                     <div class="editor-field">
-                        @Html.DropDownListFor(model => model.Type, Model.Types, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Type)
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Description)
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
                 <div class="form-group">
                     <div class="editor-label">
-                        @Html.LabelFor(model => model.Priority)
+                        @Html.LabelFor(model => model.PreConditions)
                     </div>
                     <div class="editor-field">
-                        @Html.DropDownListFor(model => model.Priority, Model.Priorities, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Priority)
+                        @Html.TextAreaFor(model => model.PreConditions, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.PreConditions)
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.Tags)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(model => model.Tags, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Tags)
-                    </div>
+
+                <div class="header header-btn">
+                    <strong>Steps</strong>
+                    <a href="javascript:testCaseCtrl.addRow();" class="btn btn-default btn-md">Add Step</a>
                 </div>
-            </div>
-        </div>
+                <div class="content-body">
+                    <table class="table" id="stepsTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <strong>#</strong>
+                                </th>
+                                <th>
+                                    <strong>Action</strong>
+                                </th>
+                                <th>
+                                    <strong>Expected Result</strong>
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label>1</label></td>
+                                <td>
+                                    <textarea class="form-control" name="action"></textarea></td>
+                                <td>
+                                    <textarea class="form-control" name="result"></textarea></td>
+                                <td>
+                                    <a id="removeStep_1" onclick="testCaseCtrl.removeRow(this)" href="#stepsTable" style="float: right;"><i class="glyphicon glyphicon-remove"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-        <div class="form-group">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Description)
-            </div>
-            <div class="editor-field">
-                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Description)
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.PreConditions)
-            </div>
-            <div class="editor-field">
-                @Html.TextAreaFor(model => model.PreConditions, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PreConditions)
-            </div>
-        </div>
+                <div>
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i>Save</button>
+                    @Html.ActionLink("Cancel", "Index", "TestCasesPerTestSuite", null, new { @class = "btn btn-default" })
+                </div>
 
-        <div class="header header-btn">
-            <strong>Steps</strong>
-            <a href="javascript:testCaseCtrl.addRow();" class="btn btn-default btn-md">Add Step</a>
-        </div>
-        <div class="content-body">
-            <table class="table" id="stepsTable">
-                <thead>
-                    <tr>
-                        <th>
-                            <strong>#</strong>
-                        </th>
-                        <th>
-                            <strong>Action</strong>
-                        </th>
-                        <th>
-                            <strong>Expected Result</strong>
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <label>1</label></td>
-                        <td>
-                            <textarea class="form-control" name="action"></textarea></td>
-                        <td>
-                            <textarea class="form-control" name="result"></textarea></td>
-                        <td>
-                            <a id="removeStep_1" onclick="testCaseCtrl.removeRow(this)" href="#stepsTable" style="float: right;"><i class="glyphicon glyphicon-remove"></i></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div>
-            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i>Save</button>
-            @Html.ActionLink("Cancel", "Index", "TestCasesPerTestSuite", null, new { @class = "btn btn-default" })
-        </div>
-
-    </fieldset>
-}
+            </fieldset>
+        }
+    </div>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -144,7 +152,7 @@
         // <![CDATA[
         var testCaseCtrl = {};
         $(document).ready(function () {
-            
+
             testCaseCtrl.addRow = function () {
                 //copy the table row and clear the value of the input, then append the row to the end of the table
                 var row = $("#stepsTable tbody tr:first").clone();
