@@ -39,7 +39,11 @@ namespace TestTrack.Controllers
         [HttpGet] // GET: /Projects/Create
         public ActionResult Create()
         {
-            return View("Create", new ProjectVM());
+            ProjectVM vm = new ProjectVM
+            {
+                ProjectsCount = db.Projects.Count()
+            };
+            return View("Create", vm);
         }
 
         [HttpPost] // GET: /Projects/Create

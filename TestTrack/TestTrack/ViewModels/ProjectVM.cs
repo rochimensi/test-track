@@ -16,5 +16,7 @@ namespace TestTrack.ViewModels
         [Required]
         [StringLength(1000)]
         public string Description { get; set; }
+
+        public int ProjectsCount { get; set; }
     }
 }
