@@ -209,7 +209,6 @@
     <Compile Include="Controllers\IterationsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
-    <Compile Include="Controllers\StepsController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Controllers\TestCasesController.cs" />
     <Compile Include="Controllers\TestPlanPerIterationController.cs" />
@@ -462,7 +461,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Infrastructure\EF\" />
-    <Folder Include="Views\Steps\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
