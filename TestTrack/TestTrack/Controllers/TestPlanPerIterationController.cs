@@ -1,11 +1,13 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using TestTrack.Filters;
 using TestTrack.Models;
 using TestTrack.ViewModels;
 
 namespace TestTrack.Controllers
 {
     [Authorize]
+    [ProjectsAvailability]
     public class TestPlanPerIterationController : BaseController
     {
         private TestTrackDBContext db = new TestTrackDBContext();

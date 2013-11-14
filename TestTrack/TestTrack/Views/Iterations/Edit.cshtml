@@ -4,61 +4,69 @@
     ViewBag.Title = "Iterations";
 }
 
-<div class="page-header">
-    <h1>Edit Iteration</h1>
+<!-- Header -->
+@Html.Partial("~/Views/Shared/_Header.cshtml")
+
+<!-- Main -->
+<div class="container">
+    <div class="main">
+        <div class="page-header">
+            <h1>Edit Iteration</h1>
+        </div>
+
+        @using (Html.BeginForm("Edit", "Iterations"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                @Html.HiddenFor(model => model.IterationID)
+                @Html.HiddenFor(model => model.ProjectID)
+
+                <div class="form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Title)
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                    </div>
+                    <div class="editor-validation-error">
+                        @Html.ValidationMessageFor(model => model.Title, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.StartDate)
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.StartDate)
+                    </div>
+                    <div class="editor-validation-error">
+                        @Html.ValidationMessageFor(model => model.StartDate, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.DueDate)
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.DueDate)
+                    </div>
+                    <div class="editor-validation-error">
+                        @Html.ValidationMessageFor(model => model.DueDate, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <p>
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i>Save</button>
+                    @Html.ActionLink("Cancel", "Index", "TestPlanPerIteration", new { id = Model.IterationID }, new { @class = "btn btn-default" })
+                </p>
+            </fieldset>
+        }
+    </div>
 </div>
-
-@using (Html.BeginForm("Edit", "Iterations"))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        @Html.HiddenFor(model => model.IterationID)
-        @Html.HiddenFor(model => model.ProjectID)
-
-        <div class="form-group">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Title)
-                <span class="text-danger">*</span>
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
-            </div>
-            <div class="editor-validation-error">
-                @Html.ValidationMessageFor(model => model.Title, null, new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.StartDate)
-                <span class="text-danger">*</span>
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.StartDate)
-            </div>
-            <div class="editor-validation-error">
-                @Html.ValidationMessageFor(model => model.StartDate, null, new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.DueDate)
-                <span class="text-danger">*</span>
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.DueDate)
-            </div>
-            <div class="editor-validation-error">
-                @Html.ValidationMessageFor(model => model.DueDate, null, new { @class = "text-danger" })
-            </div>
-        </div>
-        <p>
-            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Save</button>
-            @Html.ActionLink("Cancel", "Index", "TestPlanPerIteration", new { id = Model.IterationID }, new { @class = "btn btn-default" })
-        </p>
-    </fieldset>
-}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
