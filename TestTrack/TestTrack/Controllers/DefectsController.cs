@@ -5,33 +5,21 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TestTrack.Filters;
+using TestTrack.Helpers;
 using TestTrack.Models;
+using TestTrack.ViewModels;
 
 namespace TestTrack.Controllers
 {
     [Authorize]
+    [ProjectsAvailability]
     public class DefectsController : BaseController
     {
         private TestTrackDBContext db = new TestTrackDBContext();
 
-        // GET: /Defects/
-
-        public ActionResult Index()
-        {
-            var defects = db.Defects.Include(d => d.Result);
-            return View(defects.ToList());
-        }
-
-        // GET: /Defects/Create
-
-        public ActionResult Create()
-        {
-            ViewBag.ResultID = new SelectList(db.Results, "ResultID", "ResultID");
-            return View("Edit", new Defect());
-        }
-        
         // GET: /Defects/Edit/5
-
+        [HttpGet]
         public ActionResult Edit(int id = 0)
         {
             Defect defect = db.Defects.Find(id);
@@ -39,55 +27,41 @@ namespace TestTrack.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ResultID = new SelectList(db.Results, "ResultID", "ResultID", defect.ResultID);
-            return View(defect);
+            DefectVM vm = new DefectVM
+            {
+                DefectID = defect.DefectID,
+                DefectTitle = defect.Title,
+                TestCaseID = defect.Result.TestCaseID,
+                TestRunID = defect.Result.TestRunID,
+                ResultID = defect.ResultID,
+                Comments = defect.Description,
+                Severity = defect.Severity,
+                Labels = defect.Labels,
+                Severities = Common.ToSelectList<TestTrack.Models.Severity>()                
+            };
+            return View(vm);
         }
         
-        // POST: /Defects/Save
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(Defect defect)
+        public ActionResult Edit(DefectVM vm)
         {
-            if (ModelState.IsValid)
-            {
-                if (defect.DefectID == 0)
-                {
-                    db.Defects.Add(defect);
-                }
-                else
-                {
-                    db.Entry(defect).State = EntityState.Modified;
-                }
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ResultID = new SelectList(db.Results, "ResultID", "ResultID", defect.ResultID);
-            return View(defect);
-        }
+            var defect = db.Defects.Find(vm.DefectID);
+            if (defect == null) return HttpNotFound();
 
-        // GET: /Defects/Delete/5
+            var result = db.Results.Find(vm.ResultID);
 
-        public ActionResult Delete(int id = 0)
-        {
-            Defect defect = db.Defects.Find(id);
-            if (defect == null)
-            {
-                return HttpNotFound();
-            }
-            return View(defect);
-        }
+            defect.Title = vm.DefectTitle;
+            defect.Description = vm.Comments;
+            result.Comments = vm.Comments;
+            defect.Labels = vm.Labels;
+            defect.Severity = vm.Severity;
 
-        // POST: /Defects/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Defect defect = db.Defects.Find(id);
-            db.Defects.Remove(defect);
+            db.Entry(defect).State = EntityState.Modified;
+            db.Entry(result).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Index", "Results", new { id = vm.TestRunID, tcId = vm.TestCaseID });
         }
 
         protected override void Dispose(bool disposing)

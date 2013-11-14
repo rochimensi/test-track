@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Linq;
 using System.Web.Mvc;
 using TestTrack.Filters;
+using TestTrack.Helpers;
 using TestTrack.Models;
 using TestTrack.ViewModels;
 
@@ -62,6 +63,7 @@ namespace TestTrack.Controllers
                 TestCaseID = testCaseID,
                 TestCase = db.TestCases.Find(testCaseID).Title,
                 SelectedStateName = state,
+                Severities = Common.ToSelectList<TestTrack.Models.Severity>(),
                 TestRunID = testRunID
             };
             return PartialView(vm);
@@ -83,6 +85,20 @@ namespace TestTrack.Controllers
             db.Results.Add(result);
             db.SaveChanges();
 
+            if (vm.DefectTitle != null)
+            {
+                var defect = new Defect
+                {
+                    ResultID = result.ResultID,
+                    Title = vm.DefectTitle,
+                    Severity = vm.Severity,
+                    Description = vm.Comments,
+                    Labels = vm.Labels,
+                    CreatedOn = DateTime.Now
+                };
+                db.Defects.Add(defect);
+                db.SaveChanges();
+            }
             return RedirectToAction("Index", "ExecuteTestRun", new { id = vm.TestRunID });
         }
 
@@ -203,10 +219,17 @@ namespace TestTrack.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Result result = db.Results.Find(id);
+            if (result.Defects.Count() > 0)
+            {
+                var defect = result.Defects.First();
+                db.Defects.Remove(defect);
+                db.SaveChanges();
+            }
             int testCaseID = result.TestCaseID;
+            int testRunID = result.TestRunID;
             db.Results.Remove(result);
             db.SaveChanges();
-            return RedirectToAction("Index", new { id = testCaseID });
+            return RedirectToAction("Index", "Results", new { id = testRunID, tcId = testCaseID });
         }
 
         [ChildActionOnly]

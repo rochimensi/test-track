@@ -61,6 +61,31 @@
                                     {
                                         <p>No defects.</p>
                                     }
+                                    else
+                                    {
+                                        <br />
+                                        <label>Defect:</label>
+                                        <hr />
+                                        <p>
+                                            <strong>@item.Defects.First().DefectID - @item.Defects.First().Title </strong>@Html.ActionLink(" ", "Edit", "Defects", new { id = @item.Defects.First().DefectID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit defect" })
+                                            <br /> Severity: 
+                                            @switch (item.Defects.First().Severity.ToString())
+                                            {
+                                                case "Critical":
+                                                <span class="badge failed">Critical</span>
+                                                    break;
+                                                case "High":
+                                                <span class="badge ">Failed</span>
+                                                    break;
+                                                case "Low":
+                                                <span class="badge passed">Passed</span>
+                                                    break;
+                                                default:
+                                                <span class="badge ">Untested</span>
+                                                    break;
+                                            }
+                                        </p>
+                                    }
                                 </div>
                             </div>
                         }

@@ -239,6 +239,7 @@
     <Compile Include="Models\TestRun.cs" />
     <Compile Include="Models\TestSuite.cs" />
     <Compile Include="Models\TestTrackDBContext.cs" />
+    <Compile Include="ViewModels\DefectVM.cs" />
     <Compile Include="ViewModels\ResultsPerTestCaseVM.cs" />
     <Compile Include="ViewModels\TestSuiteVM.cs" />
     <Compile Include="ViewModels\ResultsListVM.cs" />

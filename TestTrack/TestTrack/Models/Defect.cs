@@ -28,6 +28,8 @@ namespace TestTrack.Models
         [Required]
         public Severity Severity { get; set; }
 
+        public string Labels { get; set; }
+
         [ForeignKey("Result")]
         [Required]
         public int ResultID { get; set; }
