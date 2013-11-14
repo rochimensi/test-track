@@ -3,12 +3,14 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using TestTrack.Filters;
 using TestTrack.Models;
 using TestTrack.ViewModels;
 
 namespace TestTrack.Controllers
 {
     [Authorize]
+    [ProjectsAvailability]
     public class TestPlansController : BaseController
     {
         private TestTrackDBContext db = new TestTrackDBContext();
