@@ -3,32 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TestTrack.Models;
 
 namespace TestTrack.Controllers
 {
     [Authorize]
     public class HomeController : BaseController
     {
+        private TestTrackDBContext db = new TestTrackDBContext();
 
         public ActionResult Index()
         {
-            ViewBag.Message = "Welcome to the Test Management Application to make QA tasks easier.";
-
-            return View();
+            return View(db.Projects.Count());
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your app description page.";
-
-            return View();
+            return View(db.Projects.Count());
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return View(db.Projects.Count());
         }
     }
 }

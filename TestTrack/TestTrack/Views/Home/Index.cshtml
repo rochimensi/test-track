@@ -1,57 +1,73 @@
-﻿@{
+﻿@model int
+@{
     ViewBag.Title = "Dashboard";
 }
 
-<div class="page-header">
-    <h1>@ViewBag.Title <small>current status</small></h1>
-</div>
-<p class="lead">@ViewBag.Message</p>
+<!-- Header -->
+@if (Model == 0)
+{
+    @Html.Partial("~/Views/Shared/_NoProjectsHeader.cshtml")
+}
+else
+{
+    @Html.Partial("~/Views/Shared/_Header.cshtml")
+}
 
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h3 class="panel-title">Panel title</h3>
-    </div>
-    <div class="panel-body">
-        Panel content
-    </div>
-</div>
-
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h3 class="panel-title">Panel title</h3>
-    </div>
-    <div class="panel-body">
-        Panel content
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-6">
-        <div class="list-group">
-            <a href="#" class="list-group-item active">
-                <h4 class="list-group-item-heading">List group item heading</h4>
-                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-            </a>
-            <a href="#" class="list-group-item">
-                <h4 class="list-group-item-heading">List group item heading</h4>
-                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-            </a>
-            <a href="#" class="list-group-item">
-                <h4 class="list-group-item-heading">List group item heading</h4>
-                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-            </a>
+<!-- Main -->
+<div class="container">
+    <div class="main">
+        <div class="page-header">
+            <h1>@ViewBag.Title <small>current status</small></h1>
         </div>
-    </div>
-    <div class="col-md-6">
-        <div class="panel panel-danger">
+        <p class="lead">Welcome to the Test Management Application to make QA tasks easier.</p>
+
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Panel title</h3>
             </div>
             <div class="panel-body">
-                <p>Panel content</p>
-                <p>Panel content</p>
-                <p>Panel content</p>
-                <p>Panel content</p>
+                Panel content
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Panel title</h3>
+            </div>
+            <div class="panel-body">
+                Panel content
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="list-group">
+                    <a href="#" class="list-group-item active">
+                        <h4 class="list-group-item-heading">List group item heading</h4>
+                        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <h4 class="list-group-item-heading">List group item heading</h4>
+                        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <h4 class="list-group-item-heading">List group item heading</h4>
+                        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Panel title</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>Panel content</p>
+                        <p>Panel content</p>
+                        <p>Panel content</p>
+                        <p>Panel content</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
