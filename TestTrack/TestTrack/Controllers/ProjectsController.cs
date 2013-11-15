@@ -40,7 +40,6 @@ namespace TestTrack.Controllers
         public ActionResult Create(ProjectVM projectVM)
         {
             var project = Mapper.Map<ProjectVM, Project>(projectVM);
-            project.CreatedOn = DateTime.Now;
             db.Projects.Add(project);
             db.SaveChanges();
 
@@ -65,7 +64,6 @@ namespace TestTrack.Controllers
             var project = db.Projects.Find(projectVM.ProjectID);
             if (project == null) return HttpNotFound();
             db.Entry(project).CurrentValues.SetValues(projectVM);
-            db.Entry(project).State = EntityState.Modified;
             db.SaveChanges();
 
             return RedirectToAction("Index");
