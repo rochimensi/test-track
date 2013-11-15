@@ -1,5 +1,10 @@
-﻿<footer>
-    <div class="container">
-        <p class="text-muted credit">&copy; @DateTime.Now.Year - Test Track - Test Management Application</p>
+﻿<hr />
+<footer>
+    <div class="container text-right">
+        <ul class="list-inline">
+            <li>@Html.ActionLink("Help", "Help", "Home")</li>
+            <li>@Html.ActionLink("About", "About", "Home")</li>
+        </ul>
+        <p class="text-muted"><em>Test Management Application</em> / <strong>Test Track</strong> &copy; @DateTime.Now.Year</p>
     </div>
 </footer>
