@@ -249,7 +249,6 @@
     <Compile Include="ViewModels\TestRunVM.cs" />
     <Compile Include="ViewModels\TestCasesListVM.cs" />
     <Compile Include="ViewModels\TestRunsListVM.cs" />
-    <Compile Include="ViewModels\ProjectsListVM.cs" />
     <Compile Include="ViewModels\IterationsListVM.cs" />
     <Compile Include="ViewModels\TestCaseVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

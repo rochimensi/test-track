@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using TestTrack.Models;
 
 namespace TestTrack.ViewModels
 {
@@ -18,5 +19,11 @@ namespace TestTrack.ViewModels
         public string Description { get; set; }
 
         public int ProjectsCount { get; set; }
+
+        public ICollection<Iteration> Iterations { get; set; }
+        
+        public ICollection<Team> Teams { get; set; }
+
+        public int workingProject { get; set; }
     }
 }

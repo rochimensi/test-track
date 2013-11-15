@@ -8,10 +8,6 @@ using TestTrack.Models;
 using TestTrack.ViewModels;
 using TestTrack.Filters;
 
-
-//TODO: Review way there's a project list VM instead of using IList<ProjectVM> ?
-//TODO: implement automapper for mapping models to viewModels
-
 namespace TestTrack.Controllers
 {
     [Authorize]
@@ -22,39 +18,29 @@ namespace TestTrack.Controllers
         // GET: /Projects/
         public ActionResult Index()
         {
-            ProjectsListVM vm = new ProjectsListVM();
             UserSettings userSettings = SessionWrapper.UserSettings;
             var projects = (from p in db.Projects
                             orderby p.Title
                             select p).ToList();
 
-            //TESTING Mapping example
-            //var projectsVM = Mapper.Map<IList<Project>, IList<ProjectVM>>(projects);
+            var projectsVM = Mapper.Map<IList<Project>, IList<ProjectVM>>(projects);
+            projectsVM.First().workingProject = userSettings.workingProject;
 
-            vm.SelectedProject = userSettings.workingProject;
-            vm.Values = projects;
-            return View(vm);
+            return View(projectsVM);
         }
 
         [HttpGet] // GET: /Projects/Create
         public ActionResult Create()
         {
-            ProjectVM vm = new ProjectVM
-            {
-                ProjectsCount = db.Projects.Count()
-            };
+            ProjectVM vm = new ProjectVM { ProjectsCount = db.Projects.Count() };
             return View("Create", vm);
         }
 
         [HttpPost] // GET: /Projects/Create
         public ActionResult Create(ProjectVM projectVM)
         {
-            var project = new Project
-            {
-                Description = projectVM.Description,
-                Title = projectVM.Title
-            };
-
+            var project = Mapper.Map<ProjectVM, Project>(projectVM);
+            project.CreatedOn = DateTime.Now;
             db.Projects.Add(project);
             db.SaveChanges();
 
@@ -66,15 +52,8 @@ namespace TestTrack.Controllers
         public ActionResult Edit(int id = 0)
         {
             var project = db.Projects.Find(id);
-
             if (project == null) return HttpNotFound();
-
-            var projectVM = new ProjectVM
-            {
-                Description = project.Description,
-                ProjectID = project.ProjectID,
-                Title = project.Title
-            };
+            var projectVM = Mapper.Map<Project, ProjectVM>(project);
 
             return View(projectVM);
         }
@@ -84,12 +63,8 @@ namespace TestTrack.Controllers
         public ActionResult Edit(ProjectVM projectVM)
         {
             var project = db.Projects.Find(projectVM.ProjectID);
-
             if (project == null) return HttpNotFound();
-
-            project.Description = projectVM.Description;
-            project.Title = projectVM.Title;
-
+            db.Entry(project).CurrentValues.SetValues(projectVM);
             db.Entry(project).State = EntityState.Modified;
             db.SaveChanges();
 
@@ -111,8 +86,8 @@ namespace TestTrack.Controllers
         public ActionResult DeleteConfirm(int id)
         {
             db.Projects.Remove(db.Projects.Find(id));
-
             db.SaveChanges();
+            
             return RedirectToAction("Index");
         }
 

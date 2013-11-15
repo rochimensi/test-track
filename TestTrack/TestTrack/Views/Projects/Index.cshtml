@@ -1,11 +1,11 @@
-﻿@model TestTrack.ViewModels.ProjectsListVM
+﻿@model IList<TestTrack.ViewModels.ProjectVM>
 
 @{
-    ViewBag.Title = "Projects";
+    ViewBag.Title = "Projects";   
 }
 
 <!-- Header -->
-@if (Model.Values.Count() == 0)
+@if(Model.Count() == 0)
 {
     @Html.Partial("~/Views/Shared/_NoProjectsHeader.cshtml")
 }
@@ -28,13 +28,13 @@ else
                 </p>
             </div>
         </div>
-        @if (Model.Values.Count() == 0)
+        @if (Model.Count() == 0)
         {
             <div class="alert alert-info">Welcome! There are no Projects registered in Test Track. To begin tracking, you must create at least one Project.</div>
         }
         else
         {
-            foreach (var item in Model.Values)
+            foreach (var item in Model)
             {
 <dl class="dl-horizontal">
                 <dt>@Html.DisplayFor(modelItem => item.Title)</dt>
@@ -45,7 +45,7 @@ else
                     <p>@Html.DisplayFor(modelItem => item.Description)
                 </p>
                     <p>Contains <b>@item.Iterations.Count()</b> Iterations and <b>@item.Teams.Count()</b> Teams.</p>
-                    @if (Model.SelectedProject != item.ProjectID)
+                    @if (Model.First().workingProject != item.ProjectID)
                     {
 <p>
                             @using (Html.BeginForm("SetProject", "Projects", new { id = item.ProjectID }))
