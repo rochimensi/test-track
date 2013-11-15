@@ -9,34 +9,38 @@ namespace TestTrack.ViewModels
     {
         public int TestCaseID { get; set; }
 
+        [Display(Name = "Title")]
+        [Required]
+        [StringLength(200)]
         public string Title { get; set; }
 
+        [StringLength(1000)]
         public string Description { get; set; }
 
         [Display(Name = "Pre conditions")]
+        [StringLength(1000)]
         public string PreConditions { get; set; }
 
         [HiddenInput(DisplayValue = false)]
+        [Required]
         public Type Type { get; set; }
-
         public IEnumerable<SelectListItem> Types { get; set; }
 
         [HiddenInput(DisplayValue = false)]
+        [Required]
         public Priority Priority { get; set; }
-
         public IEnumerable<SelectListItem> Priorities { get; set; }
 
         [HiddenInput(DisplayValue = false)]
+        [Required]
         public Method Method { get; set; }
-
         public IEnumerable<SelectListItem> Methods { get; set; }
 
+        [StringLength(1000)]
         public string Tags { get; set; }
 
-        [Display(Name = "Test Suite")]
         [HiddenInput(DisplayValue = false)]
         public int TestSuiteID { get; set; }
-
         public string TestSuite { get; set; }
 
         public IEnumerable<TestTrack.Models.Step> Steps { get; set; }

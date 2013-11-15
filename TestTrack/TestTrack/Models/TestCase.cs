@@ -46,13 +46,14 @@ namespace TestTrack.Models
         [Required]
         public Method Method { get; set; }
 
+        [StringLength(1000)]
         public string Tags { get; set; } // Will have the format as follows "sanity,log in,etc". Tags are part of the string, separated by commas
 
         [ForeignKey("TestSuite")]
         [Required]
         public int TestSuiteID { get; set; }
-
         public virtual TestSuite TestSuite { get; set; }
+
         public virtual ICollection<Step> Steps { get; set; }
         public virtual ICollection<Result> Results { get; set; }
 
