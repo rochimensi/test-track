@@ -15,10 +15,7 @@ namespace TestTrack.Controllers
     [ProjectsAvailability]
     public class TestSuitesController : BaseController
     {
-        private TestTrackDBContext db = new TestTrackDBContext();
-
         // GET: /TestSuites/
-
         public ActionResult Index()
         {
             var testsuites = db.TestSuites.Include(t => t.Team);
@@ -141,12 +138,6 @@ namespace TestTrack.Controllers
             }
 
             return teamsWithNoTestSuite;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
         }
     }
 }

@@ -15,8 +15,6 @@ namespace TestTrack.Controllers
     [ProjectsAvailability]
     public class TestRunsController : BaseController
     {
-        private TestTrackDBContext db = new TestTrackDBContext();
-
         [HttpGet]
         public ActionResult Create(int id = 0)
         {
@@ -104,12 +102,6 @@ namespace TestTrack.Controllers
             db.TestRuns.Remove(testrun);
             db.SaveChanges();
             return RedirectToAction("Index", "TestRunsOnTestPlan", new { id = testPlanID });
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
         }
     }
 }

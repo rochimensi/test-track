@@ -19,10 +19,7 @@ namespace TestTrack.Controllers
     [ProjectsAvailability]
     public class ResultsController : BaseController
     {
-        private TestTrackDBContext db = new TestTrackDBContext();
-
         // GET: /Results/
-
         public ActionResult Index(int id = 0, int tcId = 0)
         {
             var testRun = db.TestRuns.Find(id);
@@ -412,12 +409,6 @@ namespace TestTrack.Controllers
                 }
             }
             return statesCount;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
         }
     }
 }

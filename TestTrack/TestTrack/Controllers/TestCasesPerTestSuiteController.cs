@@ -9,8 +9,6 @@ namespace TestTrack.Controllers
     [ProjectsAvailability]
     public class TestCasesPerTestSuiteController : BaseController
     {
-        private TestTrackDBContext db = new TestTrackDBContext();
-
         public ActionResult Index(int id = 0)
         {
             UserSettings userSettings = SessionWrapper.UserSettings;

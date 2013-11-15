@@ -12,8 +12,6 @@ namespace TestTrack.Controllers
     [ProjectsAvailability]
     public class TestPlansController : BaseController
     {
-        private TestTrackDBContext db = new TestTrackDBContext();
-
         [HttpGet]
         public ActionResult Create(int id = 0)
         {
@@ -92,28 +90,6 @@ namespace TestTrack.Controllers
 
             var testPlansVM = Mapper.Map<IList<TestPlan>, IList<TestPlanVM>>(testPlans);
             return PartialView("_List", testPlansVM);
-        }
-
-        private IList<Iteration> GetIterationsInProject()
-        {
-            UserSettings userSettings = SessionWrapper.UserSettings;
-            return (from iteration in db.Iterations
-                    where iteration.ProjectID == userSettings.workingProject
-                    select iteration).ToList();
-        }
-
-        private IList<Team> GetTeamsInProject()
-        {
-            UserSettings userSettings = SessionWrapper.UserSettings;
-            return (from team in db.Teams
-                    where team.ProjectID == userSettings.workingProject
-                    select team).ToList();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
         }
     }
 }

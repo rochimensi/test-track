@@ -16,10 +16,7 @@ namespace TestTrack.Controllers
     [ProjectsAvailability]
     public class TestCasesController : BaseController
     {
-        private TestTrackDBContext db = new TestTrackDBContext();
-
         // GET: /TestCases/
-
         public ActionResult Index(int id = 0)
         {
             var testCase = db.TestCases.Find(id);
@@ -247,12 +244,6 @@ namespace TestTrack.Controllers
                 db.Steps.Remove(step);
                 db.SaveChanges();
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
         }
     }
 }

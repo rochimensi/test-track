@@ -10,10 +10,7 @@ namespace TestTrack.Controllers
     [ProjectsAvailability]
     public class TestRunsOnTestPlanController : BaseController
     {
-        private TestTrackDBContext db = new TestTrackDBContext();
-
         // GET: /TestRunsOnTestPlan/
-
         public ActionResult Index(int id = 0)
         {
             TestRunsListVM vm = new TestRunsListVM();

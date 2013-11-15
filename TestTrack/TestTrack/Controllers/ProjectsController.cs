@@ -13,8 +13,6 @@ namespace TestTrack.Controllers
     [Authorize]
     public class ProjectsController : BaseController
     {
-        private TestTrackDBContext db = new TestTrackDBContext();
-
         // GET: /Projects/
         public ActionResult Index()
         {
@@ -141,12 +139,6 @@ namespace TestTrack.Controllers
             // Save the project in session.
             UserSettings userSettings = SessionWrapper.UserSettings;
             userSettings.workingProject = id;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
         }
     }
 }

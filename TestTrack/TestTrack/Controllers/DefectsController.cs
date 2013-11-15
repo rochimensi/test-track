@@ -16,8 +16,6 @@ namespace TestTrack.Controllers
     [ProjectsAvailability]
     public class DefectsController : BaseController
     {
-        private TestTrackDBContext db = new TestTrackDBContext();
-
         // GET: /Defects/Edit/5
         [HttpGet]
         public ActionResult Edit(int id = 0)
@@ -62,12 +60,6 @@ namespace TestTrack.Controllers
             db.SaveChanges();
 
             return RedirectToAction("Index", "Results", new { id = vm.TestRunID, tcId = vm.TestCaseID });
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
         }
     }
 }

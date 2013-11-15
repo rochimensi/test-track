@@ -17,8 +17,6 @@ namespace TestTrack.Controllers
     [ProjectsAvailability]
     public class IterationsController : BaseController
     {
-        private TestTrackDBContext db = new TestTrackDBContext();
-
         [HttpGet]
         public ActionResult Create(int id = 0)
         {
@@ -207,10 +205,5 @@ namespace TestTrack.Controllers
             return new object[1];
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
     }
 }

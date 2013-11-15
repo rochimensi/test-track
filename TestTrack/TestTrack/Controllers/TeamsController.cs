@@ -13,8 +13,6 @@ namespace TestTrack.Controllers
     [ProjectsAvailability]
     public class TeamsController : BaseController
     {
-        private TestTrackDBContext db = new TestTrackDBContext();
-
         // GET: /Teams/
         public ActionResult Index()
         {
@@ -33,16 +31,12 @@ namespace TestTrack.Controllers
             }
             return View(vm);
         }
-
-
+        
         [HttpGet]
         public ActionResult Create()
         {
             UserSettings userSettings = SessionWrapper.UserSettings;
-            var TeamVM = new TeamVM
-            {
-                ProjectID = userSettings.workingProject
-            };
+            var TeamVM = new TeamVM { ProjectID = userSettings.workingProject };
 
             return View("Create", TeamVM);
         }
@@ -118,12 +112,6 @@ namespace TestTrack.Controllers
             db.SaveChanges();
 
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
         }
     }
 }

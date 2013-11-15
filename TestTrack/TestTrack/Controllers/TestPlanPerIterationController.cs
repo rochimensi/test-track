@@ -11,10 +11,7 @@ namespace TestTrack.Controllers
     [ProjectsAvailability]
     public class TestPlanPerIterationController : BaseController
     {
-        private TestTrackDBContext db = new TestTrackDBContext();
-
         // GET: /TestPlanPerIteration/
-
         public ActionResult Index(int id = 0)
         {
             UserSettings userSettings = SessionWrapper.UserSettings;
