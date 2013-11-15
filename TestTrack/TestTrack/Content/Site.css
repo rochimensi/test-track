@@ -2,6 +2,10 @@
     padding-top: 50px;
 }
 
+footer {
+    margin-bottom: 20px;
+}
+
 .editor-validation-error {
     margin-top: 5px;
     font-style: italic;
