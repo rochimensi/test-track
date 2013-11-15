@@ -1,0 +1,86 @@
+﻿@model IList<TestTrack.ViewModels.TestRunVM>
+
+@if (Model.Count() > 0)
+{
+    var openTestRuns = 0;
+    var closedTestRuns = 0;
+
+    foreach (var item in Model)
+    {
+        if (item.Closed)
+        {
+            closedTestRuns++;
+        }
+        else
+        {
+            openTestRuns++;
+        }
+    }
+            
+    <div class="content">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span class="badge">@openTestRuns</span>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#testRunsPanel">
+                            <strong>Open</strong> Test Runs
+                        </a>
+                    </h4>
+                </div>
+                <div id="testRunsPanel" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        @foreach (var item in Model)
+                        {
+                            if (!item.Closed)
+                            {
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>@Html.ActionLink(item.Title, "Index", "ExecuteTestRun", new { id = item.TestRunID }, null)</p>
+                                    <p><small>Created on @item.CreatedOn.</small></p>
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.Action("ProgressBar", "Results", new { id = item.TestRunID })
+                                </div>
+                            </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span class="badge">@closedTestRuns</span>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#closedTestRunsPanel">
+                            <strong>Closed</strong> Test Runs
+                        </a>
+                    </h4>
+                </div>
+                <div id="closedTestRunsPanel" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @foreach (var item in Model)
+                        {
+                            if (item.Closed)
+                            {
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>@Html.ActionLink(item.Title, "Index", "ExecuteTestRun", new { id = item.TestRunID }, null)</p>
+                                    <p><small>Last update: @item.LastModified</small></p>
+                                </div>
+                                <div class="col-md-4">
+                                    <small><strong>@Html.Action("Percentage", "Results", new { id = item.TestRunID })</strong></small>
+                                </div>
+                            </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">There are no Test Runs on this Test Plan.</div>
+}

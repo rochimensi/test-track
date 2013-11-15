@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using TestTrack.Filters;
 using TestTrack.Models;
@@ -13,26 +15,32 @@ namespace TestTrack.Controllers
         // GET: /TestRunsOnTestPlan/
         public ActionResult Index(int id = 0)
         {
-            TestRunsListVM vm = new TestRunsListVM();
-            vm.TestPlanID = id;
-            var testPlan = (from value in db.TestPlans
-                            where value.TestPlanID == id
-                            select value).First();
-            vm.TestPlan = testPlan.Title;
-            vm.TestPlanDescription = testPlan.Description;
-            vm.IterationID = testPlan.IterationID;
-            vm.Iteration = testPlan.Iteration.Title;
+            var testPlan = db.TestPlans.Find(id);
+            if (testPlan == null) return HttpNotFound();
+            var testPlanVM = Mapper.Map<TestPlan, TestPlanVM>(testPlan);
 
-            vm.TestRuns = from value in db.TestRuns
-                         where value.TestPlanID == id && value.Closed == false 
-                         orderby value.Title
-                         select value;
-            vm.ClosedTestRuns = from value in db.TestRuns
-                                where value.TestPlanID == id && value.Closed == true
-                                orderby value.Title
-                                select value;
+            return View(testPlanVM);
+        }
 
-            return View(vm);
+        [ChildActionOnly]
+        public ActionResult TestPlanSection(int id = 0)
+        {
+            var testPlan = db.TestPlans.Find(id);
+            if (testPlan == null) return HttpNotFound();
+
+            var testPlanVM = Mapper.Map<TestPlan, TestPlanVM>(testPlan);
+            return PartialView("_TestPlan", testPlanVM);
+        }
+
+        [ChildActionOnly]
+        public ActionResult TestRunsSection(int id = 0)
+        {
+            var testRuns = (from testRun in db.TestRuns
+                            where testRun.TestPlanID == id
+                            orderby testRun.Title
+                            select testRun).ToList();
+            var testRunsVM = Mapper.Map<IList<TestRun>, IList<TestRunVM>>(testRuns);
+            return PartialView("_TestRuns", testRunsVM);
         }
     }
 }

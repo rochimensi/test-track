@@ -225,6 +225,7 @@
     <Compile Include="Infrastructure\Automapper\IObjectMapperConfigurator.cs" />
     <Compile Include="Infrastructure\Ioc\WindsorInstaller.cs" />
     <Compile Include="Infrastructure\Ioc\WindsorControllerFactory.cs" />
+    <Compile Include="Infrastructure\Mappings\TestRunMappers.cs" />
     <Compile Include="Infrastructure\Mappings\TeamMappers.cs" />
     <Compile Include="Infrastructure\Mappings\TestPlanMappers.cs" />
     <Compile Include="Infrastructure\Mappings\IterationMappers.cs" />
@@ -250,7 +251,6 @@
     <Compile Include="ViewModels\ExecuteTestRunVM.cs" />
     <Compile Include="ViewModels\TestRunVM.cs" />
     <Compile Include="ViewModels\TestCasesListVM.cs" />
-    <Compile Include="ViewModels\TestRunsListVM.cs" />
     <Compile Include="ViewModels\TestCaseVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ProjectsDropdownVM.cs" />
@@ -458,6 +458,8 @@
     </Content>
     <Content Include="Views\Shared\_NoProjectsHeader.cshtml" />
     <Content Include="Views\Home\Help.cshtml" />
+    <Content Include="Views\TestRunsOnTestPlan\_TestPlan.cshtml" />
+    <Content Include="Views\TestRunsOnTestPlan\_TestRuns.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

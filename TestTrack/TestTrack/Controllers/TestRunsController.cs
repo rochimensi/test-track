@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data;
 using System.Web.Mvc;
 using TestTrack.Filters;
 using TestTrack.Models;
@@ -18,10 +13,7 @@ namespace TestTrack.Controllers
         [HttpGet]
         public ActionResult Create(int id = 0)
         {
-            var testRunVM = new TestRunVM
-            {
-                TestPlanID = id
-            };
+            var testRunVM = new TestRunVM { TestPlanID = id };
 
             return View("Create", testRunVM);
         }

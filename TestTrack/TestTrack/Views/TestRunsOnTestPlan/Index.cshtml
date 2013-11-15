@@ -1,4 +1,4 @@
-﻿@model TestTrack.ViewModels.TestRunsListVM
+﻿@model TestTrack.ViewModels.TestPlanVM
 
 @{
     ViewBag.Title = "Test Runs";
@@ -10,92 +10,9 @@
 <!-- Main -->
 <div class="container">
     <div class="main">
-        <div class="jumbotron">
-            <div class="container">
-                <h1>Test Runs</h1>
-                <p>Create Test Runs in a Test Plan for each Testing concern that might be involved in a Sanity Test Plan, Regression Test Plan, Functional Test Plan or even a Non-Functional one.</p>
-                <p>Test Track enables you to execute multiple test runs for your suites over time to easily verify your tests against new releases.</p>
-                <p>Include all your suite's test cases or just a subset and start tracking results that matter.</p>
-                <p>
-                    @Html.ActionLink("Create New", "Create", "TestRuns", new { id = @Model.TestPlanID }, new { @class = "btn btn-primary btn-lg" })
-                </p>
-            </div>
-        </div>
+        @Html.Action("TestPlanSection", "TestRunsOnTestPlan", new { id = Model.TestPlanID })
 
-        <ol class="breadcrumb">
-            <li>@Html.ActionLink(Model.Iteration, "Index", "TestPlanPerIteration", new { id = @Model.IterationID }, null)</li>
-            <li class="active">@Model.TestPlan</li>
-        </ol>
-
-        <div class="page-header">
-            <h2>@Model.TestPlan &nbsp;<small>@Html.ActionLink(" ", "Edit", "TestPlans", new { id = Model.TestPlanID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })&nbsp;@Html.ActionLink(" ", "Delete", "TestPlans", new { id = Model.TestPlanID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
-        </div>
-        <p>@Model.TestPlanDescription</p>
-        <br />
-
-        @if (Model.TestRuns.Count() > 0 || Model.ClosedTestRuns.Count() > 0)
-        {
-            <div class="content">
-                <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <span class="badge">@Model.TestRuns.Count()</span>
-                                <a data-toggle="collapse" data-parent="#accordion" href="#testRunsPanel">
-                                    <strong>Open</strong> Test Runs
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="testRunsPanel" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                @foreach (var item in Model.TestRuns)
-                                {
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <p>@Html.ActionLink(item.Title, "Index", "ExecuteTestRun", new { id = item.TestRunID }, null)</p>
-                                            <p><small>Created on @item.CreatedOn.</small></p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            @Html.Action("ProgressBar", "Results", new { id = item.TestRunID })
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <span class="badge">@Model.ClosedTestRuns.Count()</span>
-                                <a data-toggle="collapse" data-parent="#accordion" href="#closedTestRunsPanel">
-                                    <strong>Closed</strong> Test Runs
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="closedTestRunsPanel" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                @foreach (var item in Model.ClosedTestRuns)
-                                {
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <p>@Html.ActionLink(item.Title, "Index", "ExecuteTestRun", new { id = item.TestRunID }, null)</p>
-                                            <p><small>Last update: 10/25/2013@*@item.LastModified*@</small></p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <small><strong>@Html.Action("Percentage", "Results", new { id = item.TestRunID })</strong></small>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-        else
-        {
-            <div class="alert alert-warning">There are no Test Runs on this Test Plan.</div>
-        }
+        @Html.Action("TestRunsSection", "TestRunsOnTestPlan", new { id = Model.TestPlanID })
     </div>
 </div>
 

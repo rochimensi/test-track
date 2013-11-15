@@ -1,0 +1,24 @@
+﻿@model TestTrack.ViewModels.TestPlanVM
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>Test Runs</h1>
+        <p>Create Test Runs in a Test Plan for each Testing concern that might be involved in a Sanity Test Plan, Regression Test Plan, Functional Test Plan or even a Non-Functional one.</p>
+        <p>Test Track enables you to execute multiple test runs for your suites over time to easily verify your tests against new releases.</p>
+        <p>Include all your suite's test cases or just a subset and start tracking results that matter.</p>
+        <p>
+            @Html.ActionLink("Create New", "Create", "TestRuns", new { id = @Model.TestPlanID }, new { @class = "btn btn-primary btn-lg" })
+        </p>
+    </div>
+</div>
+
+<ol class="breadcrumb">
+    <li>@Html.ActionLink(Model.Iteration.Title, "Index", "TestPlanPerIteration", new { id = @Model.Iteration.IterationID }, null)</li>
+    <li class="active">@Model.Title</li>
+</ol>
+
+<div class="page-header">
+    <h2>@Model.Title &nbsp;<small>@Html.ActionLink(" ", "Edit", "TestPlans", new { id = Model.TestPlanID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })&nbsp;@Html.ActionLink(" ", "Delete", "TestPlans", new { id = Model.TestPlanID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
+</div>
+<p>@Model.Description</p>
+<br />
