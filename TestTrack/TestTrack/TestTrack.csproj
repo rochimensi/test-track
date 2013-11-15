@@ -458,6 +458,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Shared\_NoProjectsHeader.cshtml" />
+    <Content Include="Views\Home\Help.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

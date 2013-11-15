@@ -17,6 +17,11 @@ namespace TestTrack.Controllers
             return View(db.Projects.Count());
         }
 
+        public ActionResult Help()
+        {
+            return View(db.Projects.Count());
+        }
+
         public ActionResult About()
         {
             return View(db.Projects.Count());
