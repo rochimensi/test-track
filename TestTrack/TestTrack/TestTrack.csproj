@@ -225,6 +225,7 @@
     <Compile Include="Infrastructure\Automapper\IObjectMapperConfigurator.cs" />
     <Compile Include="Infrastructure\Ioc\WindsorInstaller.cs" />
     <Compile Include="Infrastructure\Ioc\WindsorControllerFactory.cs" />
+    <Compile Include="Infrastructure\Mappings\TestPlanMappers.cs" />
     <Compile Include="Infrastructure\Mappings\IterationMappers.cs" />
     <Compile Include="Infrastructure\Mappings\ProjectMappers.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -253,7 +254,6 @@
     <Compile Include="ViewModels\TestCaseVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ProjectsDropdownVM.cs" />
-    <Compile Include="ViewModels\TestPlansListVM.cs" />
     <Compile Include="ViewModels\TestPlanVM.cs" />
     <Compile Include="ViewModels\IterationVM.cs" />
     <Compile Include="ViewModels\ProjectVM.cs" />

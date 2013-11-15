@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -26,6 +27,9 @@ namespace TestTrack.ViewModels
         [Required]
         [HiddenInput(DisplayValue = false)]
         public int TeamID { get; set; }
+
         public IEnumerable<SelectListItem> Teams { get; set; }
+
+        public DateTime CreatedOn { get; set; }
     }
 }

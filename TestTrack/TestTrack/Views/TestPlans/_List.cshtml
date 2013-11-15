@@ -1,6 +1,6 @@
-﻿@model TestTrack.ViewModels.TestPlansListVM
+﻿@model IList<TestTrack.ViewModels.TestPlanVM>
 
-@foreach (var item in Model.Values)
+@foreach (var item in Model)
 {
     <div class="row">
         <div class="col-md-8">

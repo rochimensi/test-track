@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using AutoMapper;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using TestTrack.Filters;
@@ -24,7 +23,7 @@ namespace TestTrack.Controllers
             var testPlanVM = new TestPlanVM
             {
                 IterationID = iteration.IterationID,
-                Teams = new SelectList(db.Teams.ToList(), "TeamID", "Name")
+                Teams = new SelectList(GetTeamsInProject(), "TeamID", "Name")
             };
 
             return View("Create", testPlanVM);
@@ -33,16 +32,7 @@ namespace TestTrack.Controllers
         [HttpPost]
         public ActionResult Create(TestPlanVM testPlanVM)
         {
-            var testPlan = new TestPlan
-            {
-                Title = testPlanVM.Title,
-                Description = testPlanVM.Description,
-                IterationID = testPlanVM.IterationID,
-                Iteration = db.Iterations.Find(testPlanVM.IterationID),
-                TeamID = testPlanVM.TeamID,
-                Team = db.Teams.Find(testPlanVM.TeamID)
-            };
-
+            var testPlan = Mapper.Map<TestPlanVM, TestPlan>(testPlanVM);
             db.TestPlans.Add(testPlan);
             db.SaveChanges();
 
@@ -53,19 +43,11 @@ namespace TestTrack.Controllers
         public ActionResult Edit(int id = 0)
         {
             var testPlan = db.TestPlans.Find(id);
-
             if (testPlan == null) return HttpNotFound();
 
-            var testPlanVM = new TestPlanVM
-            {
-                Title = testPlan.Title,
-                TestPlanID = id,
-                Description = testPlan.Description,
-                IterationID = testPlan.IterationID,
-                Iterations = new SelectList(db.Iterations.ToList(), "IterationID", "Title", testPlan.IterationID),
-                TeamID = testPlan.TeamID,
-                Teams = new SelectList(db.Teams.ToList(), "TeamID", "Name", testPlan.TeamID)
-            };
+            var testPlanVM = Mapper.Map<TestPlan, TestPlanVM>(testPlan);
+            testPlanVM.Iterations = new SelectList(GetIterationsInProject(), "IterationID", "Title", testPlan.IterationID);
+            testPlanVM.Teams = new SelectList(GetTeamsInProject(), "TeamID", "Name", testPlan.TeamID);
 
             return View(testPlanVM);
         }
@@ -74,17 +56,8 @@ namespace TestTrack.Controllers
         public ActionResult Edit(TestPlanVM testPlanVM)
         {
             var testPlan = db.TestPlans.Find(testPlanVM.TestPlanID);
-
             if (testPlan == null) return HttpNotFound();
-
-            testPlan.Title = testPlanVM.Title;
-            testPlan.Description = testPlanVM.Description;
-            testPlan.IterationID = testPlanVM.IterationID;
-            testPlan.Iteration = db.Iterations.Find(testPlanVM.IterationID);
-            testPlan.TeamID = testPlanVM.TeamID;
-            testPlan.Team = db.Teams.Find(testPlanVM.TeamID);
-
-            db.Entry(testPlan).State = EntityState.Modified;
+            db.Entry(testPlan).CurrentValues.SetValues(testPlanVM);
             db.SaveChanges();
 
             return RedirectToAction("Index", "TestRunsOnTestPlan", new { id = testPlanVM.TestPlanID });
@@ -94,10 +67,8 @@ namespace TestTrack.Controllers
         public ActionResult Delete(int id = 0)
         {
             TestPlan testplan = db.TestPlans.Find(id);
-            if (testplan == null)
-            {
-                return HttpNotFound();
-            }
+            if (testplan == null) return HttpNotFound();
+
             return PartialView(testplan);
         }
 
@@ -114,13 +85,29 @@ namespace TestTrack.Controllers
         [ChildActionOnly]
         public ActionResult List(int id = 0)
         {
-            var vm = new TestPlansListVM();
-            vm.Values = from value in db.TestPlans
-                        where value.IterationID == id
-                        orderby value.Title
-                        select value;
+            var testPlans = (from value in db.TestPlans
+                             where value.IterationID == id
+                             orderby value.Title
+                             select value).ToList();
 
-            return PartialView("_List", vm);
+            var testPlansVM = Mapper.Map<IList<TestPlan>, IList<TestPlanVM>>(testPlans);
+            return PartialView("_List", testPlansVM);
+        }
+
+        private IList<Iteration> GetIterationsInProject()
+        {
+            UserSettings userSettings = SessionWrapper.UserSettings;
+            return (from iteration in db.Iterations
+                    where iteration.ProjectID == userSettings.workingProject
+                    select iteration).ToList();
+        }
+
+        private IList<Team> GetTeamsInProject()
+        {
+            UserSettings userSettings = SessionWrapper.UserSettings;
+            return (from team in db.Teams
+                    where team.ProjectID == userSettings.workingProject
+                    select team).ToList();
         }
 
         protected override void Dispose(bool disposing)
