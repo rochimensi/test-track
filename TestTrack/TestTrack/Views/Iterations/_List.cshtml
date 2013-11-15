@@ -1,8 +1,8 @@
-﻿@model TestTrack.ViewModels.IterationsListVM
+﻿@model IList<TestTrack.ViewModels.IterationVM>
 
         <ul class="nav nav-pills">
-            @foreach (var item in Model.Values)
+            @foreach (var item in Model)
             {
-                <li>@Html.ActionLink(item.Text, "Index", "TestPlanPerIteration", new { id = item.Value }, null)</li>
+                <li>@Html.ActionLink(item.Title, "Index", "TestPlanPerIteration", new { id = item.IterationID }, null)</li>
             }
         </ul>

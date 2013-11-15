@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using TestTrack.Models;
 
 namespace TestTrack.ViewModels
 {
@@ -30,8 +31,8 @@ namespace TestTrack.ViewModels
         [HiddenInput(DisplayValue = false)]
         public int ProjectID { get; set; }
 
-        public string Project { get; set; }
+        public Project Project { get; set; }
 
-        public int TestPlansCount { get; set; }
+        public ICollection<TestPlan> TestPlans { get; set; }
     }
 }

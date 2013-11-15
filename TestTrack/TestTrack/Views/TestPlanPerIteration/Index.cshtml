@@ -23,7 +23,7 @@
         </div>
         @if (Model.IterationID != 0)
         {
-            <h2>Iterations for @Model.Project</h2>
+            <h2>Iterations for @Model.Project.Title</h2>
     
             <div class="dl-horizontal">
                 @Html.Action("List", "Iterations")
@@ -53,7 +53,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <span class="badge">@Model.TestPlansCount</span>
+                                <span class="badge">@Model.TestPlans.Count()</span>
                                 <a data-toggle="collapse" data-parent="#accordion" href="#testRunsPanel">
                                     <strong>Test Plans</strong> for @Model.Title
                                 </a>

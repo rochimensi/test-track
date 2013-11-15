@@ -1,10 +1,10 @@
-﻿using DotNet.Highcharts;
+﻿using AutoMapper;
+using DotNet.Highcharts;
 using DotNet.Highcharts.Enums;
 using DotNet.Highcharts.Helpers;
 using DotNet.Highcharts.Options;
 using System;
-using System.Data;
-using System.Data.Entity;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using TestTrack.Filters;
@@ -35,14 +35,7 @@ namespace TestTrack.Controllers
         [HttpPost]
         public ActionResult Create(IterationVM iterationVM)
         {
-            Iteration iteration = new Iteration()
-            {
-                Title = iterationVM.Title,
-                StartDate = iterationVM.StartDate,
-                DueDate = iterationVM.DueDate,
-                ProjectID = iterationVM.ProjectID
-            };
-
+            var iteration = Mapper.Map<IterationVM, Iteration>(iterationVM);
             db.Iterations.Add(iteration);
             db.SaveChanges();
 
@@ -53,18 +46,9 @@ namespace TestTrack.Controllers
         public ActionResult Edit(int id = 0)
         {
             Iteration iteration = db.Iterations.Find(id);
-
             if (iteration == null) return HttpNotFound();
-
-            var iterationVM = new IterationVM
-            {
-                IterationID = iteration.IterationID,
-                Title = iteration.Title,
-                StartDate = iteration.StartDate,
-                DueDate = iteration.DueDate,
-                ProjectID = iteration.ProjectID
-            };
-
+            var iterationVM = Mapper.Map<Iteration, IterationVM>(iteration);
+            
             return View(iterationVM);
         }
 
@@ -73,14 +57,7 @@ namespace TestTrack.Controllers
         {
             var iteration = db.Iterations.Find(iterationVM.IterationID);
             if (iteration == null) return HttpNotFound();
-
-            iteration.IterationID = iterationVM.IterationID;
-            iteration.Title = iterationVM.Title;
-            iteration.StartDate = iterationVM.StartDate;
-            iteration.DueDate = iterationVM.DueDate;
-            iteration.ProjectID = iterationVM.ProjectID;
-
-            db.Entry(iteration).State = EntityState.Modified;
+            db.Entry(iteration).CurrentValues.SetValues(iterationVM);
             db.SaveChanges();
 
             return RedirectToAction("Index", "TestPlanPerIteration");
@@ -89,19 +66,17 @@ namespace TestTrack.Controllers
         public ActionResult Delete(int id = 0)
         {
             Iteration iteration = db.Iterations.Find(id);
-            if (iteration == null)
-            {
-                return HttpNotFound();
-            }
+            if (iteration == null) return HttpNotFound();
+
             return PartialView(iteration);
         }
 
         [HttpPost, ValidateAntiForgeryToken, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Iteration iteration = db.Iterations.Find(id);
-            db.Iterations.Remove(iteration);
+            db.Iterations.Remove(db.Iterations.Find(id));
             db.SaveChanges();
+
             return RedirectToAction("Index", "TestPlanPerIteration");
         }
 
@@ -109,14 +84,14 @@ namespace TestTrack.Controllers
         public ActionResult List()
         {
             UserSettings userSettings = SessionWrapper.UserSettings;
-            var vm = new IterationsListVM();
             var iterations = (from i in db.Iterations
                               where i.ProjectID == userSettings.workingProject
                               orderby i.DueDate descending
                               select i).ToList();
-            vm.Values = new SelectList(iterations, "IterationID", "Title");
 
-            return PartialView("_List", vm);
+            var iterationsVM = Mapper.Map<IList<Iteration>, IList<IterationVM>>(iterations);
+
+            return PartialView("_List", iterationsVM);
         }
 
         [ChildActionOnly]
@@ -228,6 +203,7 @@ namespace TestTrack.Controllers
 
         private object[] GetRemainingEffort(Iteration iteration)
         {
+            // TODO
             return new object[1];
         }
 

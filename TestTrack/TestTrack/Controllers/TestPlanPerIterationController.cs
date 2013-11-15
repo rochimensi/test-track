@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using AutoMapper;
+using System.Linq;
 using System.Web.Mvc;
 using TestTrack.Filters;
 using TestTrack.Models;
@@ -17,12 +18,13 @@ namespace TestTrack.Controllers
         public ActionResult Index(int id = 0)
         {
             UserSettings userSettings = SessionWrapper.UserSettings;
-            
-            IterationVM iterationVM = new IterationVM {
+
+            var iterationVM = new IterationVM
+            {
                 ProjectID = userSettings.workingProject,
-                Project = db.Projects.Find(userSettings.workingProject).Title
+                Project = db.Projects.Find(userSettings.workingProject)
             };
-            
+                        
             // No Iteration selected by the user
             if (id == 0)
             {
@@ -35,11 +37,7 @@ namespace TestTrack.Controllers
                 if (iterationForProject.Count() > 0)
                 {
                     Iteration iteration = iterationForProject.First();
-                    iterationVM.IterationID = iteration.IterationID;
-                    iterationVM.Title = iteration.Title;
-                    iterationVM.StartDate = iteration.StartDate;
-                    iterationVM.DueDate = iteration.DueDate;
-                    iterationVM.TestPlansCount = iteration.TestPlans.Count();
+                    iterationVM = Mapper.Map<Iteration, IterationVM>(iteration);
                 }
             }
 
@@ -55,11 +53,7 @@ namespace TestTrack.Controllers
                 if (iterationForProject.Count() > 0)
                 {
                     Iteration iteration = iterationForProject.First();
-                    iterationVM.IterationID = iteration.IterationID;
-                    iterationVM.Title = iteration.Title;
-                    iterationVM.StartDate = iteration.StartDate;
-                    iterationVM.DueDate = iteration.DueDate;
-                    iterationVM.TestPlansCount = iteration.TestPlans.Count();
+                    iterationVM = Mapper.Map<Iteration, IterationVM>(iteration);
                 }
 
                 // When user is at /TestPlanPerIteration/Index/{id} and there is no such IterationID for the new selected project, redirects to /TestPlanPerIteration
