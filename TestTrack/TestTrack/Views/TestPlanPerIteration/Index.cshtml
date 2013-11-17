@@ -4,98 +4,69 @@
     ViewBag.Title = "Iterations";
 }
 
-<!-- Header -->
-@Html.Partial("~/Views/Shared/_Header.cshtml")
-
-<!-- Main -->
-<div class="container">
-    <div class="main">
-        <div class="jumbotron">
-            <div class="container">
-                <h1>Iterations</h1>
-                <p>Apply robust software testing into the iterative development lifecycle.</p>
-                <p>Organize your project backlog in Iterations.</p>
-                <p>By assigning test plans to your iterations you can easily monitor your iteration's status and activity.</p>
-                <p>
-                    @Html.ActionLink("Create New", "Create", "Iterations", new { id = Model.ProjectID }, new { @class = "btn btn-primary btn-lg" })
-                </p>
-            </div>
-        </div>
-        @if (Model.IterationID != 0)
-        {
-            <h2>Iterations for @Model.Project.Title</h2>
-    
-            <div class="dl-horizontal">
-                @Html.Action("List", "Iterations")
-            </div>
-            <div class="content">
-                <div class="page-header">
-                    <h2>@Model.Title &nbsp;<small>@Html.ActionLink(" ", "Edit", "Iterations", new { id = Model.IterationID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })&nbsp;@Html.ActionLink(" ", "Delete", "Iterations", new { id = Model.IterationID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
-                </div>
-                <div class="display-label">
-                    <strong>@Html.DisplayNameFor(model => model.StartDate):</strong>
-                    @Html.DisplayFor(model => model.StartDate)
-                </div>
-                <div class="display-label">
-                    <strong>@Html.DisplayNameFor(model => model.DueDate):</strong>
-                    @Html.DisplayFor(model => model.DueDate)
-                </div>
-                <br />
-                <div class="content-body">
-
-                    <div>
-                        @Html.Action("DrawLineChart", "Iterations", new { id = Model.IterationID })
-                    </div>
-                </div>
-            </div>
-            <div class="content">
-                <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <span class="badge">@Model.TestPlans.Count()</span>
-                                <a data-toggle="collapse" data-parent="#accordion" href="#testRunsPanel">
-                                    <strong>Test Plans</strong> for @Model.Title
-                                </a>
-                                @Html.ActionLink("Add Test Plan", "Create", "TestPlans", new { id = Model.IterationID }, new { @class = "btn btn-default btn-md heading-btn" })
-                            </h4>
-                        </div>
-                        <div id="testRunsPanel" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                @Html.Action("List", "TestPlans", new { id = Model.IterationID })
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-        else
-        {
-            <div class="alert alert-warning">There are no Iterations currently on this Project.</div>     
-        }
+<div class="jumbotron">
+    <div class="container">
+        <h1>Iterations</h1>
+        <p>Apply robust software testing into the iterative development lifecycle.</p>
+        <p>Organize your project backlog in Iterations.</p>
+        <p>By assigning test plans to your iterations you can easily monitor your iteration's status and activity.</p>
+        <p>
+            @Html.ActionLink("Create New", "Create", "Iterations", new { id = Model.ProjectID }, new { @class = "btn btn-primary btn-lg" })
+        </p>
     </div>
 </div>
+@if (Model.IterationID != 0)
+{
+    <h2>Iterations for @Model.Project.Title</h2>
+    
+    <div class="dl-horizontal">
+        @Html.Action("List", "Iterations")
+    </div>
+    <div class="content">
+        <div class="page-header">
+            <h2>@Model.Title &nbsp;<small>@Html.ActionLink(" ", "Edit", "Iterations", new { id = Model.IterationID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })&nbsp;@Html.ActionLink(" ", "Delete", "Iterations", new { id = Model.IterationID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })</small></h2>
+        </div>
+        <div class="display-label">
+            <strong>@Html.DisplayNameFor(model => model.StartDate):</strong>
+            @Html.DisplayFor(model => model.StartDate)
+        </div>
+        <div class="display-label">
+            <strong>@Html.DisplayNameFor(model => model.DueDate):</strong>
+            @Html.DisplayFor(model => model.DueDate)
+        </div>
+        <br />
+        <div class="content-body">
+
+            <div>
+                @Html.Action("DrawLineChart", "Iterations", new { id = Model.IterationID })
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span class="badge">@Model.TestPlans.Count()</span>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#testRunsPanel">
+                            <strong>Test Plans</strong> for @Model.Title
+                        </a>
+                        @Html.ActionLink("Add Test Plan", "Create", "TestPlans", new { id = Model.IterationID }, new { @class = "btn btn-default btn-md heading-btn" })
+                    </h4>
+                </div>
+                <div id="testRunsPanel" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        @Html.Action("List", "TestPlans", new { id = Model.IterationID })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">There are no Iterations currently on this Project.</div>     
+}
 
 <!-- DELETE MODAL -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true"></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

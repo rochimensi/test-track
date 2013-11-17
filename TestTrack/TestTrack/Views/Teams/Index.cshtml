@@ -4,48 +4,40 @@
     ViewBag.Title = "Teams";
 }
 
-<!-- Header -->
-@Html.Partial("~/Views/Shared/_Header.cshtml")
-
-<!-- Main -->
-<div class="container">
-    <div class="main">
-
-        <div class="jumbotron">
-            <div class="container">
-                <h1>Teams</h1>
-                <p>Add teams for all areas that compound the Quality Assurance for a project as a whole.</p>
-                <p>Divide your project in Teams.</p>
-                <p>Each team can have one Test Suite. Everything organized. Focus on what is yours.</p>
-                <p>
-                    @Html.ActionLink("Create New", "Create", "Teams", null, new { @class = "btn btn-primary btn-lg" })
-                </p>
-            </div>
-        </div>
-
-        @if (Model.Count() > 0)
-        {
-            <h2>Teams for @Model.First().Project.Title</h2>
-    
-            foreach (var item in Model)
-            {
-            <dl class="dl-horizontal">
-                <dt>@Html.DisplayFor(modelItem => item.Name)</dt>
-                <dd>
-                    <p>@Html.ActionLink(" ", "Edit", new { id = item.TeamID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" }) |
-            @Html.ActionLink(" ", "Delete", "Teams", new { id = item.TeamID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })
-                    </p>
-                    <p>Contains <b>@item.TestPlans.Count()</b> TestPlans.</p>
-                </dd>
-                <br />
-            </dl>
-            }
-        }
-        else
-        {
-            <div class="alert alert-warning">There are no Teams currently on this Project.</div>     
-        }
+<div class="jumbotron">
+    <div class="container">
+        <h1>Teams</h1>
+        <p>Add teams for all areas that compound the Quality Assurance for a project as a whole.</p>
+        <p>Divide your project in Teams.</p>
+        <p>Each team can have one Test Suite. Everything organized. Focus on what is yours.</p>
+        <p>
+            @Html.ActionLink("Create New", "Create", "Teams", null, new { @class = "btn btn-primary btn-lg" })
+        </p>
     </div>
 </div>
+
+@if (Model.Count() > 0)
+{
+    <h2>Teams for @Model.First().Project.Title</h2>
+    
+    foreach (var item in Model)
+    {
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayFor(modelItem => item.Name)</dt>
+        <dd>
+            <p>@Html.ActionLink(" ", "Edit", new { id = item.TeamID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" }) |
+    @Html.ActionLink(" ", "Delete", "Teams", new { id = item.TeamID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })
+            </p>
+            <p>Contains <b>@item.TestPlans.Count()</b> TestPlans.</p>
+        </dd>
+        <br />
+    </dl>
+    }
+}
+else
+{
+    <div class="alert alert-warning">There are no Teams currently on this Project.</div>     
+}
+
 <!-- DELETE MODAL -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true"></div>

@@ -11,8 +11,22 @@
     @Scripts.Render("~/bundles/jquery")
 </head>
 <body>
+    <!-- Header -->
+    @if (ViewBag.ThereIsProjects)
+    {
+        @Html.Partial("_Header")
+    }
+    else
+    {
+        @Html.Partial("_NoProjectsHeader")
+    }
+
     <!-- Main -->
-    @RenderBody()
+    <div class="container">
+        <div class="main">
+            @RenderBody()
+        </div>
+    </div>
 
     <!-- Footer -->
     @Html.Partial("_Footer")
@@ -21,6 +35,5 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/highcharts")
     @RenderSection("scripts", required: false)
-
 </body>
 </html>

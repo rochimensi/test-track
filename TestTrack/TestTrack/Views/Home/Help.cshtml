@@ -4,25 +4,8 @@
     ViewBag.Title = "Help";
 }
 
-<!-- Header -->
-@if (Model == 0)
-{
-    @Html.Partial("~/Views/Shared/_NoProjectsHeader.cshtml")
-}
-else
-{
-    @Html.Partial("~/Views/Shared/_Header.cshtml")
-}
-
-<!-- Main -->
-<div class="container">
-    <div class="main">
-        
-        <div class="page-header">
-            <h1>@ViewBag.Title</h1>
-        </div>
-
-        <p>Nothing yet!</p>
-
-    </div>
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
 </div>
+
+<p>Nothing yet!</p>

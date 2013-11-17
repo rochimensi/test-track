@@ -11,6 +11,7 @@ using TestTrack.Filters;
 namespace TestTrack.Controllers
 {
     [Authorize]
+    [ProjectsAvailability]
     public class ProjectsController : BaseController
     {
         // GET: /Projects/
@@ -44,7 +45,6 @@ namespace TestTrack.Controllers
             return RedirectToAction("Index");
         }
 
-        [ProjectsAvailability]
         [HttpGet] // GET: /Projects/Edit/5
         public ActionResult Edit(int id = 0)
         {
@@ -55,7 +55,6 @@ namespace TestTrack.Controllers
             return View(projectVM);
         }
 
-        [ProjectsAvailability]
         [HttpPost]
         public ActionResult Edit(ProjectVM projectVM)
         {
@@ -67,7 +66,6 @@ namespace TestTrack.Controllers
             return RedirectToAction("Index");
         }
 
-        [ProjectsAvailability]
         [HttpGet]
         public ActionResult Delete(int id = 0)
         {
@@ -77,7 +75,6 @@ namespace TestTrack.Controllers
             return PartialView(project);
         }
 
-        [ProjectsAvailability]
         [HttpPost, ValidateAntiForgeryToken, ActionName("Delete")]
         public ActionResult DeleteConfirm(int id)
         {

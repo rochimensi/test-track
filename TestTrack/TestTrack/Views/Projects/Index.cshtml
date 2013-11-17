@@ -4,63 +4,49 @@
     ViewBag.Title = "Projects";   
 }
 
-<!-- Header -->
-@if(Model.Count() == 0)
+<div class="jumbotron">
+    <div class="container">
+        <h1>Projects</h1>
+        <p>Add projects to manage all your ongoing test work in TestTrack.</p>
+        <p>Access all relevant details including Iterations, Test Plans, Teams, active Test runs and results.</p>
+        <p>Track your projects' progress easily!.</p>
+        <p>
+            @Html.ActionLink("Create New", "Create", "Projects", null, new { @class = "btn btn-primary btn-lg" })
+        </p>
+    </div>
+</div>
+@if (Model.Count() == 0)
 {
-    @Html.Partial("~/Views/Shared/_NoProjectsHeader.cshtml")
+    <div class="alert alert-info">Welcome! There are no Projects registered in Test Track. To begin tracking, you must create at least one Project.</div>
 }
 else
 {
-    @Html.Partial("~/Views/Shared/_Header.cshtml")
+    foreach (var item in Model)
+    {
+<dl class="dl-horizontal">
+        <dt>@Html.DisplayFor(modelItem => item.Title)</dt>
+        <dd>
+            <p>@Html.ActionLink(" ", "Edit", new { id = item.ProjectID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" }) |
+        @Html.ActionLink(" ", "Delete", "Projects", new { id = item.ProjectID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })
+        </p>
+            <p>@Html.DisplayFor(modelItem => item.Description)
+        </p>
+            <p>Contains <b>@item.Iterations.Count()</b> Iterations and <b>@item.Teams.Count()</b> Teams.</p>
+            @if (Model.First().workingProject != item.ProjectID)
+            {
+<p>
+                    @using (Html.BeginForm("SetProject", "Projects", new { id = item.ProjectID }))
+                    {
+                        @Html.AntiForgeryToken()
+<input type="submit" value="Set as current project" class="btn btn-default" />
+                    }
+            </p>
+            }
+    </dd>
+        <br />
+    </dl>
+    }
 }
 
-<!-- Main -->
-<div class="container">
-    <div class="main">
-        <div class="jumbotron">
-            <div class="container">
-                <h1>Projects</h1>
-                <p>Add projects to manage all your ongoing test work in TestTrack.</p>
-                <p>Access all relevant details including Iterations, Test Plans, Teams, active Test runs and results.</p>
-                <p>Track your projects' progress easily!.</p>
-                <p>
-                    @Html.ActionLink("Create New", "Create", "Projects", null, new { @class = "btn btn-primary btn-lg" })
-                </p>
-            </div>
-        </div>
-        @if (Model.Count() == 0)
-        {
-            <div class="alert alert-info">Welcome! There are no Projects registered in Test Track. To begin tracking, you must create at least one Project.</div>
-        }
-        else
-        {
-            foreach (var item in Model)
-            {
-<dl class="dl-horizontal">
-                <dt>@Html.DisplayFor(modelItem => item.Title)</dt>
-                <dd>
-                    <p>@Html.ActionLink(" ", "Edit", new { id = item.ProjectID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" }) |
-                @Html.ActionLink(" ", "Delete", "Projects", new { id = item.ProjectID }, new { @data_target = "#deleteModal", @data_toggle = "modal", @class = "glyphicon glyphicon-trash", @title = "Delete" })
-                </p>
-                    <p>@Html.DisplayFor(modelItem => item.Description)
-                </p>
-                    <p>Contains <b>@item.Iterations.Count()</b> Iterations and <b>@item.Teams.Count()</b> Teams.</p>
-                    @if (Model.First().workingProject != item.ProjectID)
-                    {
-<p>
-                            @using (Html.BeginForm("SetProject", "Projects", new { id = item.ProjectID }))
-                            {
-                                @Html.AntiForgeryToken()
-<input type="submit" value="Set as current project" class="btn btn-default" />
-                            }
-                    </p>
-                    }
-            </dd>
-                <br />
-            </dl>
-            }
-        }
-    </div>
-</div>
 <!-- DELETE MODAL -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true"></div>

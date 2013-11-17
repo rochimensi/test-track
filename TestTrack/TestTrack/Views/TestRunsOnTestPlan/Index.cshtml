@@ -4,17 +4,8 @@
     ViewBag.Title = "Test Runs";
 }
 
-<!-- Header -->
-@Html.Partial("~/Views/Shared/_Header.cshtml")
-
-<!-- Main -->
-<div class="container">
-    <div class="main">
-        @Html.Action("TestPlanSection", "TestRunsOnTestPlan", new { id = Model.TestPlanID })
-
-        @Html.Action("TestRunsSection", "TestRunsOnTestPlan", new { id = Model.TestPlanID })
-    </div>
-</div>
+@Html.Action("TestPlanSection", "TestRunsOnTestPlan", new { id = Model.TestPlanID })
+@Html.Action("TestRunsSection", "TestRunsOnTestPlan", new { id = Model.TestPlanID })
 
 <!-- DELETE MODAL -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true"></div>

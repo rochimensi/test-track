@@ -11,10 +11,20 @@ namespace TestTrack.Filters
         {
             TestTrackDBContext db = new TestTrackDBContext();
 
-            if (db.Projects.Count() == 0)
+            int projectsCount = db.Projects.Count();
+            bool isProjectAccesibleAction = filterContext.RouteData.Values["controller"].ToString() == "Projects" && (filterContext.RouteData.Values["action"].ToString() == "Index" || filterContext.RouteData.Values["action"].ToString() == "Create");
+            
+            if (projectsCount == 0 && !isProjectAccesibleAction)
             {
-                filterContext.Result = new RedirectToRouteResult(
-                    new RouteValueDictionary { { "controller", "Projects" }, { "action", "Index" } });
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary { { "controller", "Projects" }, { "action", "Index" } });
+            }
+            else if (projectsCount == 0 && isProjectAccesibleAction)
+            {
+                filterContext.Controller.ViewBag.ThereIsProjects = false;
+            }
+            else
+            {
+                filterContext.Controller.ViewBag.ThereIsProjects = true;
             }
         }
     }
