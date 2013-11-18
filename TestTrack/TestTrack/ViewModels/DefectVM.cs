@@ -12,14 +12,12 @@ namespace TestTrack.ViewModels
 
         public int ResultID { get; set; }
 
-        public int TestCaseID { get; set; }
-
-        public int TestRunID { get; set; }
+        public Result Result { get; set; }
 
         [Display(Name = "Title")]
         [Required]
         [StringLength(200)]
-        public string DefectTitle { get; set; }
+        public string Title { get; set; }
 
         [StringLength(1000)]
         public string Comments { get; set; }
