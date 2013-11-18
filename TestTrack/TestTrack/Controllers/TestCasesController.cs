@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TestTrack.Models;
 using TestTrack.ViewModels;
 using TestTrack.Helpers;
 using TestTrack.Filters;
+using AutoMapper;
 
 namespace TestTrack.Controllers
 {
@@ -16,37 +15,20 @@ namespace TestTrack.Controllers
     [ProjectsAvailability]
     public class TestCasesController : BaseController
     {
-        // GET: /TestCases/
         public ActionResult Index(int id = 0)
         {
             var testCase = db.TestCases.Find(id);
             if (testCase == null) return HttpNotFound();
-
-            var testCaseVM = new TestCaseVM
-            {
-                TestCaseID = id,
-                Title = testCase.Title,
-                Description = testCase.Description,
-                PreConditions = testCase.PreConditions,
-                Tags = testCase.Tags,
-                Type = testCase.Type,
-                Priority = testCase.Priority,
-                Method = testCase.Method,
-                TestSuiteID = testCase.TestSuiteID,
-                TestSuite = db.TestSuites.Find(testCase.TestSuiteID).Title,
-                Steps = testCase.Steps,
-                labels = new string[testCase.Steps.Count()]
-            };
-
-            for(var i = 0; i < testCase.Steps.Count(); i++)
+            var testCaseVM = Mapper.Map<TestCase, TestCaseVM>(testCase);
+            testCaseVM.labels = new string[testCase.Steps.Count()];
+            
+            for (var i = 0; i < testCase.Steps.Count(); i++)
             {
                 testCaseVM.labels[i] = (i + 1).ToString();
             }
 
             return View(testCaseVM);
         }
-
-        // GET: /TestCases/Create
 
         [HttpGet]
         public ActionResult Create(int id = 0)
@@ -62,23 +44,10 @@ namespace TestTrack.Controllers
             return View("Create", testCaseVM);
         }
 
-        // POST: /TestCases/Create
-
         [HttpPost]
         public ActionResult Create(TestCaseVM testCaseVM)
         {
-            var testCase = new TestCase
-            {
-                Title = testCaseVM.Title,
-                Description = testCaseVM.Description,
-                PreConditions = testCaseVM.PreConditions,
-                Tags = testCaseVM.Tags,
-                Type = testCaseVM.Type,
-                Priority = testCaseVM.Priority,
-                Method = testCaseVM.Method,
-                TestSuiteID = testCaseVM.TestSuiteID,
-            };
-
+            var testCase = Mapper.Map<TestCaseVM, TestCase>(testCaseVM);
             db.TestCases.Add(testCase);
             db.SaveChanges();
 
@@ -98,32 +67,17 @@ namespace TestTrack.Controllers
             return RedirectToAction("Index", "TestCasesPerTestSuite");
         }
 
-        // GET: /TestCases/Edit/5
-
         [HttpGet]
         public ActionResult Edit(int id = 0)
         {
             var testCase = db.TestCases.Find(id);
             if (testCase == null) return HttpNotFound();
-
-            var testCaseVM = new TestCaseVM
-            {
-                TestCaseID = id,
-                Title = testCase.Title,
-                Description = testCase.Description,
-                PreConditions = testCase.PreConditions,
-                Tags = testCase.Tags,
-                Type = testCase.Type,
-                Types = Common.ToSelectList<TestTrack.Models.Type>(),
-                Priority = testCase.Priority,
-                Priorities = Common.ToSelectList<TestTrack.Models.Priority>(),
-                Method = testCase.Method,
-                Methods = Common.ToSelectList<TestTrack.Models.Method>(),
-                TestSuiteID = testCase.TestSuiteID,
-                Steps = testCase.Steps,
-                labels = new string[testCase.Steps.Count()]
-            };
-
+            var testCaseVM = Mapper.Map<TestCase, TestCaseVM>(testCase);
+            testCaseVM.labels = new string[testCase.Steps.Count()];
+            testCaseVM.Types = Common.ToSelectList<TestTrack.Models.Type>();
+            testCaseVM.Priorities = Common.ToSelectList<TestTrack.Models.Priority>();
+            testCaseVM.Methods = Common.ToSelectList<TestTrack.Models.Method>();
+            
             for (var i = 0; i < testCase.Steps.Count(); i++)
             {
                 testCaseVM.labels[i] = (i + 1).ToString();
@@ -132,23 +86,12 @@ namespace TestTrack.Controllers
             return View(testCaseVM);
         }
 
-        // POST: /TestCases/Edit/5
-
         [HttpPost]
         public ActionResult Edit(TestCaseVM testCaseVM)
         {
             var testCase = db.TestCases.Find(testCaseVM.TestCaseID);
             if (testCase == null) return HttpNotFound();
-
-            testCase.Title = testCaseVM.Title;
-            testCase.Description = testCaseVM.Description;
-            testCase.PreConditions = testCaseVM.PreConditions;
-            testCase.Tags = testCaseVM.Tags;
-            testCase.Type = testCaseVM.Type;
-            testCase.Priority = testCaseVM.Priority;
-            testCase.Method = testCaseVM.Method;
-            testCase.TestSuiteID = testCaseVM.TestSuiteID;
-
+            db.Entry(testCase).CurrentValues.SetValues(testCaseVM);
             DeleteRemovedSteps(testCase, testCaseVM.stepsID);
 
             // For each id on stepsID >> id = 0: new step, id already on Steps: update step.
@@ -183,22 +126,14 @@ namespace TestTrack.Controllers
             return RedirectToAction("Index", new { id = testCase.TestCaseID });
         }
 
-        // GET: /TestCases/Delete/5
-
         public ActionResult Delete(int id = 0)
         {
             TestCase testcase = db.TestCases.Find(id);
-            if (testcase == null)
-            {
-                return HttpNotFound();
-            }
+            if (testcase == null) { return HttpNotFound(); }
             return PartialView(testcase);
         }
 
-        // POST: /TestCases/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
             TestCase testcase = db.TestCases.Find(id);
@@ -210,12 +145,12 @@ namespace TestTrack.Controllers
         [ChildActionOnly]
         public ActionResult List(int id = 0)
         {
-            var vm = new TestCasesListVM();
-            vm.Values = from tc in db.TestCases
-                        where tc.TestSuiteID == id
-                        select tc;
+            var testCases = (from tc in db.TestCases
+                             where tc.TestSuiteID == id
+                             select tc).ToList();
+            var testCasesVM = Mapper.Map<IList<TestCase>, IList<TestCaseVM>>(testCases);
 
-            return PartialView("_List", vm);
+            return PartialView("_List", testCasesVM);
         }
 
         private bool TestCaseContainsStep(TestCase tc, int id)

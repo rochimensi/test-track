@@ -41,9 +41,9 @@ namespace TestTrack.ViewModels
 
         [HiddenInput(DisplayValue = false)]
         public int TestSuiteID { get; set; }
-        public string TestSuite { get; set; }
+        public TestSuite TestSuite { get; set; }
 
-        public IEnumerable<TestTrack.Models.Step> Steps { get; set; }
+        public ICollection<Step> Steps { get; set; }
 
         public string[] labels { get; set; }
         public string[] action { get; set; }

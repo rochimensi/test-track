@@ -1,4 +1,4 @@
-﻿@model TestTrack.ViewModels.TestCasesListVM
+﻿@model IList<TestTrack.ViewModels.TestCaseVM>
 
 <table class="table table-hover">
     <thead>
@@ -21,7 +21,7 @@
         </tr>
     </thead>
 
-    @foreach (var item in Model.Values)
+    @foreach (var item in Model)
     {
         
         <tr>
