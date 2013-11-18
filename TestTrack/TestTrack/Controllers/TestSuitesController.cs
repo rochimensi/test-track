@@ -1,9 +1,6 @@
-﻿using System;
+﻿using AutoMapper;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TestTrack.Filters;
 using TestTrack.Models;
@@ -15,14 +12,6 @@ namespace TestTrack.Controllers
     [ProjectsAvailability]
     public class TestSuitesController : BaseController
     {
-        // GET: /TestSuites/
-        public ActionResult Index()
-        {
-            var testsuites = db.TestSuites.Include(t => t.Team);
-            return View(testsuites.ToList());
-        }
-
-        // GET: /TestSuites/Create
         [HttpGet]
         public ActionResult Create()
         {   
@@ -37,52 +26,34 @@ namespace TestTrack.Controllers
         [HttpPost]
         public ActionResult Create(TestSuiteVM testSuiteVM)
         {
-            var testsuite = new TestSuite
-            {
-                Title = testSuiteVM.Title,
-                TeamID = testSuiteVM.TeamID
-            };
-
+            var testsuite = Mapper.Map<TestSuiteVM, TestSuite>(testSuiteVM);
             db.TestSuites.Add(testsuite);
             db.SaveChanges();
 
             return RedirectToAction("Index", "TestCasesPerTestSuite", new { id = testsuite.TeamID });
         }
 
-        // GET: /TestSuites/Edit/5
         [HttpGet]
         public ActionResult Edit(int id = 0)
         {
             TestSuite testsuite = db.TestSuites.Find(id);
             if (testsuite == null) return HttpNotFound();
-
-            TestSuiteVM testSuiteVM = new TestSuiteVM
-            {
-                Title = testsuite.Title,
-                TeamID = testsuite.TeamID,
-                Teams = new SelectList(GetTeamsWithNoTestsuite(), "TeamID", "Name")
-            };
-
+            TestSuiteVM testSuiteVM = Mapper.Map<TestSuite, TestSuiteVM>(testsuite);
+            testSuiteVM.Teams = new SelectList(GetTeamsWithNoTestsuite(), "TeamID", "Name");
+            
             return View("Edit", testSuiteVM);
         }
 
-        // POST: /TestSuites/Edit/5
         [HttpPost]
         public ActionResult Edit(TestSuiteVM testSuiteVM)
         {
             TestSuite testsuite = db.TestSuites.Find(testSuiteVM.TeamID);
             if (testsuite == null) return HttpNotFound();
-
-            testsuite.Title = testSuiteVM.Title;
-            testsuite.TeamID = testSuiteVM.TeamID;
-
-            db.Entry(testsuite).State = EntityState.Modified;
+            db.Entry(testsuite).CurrentValues.SetValues(testSuiteVM);
             db.SaveChanges();
 
             return RedirectToAction("Index", "TestCasesPerTestSuite", new { id = testsuite.TeamID });
         }
-
-        // GET: /TestSuites/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
@@ -91,10 +62,7 @@ namespace TestTrack.Controllers
             return PartialView(testsuite);
         }
 
-        // POST: /TestSuites/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
             TestSuite testsuite = db.TestSuites.Find(id);
@@ -107,14 +75,13 @@ namespace TestTrack.Controllers
         public ActionResult List()
         {
             UserSettings userSettings = SessionWrapper.UserSettings;
-            var vm = new TestSuitesListVM();
             var testSuites = (from ts in db.TestSuites
                               where ts.Team.ProjectID == userSettings.workingProject
                               orderby ts.Title ascending
                               select ts).ToList();
-            vm.Values = new SelectList(testSuites, "TeamID", "Title");
+            var testSuitesVM = Mapper.Map<IList<TestSuite>, IList<TestSuiteVM>>(testSuites);
 
-            return PartialView("_List", vm);
+            return PartialView("_List", testSuitesVM);
         }
 
         private ICollection<Team> GetTeamsWithNoTestsuite()
