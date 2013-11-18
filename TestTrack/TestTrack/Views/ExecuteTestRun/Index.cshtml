@@ -51,20 +51,43 @@
         }
         else
         {
-            if (!Model.Closed)
-            {
-                foreach (var item in Model.Results)
+            
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <strong>ID</strong>
+                        </th>
+                        <th>
+                            <strong>Title</strong>
+                        </th>
+                        <th style="text-align: center;">
+                            <strong>Assigned to</strong>
+                        </th>
+                        <th style="text-align: center;">
+                            <strong>State</strong>
+                        </th>
+                        <th style="text-align: center;">
+                            <strong>New</strong>
+                        </th>
+                    </tr>
+                </thead>
+                @if (!Model.Closed)
                 {
-            @Html.Action("List", "ExecuteTestRun", new { id = item.ResultID })
+                    foreach (var item in Model.Results)
+                    {
+                        @Html.Action("List", "ExecuteTestRun", new { id = item.ResultID })
+                    }
                 }
-            }
-            else
-            {
-                foreach (var item in Model.Results)
+                else
                 {
-            @Html.Action("ListDisabled", "ExecuteTestRun", new { id = item.ResultID })
+                    foreach (var item in Model.Results)
+                    {
+                        @Html.Action("ListDisabled", "ExecuteTestRun", new { id = item.ResultID })
+                    }
                 }
-            }
+            </table>
+       
         }
     </div>
 </div>

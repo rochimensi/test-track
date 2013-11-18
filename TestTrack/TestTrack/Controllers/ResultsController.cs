@@ -37,16 +37,15 @@ namespace TestTrack.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create(int id = 0, string state = "")
+        public ActionResult Create(int id = 0)
         {
             int testRunID = db.Results.Find(id).TestRunID;
             int testCaseID = db.Results.Find(id).TestCaseID;
             ResultVM vm = new ResultVM
             {
                 TestCaseID = testCaseID,
-                TestCase = db.TestCases.Find(testCaseID),
-                SelectedStateName = state,
                 Severities = Common.ToSelectList<TestTrack.Models.Severity>(),
+                States = Common.ToSelectList<TestTrack.Models.State>(),
                 TestRunID = testRunID
             };
             return PartialView(vm);
@@ -56,7 +55,6 @@ namespace TestTrack.Controllers
         public ActionResult Create(ResultVM vm)
         {
             var result = Mapper.Map<ResultVM, Result>(vm);
-            result.State = (State)Enum.Parse(typeof(State), vm.SelectedStateName);
             db.Results.Add(result);
             db.SaveChanges();
 

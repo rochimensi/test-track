@@ -1,23 +1,30 @@
 ﻿@model TestTrack.ViewModels.ResultVM
 
-<div id="tc-@Model.TestCaseID" class="row result">
-    <div class="col-md-1 tc-id">
-        <p><small>@Model.TestCaseID</small></p>
-    </div>
-    <div class="col-md-8">
-        <p><small><a href="/Results/Index/@Model.TestRunID/@Model.TestCaseID">@Model.TestCase.Title</a></small></p>
-    </div>
-    <div class="col-md-1">
+<tr>
+    <td>
+        <small>@Model.TestCaseID</small>
+    </td>
+    <td>
+        <small><a href="/Results/Index/@Model.TestRunID/@Model.TestCaseID">@Model.TestCase.Title</a></small>
+    </td>
+    <td style="text-align: center;">
+
         @if (Model.AssignedTo != null)
         {
-            <p><small>@Html.ActionLink(@Model.AssignedTo, "SetAssignee", "Results", new { id = Model.ResultID }, new { @data_target = "#modalAssignTo", @data_toggle = "modal" })</small></p>
+            <small>@Html.ActionLink(@Model.AssignedTo, "SetAssignee", "Results", new { id = Model.ResultID }, new { @data_target = "#modalAssignTo", @data_toggle = "modal" })</small>
         }
         else
         {
-            <p><small>@Html.ActionLink("Assign..", "SetAssignee", "Results", new { id = Model.ResultID }, new { @data_target = "#modalAssignTo", @data_toggle = "modal" })</small></p>
+            <small>@Html.ActionLink(" ", "SetAssignee", "Results", new { id = Model.ResultID }, new { @class = "glyphicon glyphicon-user", @data_target = "#modalAssignTo", @data_toggle = "modal" })</small>
         }
-    </div>
-    <div class="col-md-2">
-        @Html.DropDownListFor(model => model.State, Model.States, new { @class = "form-control " + @Model.State.ToString().ToLower(), @data_id = Model.ResultID })
-    </div>
-</div>
+    </td>
+    <td style="text-align: center;">
+        <span class="badge @Model.State.ToString().ToLower()">@Model.State.ToString()</span>
+    </td>
+    <td style="text-align: center;" >
+        @Html.ActionLink(" ", "Create", "Results", new { id = Model.ResultID }, new { @class = "glyphicon glyphicon-plus", @title = "Add Result", @data_target = "#modalResultForTestCase", @data_toggle = "modal" })
+    </td>
+</tr>
+
+
+

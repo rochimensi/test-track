@@ -13,8 +13,6 @@ namespace TestTrack.ViewModels
         [HiddenInput(DisplayValue = false)]
         public State State { get; set; }
 
-        public string SelectedStateName { get; set; }
-
         public int TestRunID { get; set; }
 
         public TestRun TestRun { get; set; }
