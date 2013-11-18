@@ -32,7 +32,7 @@ else
             <p>@Html.DisplayFor(modelItem => item.Description)
         </p>
             <p>Contains <b>@item.Iterations.Count()</b> Iterations and <b>@item.Teams.Count()</b> Teams.</p>
-            @if (Model.First().workingProject != item.ProjectID)
+            @if (ViewBag.workingProject != item.ProjectID)
             {
 <p>
                     @using (Html.BeginForm("SetProject", "Projects", new { id = item.ProjectID }))

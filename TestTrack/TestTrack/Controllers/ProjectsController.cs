@@ -23,7 +23,7 @@ namespace TestTrack.Controllers
                             select p).ToList();
 
             var projectsVM = Mapper.Map<IList<Project>, IList<ProjectVM>>(projects);
-            projectsVM.First().workingProject = userSettings.workingProject;
+            ViewBag.workingProject = userSettings.workingProject;
 
             return View(projectsVM);
         }
