@@ -23,7 +23,7 @@ namespace TestTrack.Models
 
         [Required]
         [StringLength(1000)]
-        public string Description { get; set; }
+        public string Comments { get; set; }
 
         [Required]
         public Severity Severity { get; set; }

@@ -1,11 +1,9 @@
-﻿@model TestTrack.ViewModels.ResultsListVM
+﻿@model TestTrack.ViewModels.ResultVM
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-
-    @Html.HiddenFor(model => model.ResultID)
 
     <div class="modal-dialog">
         <div class="modal-content">

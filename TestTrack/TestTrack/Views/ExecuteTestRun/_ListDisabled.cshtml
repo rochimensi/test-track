@@ -1,4 +1,4 @@
-﻿@model TestTrack.ViewModels.ResultsListVM
+﻿@model TestTrack.ViewModels.ResultVM
 @using (Html.BeginForm("SetResult", "ExecuteTestRun"))
 {
     @Html.AntiForgeryToken()
@@ -11,7 +11,7 @@
             <p><small><a href="/Results/Index/@Model.TestRunID/@Model.TestCaseID">@Model.TestCase</a></small></p>
         </div>
         <div class="col-md-2">
-                @Html.DropDownListFor(model => model.SelectedState, Model.States, new { @onchange = "this.form.submit()", @disabled = "true", @class = "form-control " + @Model.SelectedState.ToString().ToLower() })
+                @Html.DropDownListFor(model => model.State, Model.States, new { @onchange = "this.form.submit()", @disabled = "true", @class = "form-control " + @Model.State.ToString().ToLower() })
         </div>
     </div>
 }

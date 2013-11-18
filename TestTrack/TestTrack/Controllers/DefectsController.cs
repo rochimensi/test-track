@@ -32,7 +32,7 @@ namespace TestTrack.Controllers
                 TestCaseID = defect.Result.TestCaseID,
                 TestRunID = defect.Result.TestRunID,
                 ResultID = defect.ResultID,
-                Comments = defect.Description,
+                Comments = defect.Comments,
                 Severity = defect.Severity,
                 Labels = defect.Labels,
                 Severities = Common.ToSelectList<TestTrack.Models.Severity>()                
@@ -50,7 +50,7 @@ namespace TestTrack.Controllers
             var result = db.Results.Find(vm.ResultID);
 
             defect.Title = vm.DefectTitle;
-            defect.Description = vm.Comments;
+            defect.Comments = vm.Comments;
             result.Comments = vm.Comments;
             defect.Labels = vm.Labels;
             defect.Severity = vm.Severity;

@@ -1,23 +1,23 @@
-﻿@model TestTrack.ViewModels.ResultsListVM
+﻿@model TestTrack.ViewModels.ResultVM
 
 <div id="tc-@Model.TestCaseID" class="row result">
     <div class="col-md-1 tc-id">
         <p><small>@Model.TestCaseID</small></p>
     </div>
-    <div class="col-md-7">
-        <p><small><a href="/Results/Index/@Model.TestRunID/@Model.TestCaseID">@Model.TestCase</a></small></p>
+    <div class="col-md-8">
+        <p><small><a href="/Results/Index/@Model.TestRunID/@Model.TestCaseID">@Model.TestCase.Title</a></small></p>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-1">
         @if (Model.AssignedTo != null)
         {
-            <p><small>@Html.ActionLink(@Model.AssignedTo, "SetAssignee", "Results", new { id = Model.TestCaseID }, new { @data_target = "#modalAssignTo", @data_toggle = "modal" })</small></p>
+            <p><small>@Html.ActionLink(@Model.AssignedTo, "SetAssignee", "Results", new { id = Model.ResultID }, new { @data_target = "#modalAssignTo", @data_toggle = "modal" })</small></p>
         }
         else
         {
-            <p><small>@Html.ActionLink("Assign..", "SetAssignee", "Results", new { id = Model.TestCaseID }, new { @data_target = "#modalAssignTo", @data_toggle = "modal" })</small></p>
+            <p><small>@Html.ActionLink("Assign..", "SetAssignee", "Results", new { id = Model.ResultID }, new { @data_target = "#modalAssignTo", @data_toggle = "modal" })</small></p>
         }
     </div>
     <div class="col-md-2">
-        @Html.DropDownListFor(model => model.SelectedState, Model.States, new { @class = "form-control " + @Model.SelectedState.ToString().ToLower(), @data_id = Model.ResultID })
+        @Html.DropDownListFor(model => model.State, Model.States, new { @class = "form-control " + @Model.State.ToString().ToLower(), @data_id = Model.ResultID })
     </div>
 </div>

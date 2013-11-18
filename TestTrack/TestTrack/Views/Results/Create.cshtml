@@ -1,4 +1,4 @@
-﻿@model TestTrack.ViewModels.ResultsListVM
+﻿@model TestTrack.ViewModels.ResultVM
 
 @using (Html.BeginForm())
 {
@@ -45,8 +45,8 @@
                                 <label>Defect title</label>
                             </div>
                             <div class="editor-field">
-                                @Html.TextBoxFor(model => model.DefectTitle, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.DefectTitle)
+                                @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Title)
                             </div>
                         </div>
                         <div class="form-group">

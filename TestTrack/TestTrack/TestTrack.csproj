@@ -225,6 +225,7 @@
     <Compile Include="Infrastructure\Automapper\IObjectMapperConfigurator.cs" />
     <Compile Include="Infrastructure\Ioc\WindsorInstaller.cs" />
     <Compile Include="Infrastructure\Ioc\WindsorControllerFactory.cs" />
+    <Compile Include="Infrastructure\Mappings\ResultMappers.cs" />
     <Compile Include="Infrastructure\Mappings\TestCaseMappers.cs" />
     <Compile Include="Infrastructure\Mappings\TestSuiteMappers.cs" />
     <Compile Include="Infrastructure\Mappings\TestRunMappers.cs" />
@@ -248,9 +249,8 @@
     <Compile Include="ViewModels\DefectVM.cs" />
     <Compile Include="ViewModels\ResultsPerTestCaseVM.cs" />
     <Compile Include="ViewModels\TestSuiteVM.cs" />
-    <Compile Include="ViewModels\ResultsListVM.cs" />
     <Compile Include="ViewModels\ResultVM.cs" />
-    <Compile Include="ViewModels\ExecuteTestRunVM.cs" />
+    <Compile Include="ViewModels\SelectTestCasesVM.cs" />
     <Compile Include="ViewModels\TestRunVM.cs" />
     <Compile Include="ViewModels\TestCaseVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

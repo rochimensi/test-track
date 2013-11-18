@@ -1,4 +1,5 @@
-﻿using DotNet.Highcharts;
+﻿using AutoMapper;
+using DotNet.Highcharts;
 using DotNet.Highcharts.Enums;
 using DotNet.Highcharts.Helpers;
 using DotNet.Highcharts.Options;
@@ -24,30 +25,15 @@ namespace TestTrack.Controllers
         {
             var testRun = db.TestRuns.Find(id);
             if (testRun == null) return HttpNotFound();
-
             var testCase = db.TestCases.Find(tcId);
             if (testCase == null) return HttpNotFound();
-
             var results = (from r in db.Results
-                           where r.TestCaseID == tcId
+                           where r.TestCaseID == tcId && r.TestRunID == id
                            orderby r.CreatedOn descending
                            select r).ToList();
-            int[] states = StatesCount(results);
+            var resultsVM = Mapper.Map<IList<Result>, IList<ResultVM>>(results);
 
-            var resultsPerTestCaseVM = new ResultsPerTestCaseVM
-            {
-                TestCase = testCase.Title,
-                TestCaseID = tcId,
-                TestRun = testRun.Title,
-                TestRunID = testRun.TestRunID,
-                Results = results,
-                blocked = states[0],
-                failed = states[1],
-                passed = states[2],
-                retest = states[3]
-            };
-
-            return View(resultsPerTestCaseVM);
+            return View(resultsVM);
         }
 
         [HttpGet]
@@ -55,10 +41,10 @@ namespace TestTrack.Controllers
         {
             int testRunID = db.Results.Find(id).TestRunID;
             int testCaseID = db.Results.Find(id).TestCaseID;
-            ResultsListVM vm = new ResultsListVM
+            ResultVM vm = new ResultVM
             {
                 TestCaseID = testCaseID,
-                TestCase = db.TestCases.Find(testCaseID).Title,
+                TestCase = db.TestCases.Find(testCaseID),
                 SelectedStateName = state,
                 Severities = Common.ToSelectList<TestTrack.Models.Severity>(),
                 TestRunID = testRunID
@@ -67,32 +53,17 @@ namespace TestTrack.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(ResultsListVM vm)
+        public ActionResult Create(ResultVM vm)
         {
-            var result = new Result
-            {
-                TestRunID = vm.TestRunID,
-                TestCaseID = vm.TestCaseID,
-                TestCase = db.TestCases.Find(vm.TestCaseID),
-                TestRun = db.TestRuns.Find(vm.TestRunID),
-                Comments = vm.Comments,
-                CreatedOn = DateTime.Now,
-                State = (State)Enum.Parse(typeof(State), vm.SelectedStateName)
-            };
+            var result = Mapper.Map<ResultVM, Result>(vm);
+            result.State = (State)Enum.Parse(typeof(State), vm.SelectedStateName);
             db.Results.Add(result);
             db.SaveChanges();
 
-            if (vm.DefectTitle != null)
+            if (vm.Title != null)
             {
-                var defect = new Defect
-                {
-                    ResultID = result.ResultID,
-                    Title = vm.DefectTitle,
-                    Severity = vm.Severity,
-                    Description = vm.Comments,
-                    Labels = vm.Labels,
-                    CreatedOn = DateTime.Now
-                };
+                var defect = Mapper.Map<ResultVM, Defect>(vm);
+                defect.ResultID = result.ResultID;
                 db.Defects.Add(defect);
                 db.SaveChanges();
             }
@@ -102,7 +73,7 @@ namespace TestTrack.Controllers
         [HttpGet]
         public ActionResult SetAssignee(int id = 0)
         {
-            ResultsListVM vm = new ResultsListVM
+            ResultVM vm = new ResultVM
             {
                 TestCaseID = db.Results.Find(id).TestCaseID,
                 ResultID = id,
@@ -113,13 +84,11 @@ namespace TestTrack.Controllers
         }
 
         [HttpPost]
-        public ActionResult SetAssignee(ResultsListVM vm)
+        public ActionResult SetAssignee(ResultVM vm)
         {
             var result = db.Results.Find(vm.ResultID);
             if (result == null) return HttpNotFound();
-
             result.AssignedTo = vm.AssignedTo;
-
             db.Entry(result).State = EntityState.Modified;
             db.SaveChanges();
 
@@ -133,7 +102,7 @@ namespace TestTrack.Controllers
 
             if (testRun == null) return HttpNotFound();
 
-            ResultVM vm = new ResultVM();
+            SelectTestCasesVM vm = new SelectTestCasesVM();
             vm.TestRunID = testRun.TestRunID;
             var testSuite = (from tc in db.TestCases
                              where tc.TestSuiteID == testRun.TestPlan.TeamID
@@ -151,7 +120,7 @@ namespace TestTrack.Controllers
         }
 
         [HttpPost]
-        public ActionResult AssignTestCases(ResultVM vm)
+        public ActionResult AssignTestCases(SelectTestCasesVM vm)
         {
             List<int> uncheckedTestCases = new List<int>(from value in db.Results
                                                          where value.TestRunID == vm.TestRunID
@@ -205,10 +174,7 @@ namespace TestTrack.Controllers
         public ActionResult Delete(int id = 0)
         {
             Result result = db.Results.Find(id);
-            if (result == null)
-            {
-                return HttpNotFound();
-            }
+            if (result == null) { return HttpNotFound(); }
             return PartialView(result);
         }
 

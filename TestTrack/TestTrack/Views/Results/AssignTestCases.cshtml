@@ -1,4 +1,4 @@
-﻿@model TestTrack.ViewModels.ResultVM
+﻿@model TestTrack.ViewModels.SelectTestCasesVM
 
 @using (Html.BeginForm("AssignTestCases", "Results"))
 {
@@ -28,11 +28,7 @@
                         <div class="col-md-11" style="padding-left: 0px;">
                             <label for="@optionValue">@item.Text</label>
                         </div>
-                    </div>@*
-                    <p>
-                        <input type="checkbox" id="@optionValue" name="SelectedTestCases" value="@item.Value" checked="@checkedValue"/>
-                        <label for="@optionValue">@item.Text</label>
-                    </p>*@
+                    </div>
                 }
             </div>
             <div class="modal-footer">

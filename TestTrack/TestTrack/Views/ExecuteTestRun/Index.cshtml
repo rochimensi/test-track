@@ -1,18 +1,18 @@
-﻿@model TestTrack.ViewModels.ExecuteTestRunVM
+﻿@model TestTrack.ViewModels.TestRunVM
 
 @{
     ViewBag.Title = "Execute";
 }
 
 <ol class="breadcrumb">
-    <li>@Html.ActionLink(Model.Iteration, "Index", "TestPlanPerIteration", new { id = @Model.IterationID }, null)</li>
-    <li>@Html.ActionLink(Model.TestPlan, "Index", "TestRunsOnTestPlan", new { id = @Model.TestPlanID }, null)</li>
-    <li class="active">@Model.TestRun</li>
+    <li>@Html.ActionLink(Model.TestPlan.Iteration.Title, "Index", "TestPlanPerIteration", new { id = @Model.TestPlan.IterationID }, null)</li>
+    <li>@Html.ActionLink(Model.TestPlan.Title, "Index", "TestRunsOnTestPlan", new { id = @Model.TestPlanID }, null)</li>
+    <li class="active">@Model.Title</li>
 </ol>
 
 <div class="content">
     <div class="header">
-        <strong>@Model.TestRun</strong>
+        <strong>@Model.Title</strong>
         @if (!Model.Closed)
         {
             @Html.ActionLink(" ", "Edit", "TestRuns", new { id = Model.TestRunID }, new { @class = "glyphicon glyphicon-pencil", @title = "Edit" })  
