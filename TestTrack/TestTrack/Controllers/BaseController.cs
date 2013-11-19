@@ -33,6 +33,26 @@ namespace TestTrack.Controllers
                     select team).ToList();
         }
 
+        protected ICollection<Result> GetDistinctResults(int testRunID)
+        {
+            var sortedResults = (from r in db.Results
+                                 where r.TestRunID == testRunID
+                                 orderby r.TestCaseID, r.CreatedOn descending
+                                 select r).ToList();
+
+            List<Result> distinctResults = new List<Result>();
+            if (sortedResults.Count() > 0)
+                distinctResults.Add(sortedResults.First());
+
+            for (int i = 1; i < sortedResults.Count(); i++)
+            {
+                if (sortedResults.ElementAt(i).TestCaseID != sortedResults.ElementAt(i - 1).TestCaseID)
+                    distinctResults.Add(sortedResults.ElementAt(i));
+            }
+
+            return distinctResults;
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

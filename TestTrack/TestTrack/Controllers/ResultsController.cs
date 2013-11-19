@@ -325,26 +325,6 @@ namespace TestTrack.Controllers
             return PartialView("_BarChart", chart);
         }
 
-        private ICollection<Result> GetDistinctResults(int testRunID)
-        {
-            var sortedResults = (from r in db.Results
-                                 where r.TestRunID == testRunID
-                                 orderby r.TestCaseID, r.CreatedOn descending
-                                 select r).ToList();
-
-            List<Result> distinctResults = new List<Result>();
-            if (sortedResults.Count() > 0)
-                distinctResults.Add(sortedResults.First());
-
-            for (int i = 1; i < sortedResults.Count(); i++)
-            {
-                if (sortedResults.ElementAt(i).TestCaseID != sortedResults.ElementAt(i - 1).TestCaseID)
-                    distinctResults.Add(sortedResults.ElementAt(i));
-            }
-
-            return distinctResults;
-        }
-
         public int[] StatesCount(ICollection<Result> results)
         {
             int[] statesCount = new int[5] { 0, 0, 0, 0, 0 };

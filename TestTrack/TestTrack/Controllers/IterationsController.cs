@@ -46,7 +46,7 @@ namespace TestTrack.Controllers
             Iteration iteration = db.Iterations.Find(id);
             if (iteration == null) return HttpNotFound();
             var iterationVM = Mapper.Map<Iteration, IterationVM>(iteration);
-            
+
             return View(iterationVM);
         }
 
@@ -58,7 +58,7 @@ namespace TestTrack.Controllers
             db.Entry(iteration).CurrentValues.SetValues(iterationVM);
             db.SaveChanges();
 
-            return RedirectToAction("Index", "TestPlanPerIteration");
+            return RedirectToAction("Index", "TestPlanPerIteration", new { id = iteration.IterationID });
         }
 
         public ActionResult Delete(int id = 0)
@@ -98,37 +98,29 @@ namespace TestTrack.Controllers
             var iteration = db.Iterations.Find(id);
             if (iteration == null) return HttpNotFound();
 
-            int maxYAxis = GetTotalTestCases(iteration);
+            var remainingEffort = GetRemainingEffortPerDay(iteration);
 
             Highcharts chart = new Highcharts("chart")
+                .InitChart(new Chart
+                {
+                    DefaultSeriesType = ChartTypes.Spline,
+                    Width = 1000,
+                    Style = "margin: '0 auto'"
+                })
                 .SetTitle(new Title { Text = "Burndown chart" })
                 .SetSubtitle(new Subtitle { Text = iteration.Title + " - Untested Test Cases" })
                 .SetXAxis(new XAxis
                 {
-                    Type = AxisTypes.Datetime,
-                    TickInterval = 24 * 3600 * 1000, // one day
-                    TickWidth = 0,
-                    GridLineWidth = 1,
-                    Labels = new XAxisLabels
-                    {
-                        Align = HorizontalAligns.Left,
-                        X = 3,
-                        Y = -3
-                    },
-                    Categories = GetIterationDates(iteration)
+                    Title = new XAxisTitle { Text = "Progress" },
+                    Labels = new XAxisLabels { Enabled = false },
+                    MaxPadding = 0.05,
+                    TickLength = 0
                 })
                 .SetYAxis(new YAxis
                 {
-                    Title = new YAxisTitle { Text = "" },
-                    Labels = new YAxisLabels
-                    {
-                        Align = HorizontalAligns.Left,
-                        X = 3,
-                        Y = 16,
-                        Formatter = "function() { return Highcharts.numberFormat(this.value, 0); }",
-                    },
-                    Min = 0,
-                    Max = maxYAxis + maxYAxis * 0.2
+                    Title = new YAxisTitle { Text = "Untested Test Cases" },
+                    Labels = new YAxisLabels { Formatter = "function() { return this.value + ' test cases'; }" },
+                    LineWidth = 2
                 })
                 .SetLegend(new Legend
                 {
@@ -138,72 +130,89 @@ namespace TestTrack.Controllers
                     Floating = true,
                     BorderWidth = 0
                 })
-                .SetTooltip(new Tooltip
-                {
-                    Shared = true,
-                    Crosshairs = new Crosshairs(true)
-                })
-                .SetPlotOptions(new PlotOptions
-                {
-                    Series = new PlotOptionsSeries
+                .SetTooltip(new Tooltip { Formatter = "function() { return ''+ this.y +' test cases'; }" })
+                .SetPlotOptions(new PlotOptions { Spline = new PlotOptionsSpline { Marker = new PlotOptionsSplineMarker { Enabled = true } } })
+                .SetSeries(new Series[] {
+                    new Series
                     {
-                        Cursor = Cursors.Pointer,
-                        Point = new PlotOptionsSeriesPoint
-                        {
-                            Events = new PlotOptionsSeriesPointEvents
+                        Name = "Remaining Effort",
+                        Data = new Data(remainingEffort)
+                    },
+                    new Series
+                    {
+                        Name = "Ideal Burndown",
+                        Data = new Data(new object[,]
                             {
-                                Click = @"function() { alert(Highcharts.dateFormat('%A, %b %e, %Y', this.x) +': '+ this.y +' visits'); }"
-                            }
-                        },
-                        Marker = new PlotOptionsSeriesMarker { LineWidth = 1 }
+                                { iteration.StartDate, GetTotalTestCases(iteration) }, { iteration.DueDate, 0 }
+                            })
                     }
-                })
-                .SetSeries(new[]
-                    {
-                        new Series { Name = "Remaining effort", Data = new Data(GetRemainingEffort(iteration)) },
-                        new Series { Name = "Ideal burndown", Data = new Data(new object[] { maxYAxis, 0 }) }
-                    });
+                });
 
             return PartialView("_LineChart", chart);
-        }
-
-        private string[] GetIterationDates(Iteration iteration)
-        {
-            int duration = (iteration.DueDate - iteration.StartDate).Days;
-
-            string[] iterationDates = new string[duration];
-            iterationDates[0] = iteration.StartDate.ToShortDateString();
-
-            for (int i = 1; i < duration - 1; i++)
-            {
-                iterationDates[i] = iteration.StartDate.AddDays(i).ToShortDateString();
-            }
-
-            iterationDates[duration - 1] = iteration.DueDate.ToShortDateString();
-            
-            return iterationDates;
         }
 
         private int GetTotalTestCases(Iteration iteration)
         {
             int count = 0;
-
             foreach (var testPlan in iteration.TestPlans)
             {
                 foreach (var testRun in testPlan.TestRuns)
                 {
-                    count += testRun.Results.Count();
+                    count += GetDistinctResults(testRun.TestRunID).Count();
                 }
             }
 
             return count;
         }
 
-        private object[] GetRemainingEffort(Iteration iteration)
+        private object[,] GetRemainingEffortPerDay(Iteration iteration)
         {
-            // TODO
-            return new object[1];
-        }
+            int duration = (iteration.DueDate - iteration.StartDate).Days + 1;
 
+            // Initialize list with dates
+            List<string> dates = new List<string>();
+            List<DateTime> xAxisData = new List<DateTime>();
+            DateTime d = iteration.StartDate;
+            while (d.ToShortDateString().CompareTo(DateTime.Now.ToShortDateString()) <= 0)
+            {
+                dates.Add(d.ToShortDateString());
+                xAxisData.Add(d);
+                d = d.AddDays(1);
+            }
+
+            // Initialize array with untested counts as 0 for each date
+            int[] untested = new int[dates.Count];
+            for (int date = 0; date < untested.Length; date++)
+            {
+                untested[date] = GetTotalTestCases(iteration);
+            }
+
+            for (int i = 0; i < dates.Count(); i++)
+            {
+                int count = 0;
+                foreach (var testPlan in iteration.TestPlans)
+                    foreach (var testRun in testPlan.TestRuns)
+                    {
+                        ICollection<Result> distinctResults = GetDistinctResults(testRun.TestRunID);
+                        foreach (var result in distinctResults)
+                        {
+                            if (result.State.Equals(State.Untested) && result.CreatedOn.ToShortDateString().CompareTo(dates.ElementAt(i)) <= 0)
+                                count++;
+                        }
+                    }
+                untested[i] = count;
+            }
+
+            // Build 2D object array to return
+            var data = new object[dates.Count, 2];
+
+            for (int i = 0; i < dates.Count(); i++)
+            {
+                data[i, 0] = xAxisData.ElementAt(i);
+                data[i, 1] = untested[i];
+            }
+
+            return data;
+        }
     }
 }
