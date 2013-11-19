@@ -14,7 +14,6 @@ namespace TestTrack.Controllers
         // GET: /Teams/
         public ActionResult Index()
         {
-            UserSettings userSettings = SessionWrapper.UserSettings;
             var teamsVM = Mapper.Map<IList<Team>, IList<TeamVM>>(GetTeamsInProject());
 
             return View(teamsVM);

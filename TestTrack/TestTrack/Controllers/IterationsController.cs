@@ -167,8 +167,6 @@ namespace TestTrack.Controllers
 
         private object[,] GetRemainingEffortPerDay(Iteration iteration)
         {
-            int duration = (iteration.DueDate - iteration.StartDate).Days + 1;
-
             // Initialize list with dates
             List<string> dates = new List<string>();
             List<DateTime> xAxisData = new List<DateTime>();
