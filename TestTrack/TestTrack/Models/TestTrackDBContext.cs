@@ -76,15 +76,13 @@ namespace TestTrack.Models
                 {
                     ProjectID = 1,
                     Title = "Doppler",
-                    Description = "Create, send, analyze & optimize your Email Marketing campaigns in a effective way. Find out more about the easiest Email Marketing app ever!",
-                    CreatedOn = DateTime.Now
+                    Description = "Create, send, analyze & optimize your Email Marketing campaigns in a effective way. Find out more about the easiest Email Marketing app ever!"
                 },
                 new Project
                 {
                     ProjectID = 2,
                     Title = "Lander",
-                    Description = "Lander lets you create beautiful landing pages for your social media, email and online marketing campaigns using an easy step-by-step process.",
-                    CreatedOn = DateTime.Now
+                    Description = "Lander lets you create beautiful landing pages for your social media, email and online marketing campaigns using an easy step-by-step process."
                 }
             );
             context.Teams.AddOrUpdate(p => p.Name,
@@ -92,29 +90,25 @@ namespace TestTrack.Models
                 {
                     TeamID = 1,
                     Name = "Doppler QA",
-                    ProjectID = 1,
-                    CreatedOn = DateTime.Now
+                    ProjectID = 1
                 },
                 new Team
                 {
                     TeamID = 2,
                     Name = "Lander QA",
-                    ProjectID = 2,
-                    CreatedOn = DateTime.Now
+                    ProjectID = 2
                 }
             );
             context.TestSuites.AddOrUpdate(p => p.Title,
                 new TestSuite
                 {
                     TeamID = 1,
-                    Title = "Doppler Front End TS",
-                    CreatedOn = DateTime.Now
+                    Title = "Doppler Front End TS"
                 },
                 new TestSuite
                 {
                     TeamID = 2,
-                    Title = "Lander Front End TS",
-                    CreatedOn = DateTime.Now
+                    Title = "Lander Front End TS"
                 }
             );
             context.Iterations.AddOrUpdate(p => p.Title,
@@ -122,19 +116,17 @@ namespace TestTrack.Models
                 {
                     IterationID = 1,
                     Title = "Sprint 1",
-                    StartDate = DateTime.Now,
+                    StartDate = DateTime.Now.AddDays(-2),
                     DueDate = DateTime.Now.AddDays(14),
-                    ProjectID = 1,
-                    CreatedOn = DateTime.Now
+                    ProjectID = 1
                 },
                 new Iteration
                 {
                     IterationID = 2,
                     Title = "Sprint 2",
-                    StartDate = DateTime.Now,
+                    StartDate = DateTime.Now.AddDays(-2),
                     DueDate = DateTime.Now.AddDays(14),
-                    ProjectID = 1,
-                    CreatedOn = DateTime.Now
+                    ProjectID = 1
                 }
 
             );
@@ -145,8 +137,7 @@ namespace TestTrack.Models
                     Title = "Sanity Testing",
                     Description = "Basic Functionality",
                     IterationID = 1,
-                    TeamID = 1,
-                    CreatedOn = DateTime.Now
+                    TeamID = 1
                 },
                 new TestPlan
                 {
@@ -154,8 +145,7 @@ namespace TestTrack.Models
                     Title = "Regression Testing",
                     Description = "All Functionality. This is the test plan description blah blah.",
                     IterationID = 1,
-                    TeamID = 1,
-                    CreatedOn = DateTime.Now
+                    TeamID = 1
                 },
                 new TestPlan
                 {
@@ -163,8 +153,7 @@ namespace TestTrack.Models
                     Title = "Sanity Testing",
                     Description = "Basic Functionality",
                     IterationID = 2,
-                    TeamID = 1,
-                    CreatedOn = DateTime.Now
+                    TeamID = 1
                 },
                 new TestPlan
                 {
@@ -172,8 +161,7 @@ namespace TestTrack.Models
                     Title = "Functional Testing",
                     Description = "User Story Functionality",
                     IterationID = 2,
-                    TeamID = 1,
-                    CreatedOn = DateTime.Now
+                    TeamID = 1
                 }
             );
 
@@ -182,46 +170,40 @@ namespace TestTrack.Models
                 {
                     TestRunID = 1,
                     Title = "Login test run",
-                    TestPlanID = 2,
-                    CreatedOn = DateTime.Now
+                    TestPlanID = 2
                 },
                 new TestRun
                 {
                     TestRunID = 2,
                     Title = "Home page test run",
-                    TestPlanID = 2,
-                    CreatedOn = DateTime.Now
+                    TestPlanID = 2
                 },
                 new TestRun
                 {
                     TestRunID = 3,
                     Title = "Projects page test run",
-                    TestPlanID = 2,
-                    CreatedOn = DateTime.Now
+                    TestPlanID = 2
                 },
                 new TestRun
                 {
                     TestRunID = 4,
                     Title = "Regression sprint 1",
                     TestPlanID = 2,
-                    Closed = true,
-                    CreatedOn = DateTime.Now
+                    Closed = true
                 },
                 new TestRun
                 {
                     TestRunID = 5,
                     Title = "Regression sprint 2",
                     TestPlanID = 2,
-                    Closed = true,
-                    CreatedOn = DateTime.Now
+                    Closed = true
                 },
                 new TestRun
                 {
                     TestRunID = 6,
                     Title = "Regression sprint 3",
                     TestPlanID = 2,
-                    Closed = true,
-                    CreatedOn = DateTime.Now
+                    Closed = true
                 }
             );
 
@@ -236,8 +218,7 @@ namespace TestTrack.Models
                     Priority = Priority.High,
                     Method = Method.Automatable,
                     Tags = "lorem,ipsum,dolor",
-                    TestSuiteID = 1,
-                    CreatedOn = DateTime.Now
+                    TestSuiteID = 1
                 },
                 new TestCase
                 {
@@ -249,8 +230,7 @@ namespace TestTrack.Models
                     Priority = Priority.High,
                     Method = Method.Automated,
                     Tags = "lorem,ipsum,dolor",
-                    TestSuiteID = 1,
-                    CreatedOn = DateTime.Now
+                    TestSuiteID = 1
                 },
                 new TestCase
                 {
@@ -262,8 +242,7 @@ namespace TestTrack.Models
                     Priority = Priority.Low,
                     Method = Method.Automatable,
                     Tags = "lorem,ipsum,dolor",
-                    TestSuiteID = 1,
-                    CreatedOn = DateTime.Now
+                    TestSuiteID = 1
                 },
                 new TestCase
                 {
@@ -275,8 +254,7 @@ namespace TestTrack.Models
                     Priority = Priority.High,
                     Method = Method.Manual,
                     Tags = "lorem,ipsum,dolor",
-                    TestSuiteID = 1,
-                    CreatedOn = DateTime.Now
+                    TestSuiteID = 1
                 },
                 new TestCase
                 {
@@ -288,8 +266,7 @@ namespace TestTrack.Models
                     Priority = Priority.Medium,
                     Method = Method.Manual,
                     Tags = "lorem,ipsum,dolor",
-                    TestSuiteID = 1,
-                    CreatedOn = DateTime.Now
+                    TestSuiteID = 1
                 },
                 new TestCase
                 {
@@ -301,8 +278,7 @@ namespace TestTrack.Models
                     Priority = Priority.High,
                     Method = Method.Automatable,
                     Tags = "lorem,ipsum,dolor",
-                    TestSuiteID = 1,
-                    CreatedOn = DateTime.Now
+                    TestSuiteID = 1
                 },
                 new TestCase
                 {
@@ -314,8 +290,7 @@ namespace TestTrack.Models
                     Priority = Priority.Medium,
                     Method = Method.Automated,
                     Tags = "lorem,ipsum,dolor",
-                    TestSuiteID = 1,
-                    CreatedOn = DateTime.Now
+                    TestSuiteID = 1
                 },
                 new TestCase
                 {
@@ -327,8 +302,7 @@ namespace TestTrack.Models
                     Priority = Priority.Low,
                     Method = Method.Automatable,
                     Tags = "lorem,ipsum,dolor",
-                    TestSuiteID = 1,
-                    CreatedOn = DateTime.Now
+                    TestSuiteID = 1
                 });
 
             context.Steps.AddOrUpdate(p => p.Action,
@@ -337,80 +311,70 @@ namespace TestTrack.Models
                     StepId = 1,
                     TestCaseId = 1,
                     Action = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
-                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
-                    CreatedOn = DateTime.Now
+                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna"
                 },
                 new Step
                 {
                     StepId = 2,
                     TestCaseId = 1,
                     Action = "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option",
-                    Result = "Lore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi. Nam liber tempor cum",
-                    CreatedOn = DateTime.Now
+                    Result = "Lore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi. Nam liber tempor cum"
                 },
                 new Step
                 {
                     StepId = 3,
                     TestCaseId = 2,
                     Action = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
-                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
-                    CreatedOn = DateTime.Now
+                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna"
                 },
                 new Step
                 {
                     StepId = 4,
                     TestCaseId = 3,
                     Action = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
-                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
-                    CreatedOn = DateTime.Now
+                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna"
                 },
                 new Step
                 {
                     StepId = 5,
                     TestCaseId = 4,
                     Action = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
-                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
-                    CreatedOn = DateTime.Now
+                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna"
                 },
                 new Step
                 {
                     StepId = 6,
                     TestCaseId = 5,
                     Action = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
-                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
-                    CreatedOn = DateTime.Now
+                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna"
                 },
                 new Step
                 {
                     StepId = 7,
                     TestCaseId = 6,
                     Action = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
-                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
-                    CreatedOn = DateTime.Now
+                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna"
                 },
                 new Step
                 {
                     StepId = 8,
                     TestCaseId = 7,
                     Action = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
-                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
-                    CreatedOn = DateTime.Now
+                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna"
                 },
                 new Step
                 {
                     StepId = 9,
                     TestCaseId = 8,
                     Action = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
-                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna",
-                    CreatedOn = DateTime.Now
+                    Result = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna"
                 },
                 new Step
                 {
                     StepId = 10,
                     TestCaseId = 1,
                     Action = "Id quod mazim placerat lore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait",
-                    Result = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet",
-                    CreatedOn = DateTime.Now
+                    Result = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet"
                 });
 
             context.Results.AddOrUpdate(p => p.ResultID,
@@ -421,8 +385,7 @@ namespace TestTrack.Models
                     TestRunID = 2,
                     State = State.Passed,
                     Comments = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.",
-                    AssignedTo = "Carlitos",
-                    CreatedOn = DateTime.Now
+                    AssignedTo = "Carlitos"
                 },
                 new Result
                 {
@@ -431,8 +394,7 @@ namespace TestTrack.Models
                     TestRunID = 2,
                     State = State.Failed,
                     Comments = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.",
-                    AssignedTo = "Ro",
-                    CreatedOn = DateTime.Now
+                    AssignedTo = "Ro"
                 },
                 new Result
                 {
@@ -441,8 +403,7 @@ namespace TestTrack.Models
                     TestRunID = 2,
                     State = State.Passed,
                     Comments = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.",
-                    AssignedTo = "Mati",
-                    CreatedOn = DateTime.Now
+                    AssignedTo = "Mati"
                 },
                 new Result
                 {
@@ -451,8 +412,7 @@ namespace TestTrack.Models
                     TestRunID = 2,
                     State = State.Failed,
                     Comments = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.",
-                    AssignedTo = "Marcelo",
-                    CreatedOn = DateTime.Now
+                    AssignedTo = "Marcelo"
                 },
                 new Result
                 {
@@ -461,32 +421,28 @@ namespace TestTrack.Models
                     TestRunID = 2,
                     State = State.Failed,
                     Comments = "Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.Nobis eleifend option congue nihil imperdiet doming id quod mazim placerat lore te feugait nulla facilisi.",
-                    AssignedTo = "Diego",
-                    CreatedOn = DateTime.Now
+                    AssignedTo = "Diego"
                 },
                 new Result
                 {
                     ResultID = 6,
                     TestCaseID = 6,
                     TestRunID = 2,
-                    State = State.Untested,
-                    CreatedOn = DateTime.Now
+                    State = State.Untested
                 },
                 new Result
                 {
                     ResultID = 7,
                     TestCaseID = 7,
                     TestRunID = 2,
-                    State = State.Untested,
-                    CreatedOn = DateTime.Now
+                    State = State.Untested
                 },
                 new Result
                 {
                     ResultID = 8,
                     TestCaseID = 8,
                     TestRunID = 2,
-                    State = State.Untested,
-                    CreatedOn = DateTime.Now
+                    State = State.Untested
                 });
 
             context.SaveChanges();
