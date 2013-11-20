@@ -172,6 +172,8 @@ namespace TestTrack.Controllers
             List<string> dates = new List<string>();
             List<DateTime> xAxisData = new List<DateTime>();
             DateTime d = iteration.StartDate;
+
+            // Build lists with iteration dates: {dates} contains just the string like yyyy/mm/dd and {xAxisData} contains DateTimes
             while (d.ToShortDateString().CompareTo(DateTime.Now.ToShortDateString()) <= 0)
             {
                 dates.Add(d.ToShortDateString());
@@ -203,14 +205,14 @@ namespace TestTrack.Controllers
             }
 
             // Build 2D object array to return
-            var data = new object[dates.Count+1, 2];
+            var data = new object[dates.Count + 1, 2];
             data[0, 0] = iteration.StartDate.AddDays(-1);
             data[0, 1] = GetTotalTestCases(iteration);
 
             for (int i = 1; i <= dates.Count(); i++)
             {
-                data[i, 0] = xAxisData.ElementAt(i-1);
-                data[i, 1] = untested[i-1];
+                data[i, 0] = xAxisData.ElementAt(i - 1);
+                data[i, 1] = untested[i - 1];
             }
 
             return data;
@@ -224,15 +226,25 @@ namespace TestTrack.Controllers
                                  select r).ToList();
 
             List<Result> distinctResults = new List<Result>();
+
+            // if there is at least 1 result for the testRun
             if (sortedResults.Count() > 0)
             {
-                if (sortedResults.First().CreatedOn.ToShortDateString().CompareTo(date) <= 0)
-                    distinctResults.Add(sortedResults.First());
+                // Try to add the first result from the query that was created before or on the same day as {date}
+                for (int i = 0; i < sortedResults.Count() && distinctResults.Count() == 0; i++)
+                    if (sortedResults.ElementAt(i).CreatedOn.ToShortDateString().CompareTo(date) <= 0)
+                        distinctResults.Add(sortedResults.First());
             }
-            for (int i = 1; i < sortedResults.Count(); i++)
+
+            // if there is at least 1 result created before or on the same day as {date}
+            if (distinctResults.Count() > 0)
             {
-                if ((sortedResults.ElementAt(i).TestCaseID != distinctResults.ElementAt(distinctResults.Count() - 1).TestCaseID) && (sortedResults.ElementAt(i).CreatedOn.ToShortDateString().CompareTo(date) <= 0))
-                    distinctResults.Add(sortedResults.ElementAt(i));
+                // filter the rest of the results per date: keep the ones that were created before or on the same day as {date}
+                for (int i = 1; i < sortedResults.Count(); i++)
+                {
+                    if ((sortedResults.ElementAt(i).TestCaseID != distinctResults.ElementAt(distinctResults.Count() - 1).TestCaseID) && (sortedResults.ElementAt(i).CreatedOn.ToShortDateString().CompareTo(date) <= 0))
+                        distinctResults.Add(sortedResults.ElementAt(i));
+                }
             }
 
             return distinctResults;
