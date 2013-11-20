@@ -20,6 +20,7 @@ namespace TestTrack.Controllers
         [HttpGet]
         public ActionResult Create(int id = 0)
         {
+            if (db.Projects.Find(id) == null) return HttpNotFound();
             var iterationVM = new IterationVM
             {
                 StartDate = DateTime.Now,
@@ -143,7 +144,7 @@ namespace TestTrack.Controllers
                         Name = "Ideal Burndown",
                         Data = new Data(new object[,]
                             {
-                                { iteration.StartDate, GetTotalTestCases(iteration) }, { iteration.DueDate, 0 }
+                                { iteration.StartDate.AddDays(-1), GetTotalTestCases(iteration) }, { iteration.DueDate, 0 }
                             })
                     }
                 });
@@ -191,10 +192,10 @@ namespace TestTrack.Controllers
                 foreach (var testPlan in iteration.TestPlans)
                     foreach (var testRun in testPlan.TestRuns)
                     {
-                        ICollection<Result> distinctResults = GetDistinctResults(testRun.TestRunID);
+                        ICollection<Result> distinctResults = GetDistinctResultsPerDate(testRun.TestRunID, dates.ElementAt(i));
                         foreach (var result in distinctResults)
                         {
-                            if (result.State.Equals(State.Untested) && result.CreatedOn.ToShortDateString().CompareTo(dates.ElementAt(i)) <= 0)
+                            if (result.State.Equals(State.Untested))
                                 count++;
                         }
                     }
@@ -202,15 +203,39 @@ namespace TestTrack.Controllers
             }
 
             // Build 2D object array to return
-            var data = new object[dates.Count, 2];
+            var data = new object[dates.Count+1, 2];
+            data[0, 0] = iteration.StartDate.AddDays(-1);
+            data[0, 1] = GetTotalTestCases(iteration);
 
-            for (int i = 0; i < dates.Count(); i++)
+            for (int i = 1; i <= dates.Count(); i++)
             {
-                data[i, 0] = xAxisData.ElementAt(i);
-                data[i, 1] = untested[i];
+                data[i, 0] = xAxisData.ElementAt(i-1);
+                data[i, 1] = untested[i-1];
             }
 
             return data;
+        }
+
+        private ICollection<Result> GetDistinctResultsPerDate(int testRunID, string date)
+        {
+            var sortedResults = (from r in db.Results
+                                 where r.TestRunID == testRunID
+                                 orderby r.TestCaseID, r.CreatedOn descending
+                                 select r).ToList();
+
+            List<Result> distinctResults = new List<Result>();
+            if (sortedResults.Count() > 0)
+            {
+                if (sortedResults.First().CreatedOn.ToShortDateString().CompareTo(date) <= 0)
+                    distinctResults.Add(sortedResults.First());
+            }
+            for (int i = 1; i < sortedResults.Count(); i++)
+            {
+                if ((sortedResults.ElementAt(i).TestCaseID != distinctResults.ElementAt(distinctResults.Count() - 1).TestCaseID) && (sortedResults.ElementAt(i).CreatedOn.ToShortDateString().CompareTo(date) <= 0))
+                    distinctResults.Add(sortedResults.ElementAt(i));
+            }
+
+            return distinctResults;
         }
     }
 }
