@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TestTrack.Filters;
+using TestTrack.Infrastructure.EF;
 using TestTrack.Models;
 
 namespace TestTrack.Controllers
@@ -12,8 +13,6 @@ namespace TestTrack.Controllers
     [ProjectsAvailability]
     public class HomeController : BaseController
     {
-        private TestTrackDBContext db = new TestTrackDBContext();
-
         public ActionResult Index()
         {
             return View(db.Projects.Count());

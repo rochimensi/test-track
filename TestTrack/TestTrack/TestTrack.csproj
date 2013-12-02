@@ -223,6 +223,7 @@
     <Compile Include="Helpers\SessionWrapper.cs" />
     <Compile Include="Infrastructure\Automapper\AutomapperConfiguration.cs" />
     <Compile Include="Infrastructure\Automapper\IObjectMapperConfigurator.cs" />
+    <Compile Include="Infrastructure\EF\IDbContext.cs" />
     <Compile Include="Infrastructure\Ioc\WindsorInstaller.cs" />
     <Compile Include="Infrastructure\Ioc\WindsorControllerFactory.cs" />
     <Compile Include="Infrastructure\Mappings\DefectMappers.cs" />
@@ -246,7 +247,7 @@
     <Compile Include="Models\TestPlan.cs" />
     <Compile Include="Models\TestRun.cs" />
     <Compile Include="Models\TestSuite.cs" />
-    <Compile Include="Models\TestTrackDBContext.cs" />
+    <Compile Include="Infrastructure\EF\TestTrackDBContext.cs" />
     <Compile Include="ViewModels\DefectVM.cs" />
     <Compile Include="ViewModels\TestSuiteVM.cs" />
     <Compile Include="ViewModels\ResultVM.cs" />
@@ -463,7 +464,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Infrastructure\EF\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

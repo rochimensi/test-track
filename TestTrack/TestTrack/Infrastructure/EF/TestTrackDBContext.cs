@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Web;
+using TestTrack.Models;
+using Type = TestTrack.Models.Type;
 
-namespace TestTrack.Models
+namespace TestTrack.Infrastructure.EF
 {
-    public class TestTrackDBContext : DbContext
+    public class TestTrackDBContext : DbContext, IDbContext
     {
         public DbSet<Project> Projects { get; set; }
         public DbSet<Iteration> Iterations { get; set; }
@@ -23,6 +22,9 @@ namespace TestTrack.Models
 
         public TestTrackDBContext() { }
         public TestTrackDBContext(string connString) : base(connString) { }
+
+        public DbSet<T> Entity<T>() where T : class { return this.Set<T>(); }
+
 
         public override int SaveChanges()
         {
@@ -48,6 +50,7 @@ namespace TestTrack.Models
 
             return base.SaveChanges();
         }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

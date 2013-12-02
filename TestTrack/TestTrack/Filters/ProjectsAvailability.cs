@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using TestTrack.Infrastructure.EF;
 using TestTrack.Models;
 
 namespace TestTrack.Filters
