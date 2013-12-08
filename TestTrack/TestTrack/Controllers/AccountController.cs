@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
+using TestTrack.Infrastructure.EF;
 using WebMatrix.WebData;
 /*using TestTrack.Filters;*/
 using TestTrack.Models;
@@ -16,7 +17,6 @@ namespace TestTrack.Controllers
     [Authorize]
     public class AccountController : BaseController
     {
-        private TestTrackDBContext db = new TestTrackDBContext();
         private const string EmailSuffix = "@makingsense.com";
 
         // GET: /Account/Login

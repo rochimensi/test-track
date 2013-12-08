@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Castle.Windsor;
+using TestTrack.Infrastructure.EF;
 using TestTrack.Infrastructure.Ioc;
 using TestTrack.Models;
 

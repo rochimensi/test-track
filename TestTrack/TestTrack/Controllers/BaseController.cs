@@ -2,13 +2,16 @@
 using System.Linq;
 using System.Web.Mvc;
 using TestTrack.Helpers;
+using TestTrack.Infrastructure.EF;
 using TestTrack.Models;
 
 namespace TestTrack.Controllers
 {
     public class BaseController : Controller
     {
-        protected TestTrackDBContext db = new TestTrackDBContext();
+        //Property Injection for testTrackDbContext see WindsorInstaller
+        //TODO: next iteration try to beetr use constructor injector
+        public IDbContext db { get; set; }
 
         public SessionWrapper SessionWrapper { get; set; }
 
@@ -16,7 +19,8 @@ namespace TestTrack.Controllers
         {
             SessionWrapper = new SessionWrapper();
         }
-        
+
+        //TODO: Queries should be moved to Repository
         protected IList<Iteration> GetIterationsInProject()
         {
             UserSettings userSettings = SessionWrapper.UserSettings;
@@ -25,6 +29,7 @@ namespace TestTrack.Controllers
                     select iteration).ToList();
         }
 
+        //TODO: Queries should be moved to Repository
         protected IList<Team> GetTeamsInProject()
         {
             UserSettings userSettings = SessionWrapper.UserSettings;
@@ -33,6 +38,7 @@ namespace TestTrack.Controllers
                     select team).ToList();
         }
 
+        //TODO: Queries should be moved to Repository
         protected ICollection<Result> GetDistinctResults(int testRunID)
         {
             var sortedResults = (from r in db.Results
@@ -51,12 +57,6 @@ namespace TestTrack.Controllers
             }
 
             return distinctResults;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
         }
     }
 }
